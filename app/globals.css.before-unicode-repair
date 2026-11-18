@@ -1,0 +1,2347 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+@import "tailwindcss";
+
+:root {
+  --ink: #0b0b0a;
+  --paper: #eee9df;
+  --gold: #c9b38d;
+  --line: #2b2a26;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: #f1eee7;
+  font-family: 'DM Sans', sans-serif;
+}
+button, a { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+
+.announcement {
+  height: 28px;
+  background: #c8b38f;
+  color: #171511;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.site-header {
+  height: 82px;
+  padding: 0 6.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #292824;
+  background: #0b0b0a;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.wordmark { display: flex; align-items: center; gap: 10px; }
+.wordmark span {
+  font: 600 31px 'Playfair Display', serif;
+  letter-spacing: -2px;
+}
+.wordmark i {
+  font-style: normal;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: #a6a095;
+  border-left: 1px solid #514b40;
+  padding-left: 10px;
+}
+.main-nav { display: flex; gap: 35px; }
+.main-nav a, .header-order, .bag-trigger {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+}
+.main-nav a { color: #c3beb4; transition: color .2s; }
+.main-nav a:hover { color: var(--gold); }
+.header-actions { display: flex; align-items: center; gap: 24px; }
+.header-order {
+  border: 1px solid #bba782;
+  background: transparent;
+  color: #e8ddc9;
+  padding: 13px 17px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.bag-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  color: #eee;
+}
+.bag-trigger b {
+  width: 19px;
+  height: 19px;
+  border: 1px solid #777;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+}
+.mobile-menu { display: none; background: none; color: white; }
+
+.hero {
+  min-height: 690px;
+  padding: 86px 6.5% 90px;
+  display: grid;
+  grid-template-columns: .94fr 1.06fr;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-backdrop-word {
+  position: absolute;
+  right: -15px;
+  top: 35px;
+  font: 700 220px 'Playfair Display', serif;
+  color: #ffffff06;
+  pointer-events: none;
+}
+.hero-copy { position: relative; z-index: 2; padding-bottom: 22px; }
+.eyebrow {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #b9a681;
+  margin: 0 0 27px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow-line { width: 24px; height: 1px; background: #b9a681; }
+
+.hero h1, .story-content h2, .section-title-row h2,
+.special-copy h2, .gallery-heading h2, .visit-heading h2 {
+  font: 500 clamp(66px, 7.6vw, 108px)/.91 'Playfair Display', serif;
+  letter-spacing: -4px;
+  margin: 0;
+}
+.hero h1 em, .story-content h2 em, .section-title-row h2 em,
+.special-copy h2 em, .gallery-heading h2 em, .visit-heading h2 em {
+  color: var(--gold);
+  font-weight: 500;
+}
+.hero-lede {
+  max-width: 360px;
+  color: #aaa69c;
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 29px 0;
+}
+.hero-ctas { display: flex; align-items: center; gap: 27px; }
+.btn-cream, .btn-dark {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+  padding: 16px 20px;
+  background: var(--paper);
+  color: #171612;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  border: 0;
+}
+.understated-link, .dark-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  color: #d6c9b0;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 92px;
+  color: #77736a;
+  font-size: 7px;
+  letter-spacing: 1.6px;
+}
+.hero-meta i { height: 1px; width: 45px; background: #777; }
+
+.hero-art { height: 490px; position: relative; margin-left: 20px; }
+.hero-main-image {
+  position: absolute;
+  inset: 0 8% 22px 8%;
+  background: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=1400&q=90') center/cover;
+  filter: brightness(.77);
+}
+.hero-small-image {
+  position: absolute;
+  width: 37%;
+  height: 39%;
+  bottom: 0;
+  left: 0;
+  border: 8px solid var(--ink);
+  background: url('https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=700&q=85') center/cover;
+}
+.hero-image-label {
+  position: absolute;
+  bottom: 0;
+  right: 8%;
+  left: 48%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 7px;
+  letter-spacing: 1.2px;
+  color: #a7a196;
+}
+.seal {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 91px;
+  height: 91px;
+  border: 1px solid #c7b18b;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #d5c19c;
+  font: 12px 'Playfair Display', serif;
+  line-height: 1.05;
+  transform: rotate(9deg);
+  background: #0b0b0a;
+}
+.seal b { font-size: 9px; font-weight: 500; letter-spacing: 2px; }
+.seal i { font-style: normal; font-size: 13px; margin-top: 3px; }
+.scroll-cue {
+  position: absolute;
+  left: 6.5%;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #777;
+  font-size: 7px;
+  letter-spacing: 1.7px;
+}
+
+.story-section {
+  background: var(--paper);
+  color: #171612;
+  padding: 88px 10% 100px;
+}
+.story-top, .section-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dark-eyebrow { color: #776c59; }
+.story-index, .section-note {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: #847a69;
+}
+.story-content {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  align-items: end;
+  gap: 9%;
+  margin-top: 62px;
+}
+.story-content h2 {
+  font-size: clamp(57px, 6.5vw, 88px);
+  letter-spacing: -3px;
+}
+.story-content h2 em { color: #927c59; }
+.story-right p {
+  font-size: 13px;
+  line-height: 2;
+  color: #69645b;
+  margin: 0 0 26px;
+}
+.dark-link {
+  color: #2a261f;
+  border-bottom: 1px solid #a99b82;
+  padding-bottom: 8px;
+}
+
+.menu-section { padding: 112px 6.5% 120px; }
+.section-title-row, .gallery-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 27px 0 55px;
+}
+.section-title-row h2, .gallery-heading h2 {
+  font-size: clamp(58px, 6.5vw, 88px);
+  letter-spacing: -3px;
+}
+.section-title-row p, .gallery-heading p {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #99958b;
+  margin: 0 8% 7px 0;
+}
+.menu-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 28px;
+}
+.category-list { display: flex; gap: 10px; overflow-x: auto; }
+.category-pill {
+  background: transparent;
+  color: #918d83;
+  padding: 10px 16px 14px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  font-size: 9px;
+  white-space: nowrap;
+}
+.category-pill.selected { color: #f0e8d8; border-color: #c7b18b; }
+.item-count { font-size: 7px; letter-spacing: 1.5px; color: #777; padding-bottom: 13px; }
+.dish-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 42px 22px;
+}
+.dish-card { min-width: 0; }
+.dish-image-wrap {
+  height: 275px;
+  position: relative;
+  overflow: hidden;
+  background: #171613;
+}
+.dish-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform .6s, filter .4s;
+  filter: brightness(.82);
+}
+.dish-card:hover .dish-image { transform: scale(1.055); filter: brightness(1); }
+.dish-tag {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  background: #e9e2d6;
+  color: #171612;
+  padding: 8px 10px;
+  font-size: 7px;
+  letter-spacing: 1.3px;
+}
+.add-round {
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: #eee8dc;
+  color: #171612;
+  display: grid;
+  place-items: center;
+  transition: transform .2s, background .2s;
+}
+.add-round:hover { transform: rotate(90deg); background: #c9b38d; }
+.dish-details { padding: 17px 1px 0; }
+.dish-category {
+  font-size: 7px;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  color: #b9a47d;
+}
+.dish-details h3 { font: 500 23px 'Playfair Display', serif; margin: 6px 0; }
+.dish-details p { font-size: 10px; line-height: 1.8; color: #8f8b82; margin: 0; min-height: 36px; }
+.dish-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 13px;
+  margin-top: 17px;
+}
+.dish-buy strong { font-size: 13px; }
+.dish-buy button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 0;
+  color: #c9b38d;
+  font-size: 7px;
+  letter-spacing: 1.3px;
+}
+.demo-note {
+  font-size: 7px;
+  letter-spacing: 1.2px;
+  color: #706d65;
+  margin-top: 48px;
+  line-height: 1.7;
+}
+
+.special-section {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  background: #171613;
+  min-height: 600px;
+}
+.special-image {
+  position: relative;
+  min-height: 600px;
+  background: url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1400&q=90') center/cover;
+  filter: brightness(.72);
+}
+.vertical-note {
+  position: absolute;
+  left: 25px;
+  bottom: 25px;
+  writing-mode: vertical-rl;
+  font-size: 7px;
+  letter-spacing: 2px;
+  color: #eee;
+}
+.special-copy {
+  padding: 85px 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.special-copy h2 {
+  font-size: clamp(65px, 7vw, 95px);
+  letter-spacing: -3px;
+}
+.special-copy>p {
+  max-width: 300px;
+  color: #a39f95;
+  font-size: 12px;
+  line-height: 1.9;
+  margin: 26px 0;
+}
+.special-foot { font-size: 7px; letter-spacing: 1.2px; color: #777; margin-top: 27px; }
+
+.gallery-section { padding: 115px 6.5% 130px; }
+.gallery-heading { margin-bottom: 45px; }
+.gallery-layout {
+  height: 390px;
+  display: grid;
+  grid-template-columns: 1.1fr .82fr 1.1fr;
+  gap: 14px;
+}
+.gallery-photo { background-size: cover; background-position: center; filter: brightness(.8); }
+.gp-one { background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=90'); }
+.gp-two {
+  background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=90');
+  margin-top: 42px;
+}
+.gp-three { background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=90'); }
+
+.visit-section {
+  background: var(--paper);
+  color: #171612;
+  padding: 100px 8%;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  gap: 45px;
+  align-items: center;
+}
+.visit-heading h2 { font-size: clamp(56px, 5.7vw, 77px); letter-spacing: -3px; }
+.visit-heading h2 em { color: #927c59; }
+.visit-block { display: flex; flex-direction: column; align-items: flex-start; }
+.visit-block>span { font-size: 7px; letter-spacing: 1.7px; color: #8b7d65; }
+.visit-block h3 { font: 500 21px 'Playfair Display', serif; margin: 12px 0 5px; }
+.visit-block p { font-size: 10px; color: #716b61; line-height: 1.8; margin: 0; }
+.visit-block a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border-bottom: 1px solid #a89a80;
+  padding-bottom: 7px;
+  margin-top: 21px;
+  font-size: 7px;
+  letter-spacing: 1.2px;
+}
+
+.footer {
+  padding: 43px 6.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.footer>p, .footer>small { font-size: 7px; letter-spacing: 1.4px; color: #777; }
+.footer>div { display: flex; align-items: center; gap: 22px; }
+.footer>div a { color: #aaa; font-size: 8px; }
+.footer-mark span { font-size: 27px; }
+
+/* Cart and checkout */
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: #000b;
+  z-index: 60;
+  display: flex;
+  justify-content: flex-end;
+}
+.cart-panel {
+  width: min(480px, 100%);
+  height: 100%;
+  background: var(--paper);
+  color: #171612;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #d0c8ba;
+  padding-bottom: 22px;
+}
+.panel-heading .eyebrow { margin-bottom: 10px; }
+.panel-heading h2 { font: 500 37px 'Playfair Display', serif; margin: 0; }
+.panel-heading h2 em { color: #927c59; }
+.close-btn { background: none; color: #171612; padding: 7px; border: 0; }
+.empty-state {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: #756e62;
+}
+.empty-state h3, .success-message h3 {
+  font: 500 25px 'Playfair Display', serif;
+  color: #171612;
+  margin: 18px 0 5px;
+}
+.empty-state p, .success-message p { font-size: 11px; line-height: 1.8; }
+.btn-dark { background: #171612; color: #f4eee2; border: 0; }
+.cart-list { overflow: auto; flex: 1; }
+.cart-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px 0;
+  border-bottom: 1px solid #d0c8ba;
+}
+.cart-thumb {
+  width: 73px;
+  height: 73px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+.cart-item-copy { flex: 1; }
+.cart-item-copy h3 { font: 500 17px 'Playfair Display', serif; margin: 0 0 4px; }
+.cart-item-copy>span { font-size: 11px; color: #777064; }
+.cart-row>strong { font-size: 12px; }
+.quantity { display: flex; align-items: center; gap: 11px; margin-top: 8px; }
+.quantity button {
+  width: 23px;
+  height: 23px;
+  background: #ddd5c7;
+  color: #171612;
+  border: 0;
+  display: grid;
+  place-items: center;
+}
+.quantity b { font-size: 10px; }
+.cart-summary { padding-top: 20px; }
+.cart-summary>div, .total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-summary>div span, .total-row span {
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  color: #7b715f;
+}
+.cart-summary>div b { font: 500 24px 'Playfair Display', serif; }
+.cart-summary p { font-size: 9px; color: #81796d; line-height: 1.7; margin: 10px 0 18px; }
+.wide { width: 100%; }
+.centered { justify-content: center; align-items: center; padding: 16px; }
+.checkout-panel {
+  width: min(590px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  background: var(--paper);
+  color: #171612;
+  padding: 30px;
+}
+.checkout-fields { display: flex; flex-direction: column; gap: 15px; padding-top: 21px; }
+.checkout-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 7px;
+  letter-spacing: 1.3px;
+  color: #716958;
+}
+.checkout-fields input, .checkout-fields textarea {
+  border: 1px solid #d0c8ba;
+  background: #f8f5ef;
+  color: #171612;
+  padding: 13px;
+  font: 11px 'DM Sans', sans-serif;
+  outline: none;
+  resize: vertical;
+}
+.checkout-fields input:focus, .checkout-fields textarea:focus { border-color: #927c59; }
+.two-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.cod-box {
+  border: 1px solid #d0c8ba;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cod-box span { font-size: 7px; letter-spacing: 1.4px; color: #7c725f; }
+.cod-box b { font-size: 12px; }
+.cod-box small { font-size: 9px; color: #81796d; }
+.total-row { border-top: 1px solid #d0c8ba; padding-top: 15px; }
+.total-row b { font: 500 24px 'Playfair Display', serif; }
+.checkout-fields>.demo-note { text-align: center; margin: 0; }
+.success-message {
+  padding: 55px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.success-message p { max-width: 350px; color: #756e62; }
+
+@media(max-width:900px) {
+  .site-header { padding: 0 4%; }
+  .main-nav { gap: 17px; }
+  .hero { padding-left: 5%; padding-right: 5%; }
+  .hero h1 { font-size: 78px; }
+  .hero-art { height: 420px; }
+  .story-section { padding-left: 7%; padding-right: 7%; }
+  .menu-section, .gallery-section { padding-left: 5%; padding-right: 5%; }
+  .dish-image-wrap { height: 230px; }
+  .visit-section { padding: 75px 5%; gap: 25px; }
+}
+
+@media(max-width:650px) {
+  .announcement { font-size: 6px; letter-spacing: 1px; }
+  .site-header { height: 70px; padding: 0 5%; }
+  .wordmark span { font-size: 27px; }
+  .wordmark i { font-size: 6px; }
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 69px;
+    left: 0;
+    right: 0;
+    background: #10100e;
+    padding: 23px 7%;
+    flex-direction: column;
+    border-bottom: 1px solid #333;
+  }
+  .main-nav.nav-visible { display: flex; }
+  .header-actions { gap: 13px; }
+  .header-order { display: none; }
+  .mobile-menu { display: block; border: 0; }
+  .hero { display: flex; flex-direction: column; align-items: stretch; padding: 62px 6% 78px; }
+  .hero h1 { font-size: 73px; }
+  .hero-backdrop-word { font-size: 120px; top: 45px; }
+  .hero-art { height: 330px; margin: 48px 0 0 10px; }
+  .hero-main-image { inset: 0 5% 18px 7%; }
+  .hero-small-image { width: 37%; height: 38%; }
+  .hero-meta { margin-top: 52px; }
+  .seal { width: 73px; height: 73px; font-size: 10px; }
+  .story-section { padding: 70px 7%; }
+  .story-top { align-items: flex-start; gap: 15px; }
+  .story-index { font-size: 6px; text-align: right; }
+  .story-content { display: block; margin-top: 43px; }
+  .story-content h2 { font-size: 57px; }
+  .story-right { margin-top: 25px; }
+  .menu-section, .gallery-section { padding: 75px 6%; }
+  .section-title-row, .gallery-heading { display: block; margin: 24px 0 37px; }
+  .section-title-row h2, .gallery-heading h2 { font-size: 58px; }
+  .section-title-row p, .gallery-heading p { margin-top: 18px; }
+  .category-list { gap: 0; }
+  .category-pill { padding: 10px 12px 13px; }
+  .dish-grid { grid-template-columns: 1fr 1fr; gap: 27px 12px; }
+  .dish-image-wrap { height: 185px; }
+  .dish-details h3 { font-size: 18px; }
+  .dish-details p { font-size: 9px; min-height: 52px; }
+  .dish-buy button { font-size: 6px; gap: 3px; }
+  .special-section { grid-template-columns: 1fr; }
+  .special-image { min-height: 310px; }
+  .special-copy { padding: 65px 8%; }
+  .special-copy h2 { font-size: 70px; }
+  .gallery-layout { height: auto; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gallery-photo { height: 205px; }
+  .gp-two { margin-top: 25px; }
+  .gp-three { grid-column: 1/-1; height: 220px; }
+  .visit-section { grid-template-columns: 1fr; padding: 72px 8%; gap: 34px; }
+  .visit-heading h2 { font-size: 64px; }
+  .footer { padding: 38px 7%; align-items: flex-start; flex-direction: column; }
+  .footer>div { gap: 17px; }
+  .cart-panel { padding: 25px 20px; }
+  .checkout-panel { padding: 24px 18px; }
+  .two-fields { grid-template-columns: 1fr; }
+  .panel-heading h2 { font-size: 32px; }
+}
+
+/* ==========================================
+   SRI GAYATRI VILAS - AUTHENTIC MENU VISUALS
+   No unrelated stock food or restaurant photos
+========================================== */
+
+/* HERO: replace samosa and stock dosa photographs */
+.hero-main-image {
+  background: linear-gradient(135deg, #2b2115, #100e0b 65%, #49351e) !important;
+  filter: none !important;
+  border: 1px solid #806b45;
+  display: grid;
+  place-items: center;
+}
+
+.hero-main-image::after {
+  content: "SRI GAYATRI VILAS\A TIFFINS & MEALS\A\A IDLY  â€¢  DOSA  â€¢  PURI\A\A MADE FRESH EVERYDAY";
+  white-space: pre;
+  text-align: center;
+  color: #e8d4a9;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 2.5vw, 36px);
+  line-height: 1.8;
+  letter-spacing: 2px;
+}
+
+.hero-small-image {
+  background: linear-gradient(145deg, #d9c49b, #72532e) !important;
+  border: 8px solid var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+.hero-small-image::after {
+  content: "GHEE PODI\A DOSA";
+  white-space: pre;
+  text-align: center;
+  color: #24190d;
+  font: 600 19px/1.5 'Playfair Display', serif;
+  letter-spacing: 2px;
+}
+
+/* SPECIALS: show an actual item from the supplied menu */
+.special-image {
+  background: linear-gradient(145deg, #3a2b19, #17120d 70%) !important;
+  filter: none !important;
+  display: grid;
+  place-items: center;
+}
+
+.special-image::after {
+  content: "FROM OUR MENU\A\A GAYATRI VILAS\A SPECIAL DOSA\A\A â‚¹80";
+  white-space: pre;
+  text-align: center;
+  color: #e8d4a9;
+  font: 500 clamp(23px, 3vw, 40px)/1.7 'Playfair Display', serif;
+  letter-spacing: 2px;
+}
+
+/* GALLERY: menu-inspired panels instead of unrelated photos */
+.gallery-photo {
+  background: linear-gradient(145deg, #392a18, #17120d) !important;
+  filter: none !important;
+  border: 1px solid #8c744b;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.gp-one::after {
+  content: "IDLY (2)\A â‚¹30";
+}
+
+.gp-two::after {
+  content: "PLAIN DOSA\A â‚¹50";
+}
+
+.gp-three::after {
+  content: "PURI (2)\A â‚¹50";
+}
+
+.gallery-photo::after {
+  white-space: pre;
+  text-align: center;
+  color: #ead7ad;
+  font: 500 clamp(22px, 2.5vw, 34px)/1.8 'Playfair Display', serif;
+  letter-spacing: 2px;
+}
+
+/* Menu cards without photographs */
+.dish-image-wrap.menu-tile {
+  background: linear-gradient(145deg, #3a2b19, #17120d);
+  border: 1px solid #8c744b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.menu-tile-category {
+  color: #c9b38d;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.menu-tile-name {
+  color: #f0e5cf;
+  font: 500 25px 'Playfair Display', serif;
+}
+
+/* Cart thumbnail is a neutral decorative tile */
+.cart-thumb {
+  background: #d8c49e;
+  color: #21180e;
+  display: grid;
+  place-items: center;
+  font: 500 25px 'Playfair Display', serif;
+}
+
+/* Mobile adjustments */
+@media(max-width:650px) {
+  .hero-main-image::after {
+    font-size: 19px;
+  }
+
+  .hero-small-image::after {
+    font-size: 13px;
+  }
+
+  .special-image::after {
+    font-size: 25px;
+  }
+
+  .gallery-photo::after {
+    font-size: 19px;
+  }
+
+  .menu-tile-name {
+    font-size: 19px;
+  }
+}
+
+/* FINAL FIX: REMOVE ALL UNRELATED STOCK PHOTOGRAPHS */
+
+.hero-main-image,
+.hero-small-image,
+.special-image,
+.gp-one,
+.gp-two,
+.gp-three {
+  background-image: none !important;
+  background-color: #21190f !important;
+  filter: none !important;
+}
+
+.hero-main-image {
+  background: linear-gradient(135deg, #49351e, #100e0b) !important;
+  display: grid;
+  place-items: center;
+}
+
+.hero-main-image::after {
+  content: "SRI GAYATRI VILAS\A TIFFINS & MEALS\A\A IDLY  â€¢  DOSA  â€¢  PURI\A\A MADE FRESH EVERYDAY";
+  white-space: pre;
+  text-align: center;
+  color: #ead7ad;
+  font: 500 clamp(20px, 2.5vw, 36px)/1.8 'Playfair Display', serif;
+  letter-spacing: 2px;
+}
+
+.hero-small-image {
+  background: linear-gradient(145deg, #d9c49b, #72532e) !important;
+  display: grid;
+  place-items: center;
+}
+
+.hero-small-image::after {
+  content: "GHEE PODI\A DOSA";
+  white-space: pre;
+  text-align: center;
+  color: #24190d;
+  font: 600 19px/1.5 'Playfair Display', serif;
+}
+
+.special-image {
+  background: linear-gradient(145deg, #49351e, #17120d) !important;
+  display: grid;
+  place-items: center;
+}
+
+.special-image::after {
+  content: "GAYATRI VILAS\A SPECIAL DOSA\A\A â‚¹80";
+  white-space: pre;
+  text-align: center;
+  color: #ead7ad;
+  font: 500 clamp(23px, 3vw, 40px)/1.7 'Playfair Display', serif;
+}
+
+.gallery-photo {
+  background: linear-gradient(145deg, #49351e, #17120d) !important;
+  border: 1px solid #8c744b;
+  display: grid;
+  place-items: center;
+}
+
+.gp-one::after { content: "IDLY (2)\A â‚¹30"; }
+.gp-two::after { content: "PLAIN DOSA\A â‚¹50"; }
+.gp-three::after { content: "PURI (2)\A â‚¹50"; }
+
+.gallery-photo::after {
+  white-space: pre;
+  text-align: center;
+  color: #ead7ad;
+  font: 500 28px/1.8 'Playfair Display', serif;
+  letter-spacing: 2px;
+}
+
+
+
+/* FINAL OVERRIDE - DISPLAY ACTUAL RESTAURANT MENU PHOTOS */
+
+.hero-main-image {
+  background: url("/images/sgv-idly-vada.png") center center / cover no-repeat !important;
+}
+
+.hero-small-image {
+  background: url("/images/sgv-dosa.png") center center / cover no-repeat !important;
+}
+
+.special-image {
+  background: url("/images/sgv-puri.png") center center / cover no-repeat !important;
+}
+
+.gp-one {
+  background: url("/images/sgv-idly-vada.png") center center / cover no-repeat !important;
+}
+
+.gp-two {
+  background: url("/images/sgv-dosa.png") center center / cover no-repeat !important;
+}
+
+.gp-three {
+  background: url("/images/sgv-puri.png") center center / cover no-repeat !important;
+}
+
+.hero-main-image::after,
+.hero-small-image::after,
+.special-image::after,
+.gallery-photo::after {
+  content: "" !important;
+  display: none !important;
+}
+
+
+/* DEFINITIVE IMAGE OVERRIDE */
+html body main .hero .hero-art .hero-main-image {
+  background-image: url("/images/sgv-idly-vada.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+}
+
+html body main .hero .hero-art .hero-small-image {
+  background-image: url("/images/sgv-dosa.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+}
+
+html body main .special-section .special-image {
+  background-image: url("/images/sgv-puri.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: transparent !important;
+}
+
+html body main .gallery-section .gp-one {
+  background-image: url("/images/sgv-idly-vada.png") !important;
+}
+
+html body main .gallery-section .gp-two {
+  background-image: url("/images/sgv-dosa.png") !important;
+}
+
+html body main .gallery-section .gp-three {
+  background-image: url("/images/sgv-puri.png") !important;
+}
+
+html body main .hero-main-image::after,
+html body main .hero-small-image::after,
+html body main .special-image::after,
+html body main .gallery-photo::after {
+  content: none !important;
+  display: none !important;
+}
+
+
+/* SGV FINAL PREMIUM HERO PHOTOGRAPHY */
+.hero-main-image {
+  background: url("/images/sgv-idly-vada-premium.png") center/cover no-repeat !important;
+  border: 7px solid #b99552;
+  box-shadow: 0 15px 45px #0008;
+}
+
+.hero-small-image {
+  background: url("/images/sgv-dosa-premium.png") center/cover no-repeat !important;
+  border: 6px solid #b99552;
+  box-shadow: 0 12px 35px #0009;
+}
+
+.hero-main-image::after,
+.hero-small-image::after {
+  content: none !important;
+  display: none !important;
+}
+
+
+/* HERO REAL IMAGE ELEMENTS */
+img.hero-main-image,
+img.hero-small-image {
+  display: block !important;
+  object-fit: cover !important;
+  background: transparent !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+img.hero-main-image {
+  object-position: center !important;
+}
+
+img.hero-small-image {
+  object-position: center !important;
+}
+
+
+/* SGV HERO - CLEAN PREMIUM IMAGE ARRANGEMENT */
+
+.hero-art {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  height: 590px !important;
+  margin: 0 auto !important;
+  border: none !important;
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+img.hero-main-image {
+  position: absolute !important;
+  top: 15% !important;
+  right: 3% !important;
+  width: 86% !important;
+  height: 79% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border: 6px solid #b99552 !important;
+  box-shadow: 0 18px 45px #0008 !important;
+  z-index: 1 !important;
+}
+
+img.hero-small-image {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 3% !important;
+  width: 43% !important;
+  height: 36% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border: 6px solid #b99552 !important;
+  box-shadow: 0 15px 35px #0009 !important;
+  z-index: 3 !important;
+}
+
+img.hero-main-image::after,
+img.hero-small-image::after {
+  content: none !important;
+}
+
+@media (max-width: 768px) {
+  .hero-art {
+    height: 390px !important;
+  }
+
+  img.hero-main-image {
+    width: 88% !important;
+    height: 76% !important;
+    top: 8% !important;
+  }
+
+  img.hero-small-image {
+    width: 45% !important;
+    height: 36% !important;
+    bottom: 2% !important;
+  }
+}
+
+
+/* =================================
+   SGV HERO - FINAL IMAGE POSITIONING
+================================= */
+
+.hero-art {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 760px !important;
+  height: 570px !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+/* Main Idly and Vada photograph */
+img.hero-main-image {
+  position: absolute !important;
+  top: 5% !important;
+  right: 2% !important;
+  width: 87% !important;
+  height: 86% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  border: 6px solid #c5a15a !important;
+  box-shadow: 0 18px 40px #0009 !important;
+  z-index: 1 !important;
+}
+
+/* Smaller overlapping Dosa photograph */
+img.hero-small-image {
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 1% !important;
+  width: 38% !important;
+  height: 35% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  border: 5px solid #c5a15a !important;
+  box-shadow: 0 15px 35px #0009 !important;
+  z-index: 5 !important;
+}
+
+/* Remove old decorative image effects */
+img.hero-main-image::after,
+img.hero-small-image::after {
+  content: none !important;
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .hero-art {
+    height: 390px !important;
+  }
+
+  img.hero-main-image {
+    width: 88% !important;
+    height: 84% !important;
+    top: 3% !important;
+  }
+
+  img.hero-small-image {
+    width: 43% !important;
+    height: 36% !important;
+  }
+}
+
+
+/* SRI GAYATRI VILAS - PURI FOOD IMAGE */
+.special-image,
+.gallery-photo.gp-three {
+  background-image: url("/images/sgv-puri-hd.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.special-image::after,
+.gallery-photo.gp-three::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* PURI PHOTO - SPECIALS SECTION */
+.special-image {
+  position: relative !important;
+  overflow: hidden !important;
+  background: #17120d !important;
+}
+
+.special-food-photo {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  z-index: 0 !important;
+}
+
+.special-image .vertical-note {
+  position: absolute !important;
+  z-index: 2 !important;
+  color: white !important;
+  text-shadow: 0 1px 5px #000 !important;
+}
+
+/* PURI PHOTO - GALLERY */
+.gallery-photo.gp-three {
+  position: relative !important;
+  overflow: hidden !important;
+  background: #17120d !important;
+}
+
+.gallery-food-photo {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+
+/* =====================================
+   SGV HERO - FINAL FRAME ALIGNMENT
+===================================== */
+
+.hero-art {
+  position: relative !important;
+  height: 540px !important;
+  overflow: visible !important;
+}
+
+/* Large Idly and Vada frame */
+img.hero-main-image {
+  position: absolute !important;
+  top: 5% !important;
+  right: 2% !important;
+  width: 85% !important;
+  height: 82% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  box-sizing: border-box !important;
+  border: 6px solid #c5a15a !important;
+  z-index: 2 !important;
+}
+
+/* Smaller Dosa frame - fully inside hero */
+img.hero-small-image {
+  position: absolute !important;
+  left: -2% !important;
+  bottom: 7% !important;
+  width: 37% !important;
+  height: 34% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  box-sizing: border-box !important;
+  border: 6px solid #c5a15a !important;
+  z-index: 5 !important;
+}
+
+/* Keep the Made With Love badge above both photos */
+.hero-art .hero-stamp,
+.hero-art .hero-badge,
+.hero-art .made-badge {
+  position: absolute !important;
+  top: 5% !important;
+  right: 5% !important;
+  z-index: 20 !important;
+}
+
+/* Desktop and laptop adjustments */
+@media (min-width: 769px) {
+  .hero-art {
+    height: 540px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-art {
+    height: 390px !important;
+  }
+
+  img.hero-main-image {
+    top: 4% !important;
+    right: 1% !important;
+    width: 88% !important;
+    height: 80% !important;
+  }
+
+  img.hero-small-image {
+    left: 0 !important;
+    bottom: 5% !important;
+    width: 43% !important;
+    height: 34% !important;
+  }
+}
+
+
+/* =========================================
+   FINAL FIX - HERO IMAGE FRAMES AND SEAL
+========================================= */
+
+.hero-art {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+/* Main Idly and Vada image */
+.hero-art > img.hero-main-image {
+  position: absolute !important;
+  top: 5% !important;
+  right: 2% !important;
+  width: 85% !important;
+  height: 82% !important;
+  object-fit: cover !important;
+  box-sizing: border-box !important;
+  border: 6px solid #c5a15a !important;
+  z-index: 2 !important;
+}
+
+/* Dosa image - complete frame */
+.hero-art > img.hero-small-image {
+  position: absolute !important;
+  left: -2% !important;
+  bottom: 7% !important;
+  width: 37% !important;
+  height: 34% !important;
+  object-fit: cover !important;
+  box-sizing: border-box !important;
+  border: 6px solid #c5a15a !important;
+  z-index: 10 !important;
+}
+
+/* ACTUAL BADGE CLASS FROM PAGE.TSX */
+.hero-art > .seal {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  z-index: 30 !important;
+  background: #0b0b09 !important;
+  border: 1px solid #c5a15a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  border-radius: 50% !important;
+  overflow: visible !important;
+}
+
+/* Keep the image labels readable */
+.hero-art > .hero-image-label {
+  position: absolute !important;
+  z-index: 15 !important;
+  bottom: 3% !important;
+  right: 5% !important;
+}
+
+@media (max-width: 768px) {
+  .hero-art {
+    height: 390px !important;
+  }
+
+  .hero-art > .seal {
+    top: 0 !important;
+    right: 0 !important;
+    z-index: 30 !important;
+  }
+
+  .hero-art > img.hero-main-image {
+    width: 88% !important;
+    height: 80% !important;
+    right: 1% !important;
+  }
+
+  .hero-art > img.hero-small-image {
+    width: 43% !important;
+    height: 34% !important;
+    left: 0 !important;
+    bottom: 5% !important;
+  }
+}
+
+
+/* FINAL HERO LAYOUT CORRECTION */
+.hero-art {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+}
+
+/* Give the main photo space on the right for the badge */
+.hero-art > img.hero-main-image {
+  position: absolute !important;
+  top: 5% !important;
+  right: 9% !important;
+  width: 82% !important;
+  height: 82% !important;
+  object-fit: cover !important;
+  box-sizing: border-box !important;
+  z-index: 2 !important;
+}
+
+/* Keep Dosa in its own complete frame */
+.hero-art > img.hero-small-image {
+  position: absolute !important;
+  left: -2% !important;
+  bottom: 7% !important;
+  width: 37% !important;
+  height: 34% !important;
+  object-fit: cover !important;
+  box-sizing: border-box !important;
+  z-index: 5 !important;
+}
+
+/* Move MADE WITH LOVE completely outside the main photo */
+.hero-art > .seal {
+  position: absolute !important;
+  top: 7% !important;
+  right: -1% !important;
+  left: auto !important;
+  width: 96px !important;
+  height: 96px !important;
+  box-sizing: border-box !important;
+  z-index: 100 !important;
+  transform: none !important;
+  background: #0b0b09 !important;
+  border: 1px solid #c5a15a !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Keep labels clear */
+.hero-art > .hero-image-label {
+  z-index: 20 !important;
+}
+
+@media (max-width: 768px) {
+  .hero-art > img.hero-main-image {
+    right: 5% !important;
+    width: 85% !important;
+  }
+
+  .hero-art > .seal {
+    width: 72px !important;
+    height: 72px !important;
+    right: -1% !important;
+    top: 2% !important;
+    font-size: 9px !important;
+  }
+}
+
+
+/* FINAL DOSA IMAGE FRAME FIX */
+.hero-art > img.hero-small-image {
+  position: absolute !important;
+  left: -2% !important;
+  bottom: 7% !important;
+  width: 37% !important;
+  height: 34% !important;
+
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center 72% !important;
+
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 5px solid #c5a15a !important;
+  background: #100e0b !important;
+  box-shadow: 0 12px 30px #0009 !important;
+  z-index: 10 !important;
+}
+
+
+/* DOSA - REMOVE TOP EMPTY STRIP AND FILL FRAME */
+.hero-art img.hero-small-image {
+  width: 37% !important;
+  height: 34% !important;
+  left: -2% !important;
+  bottom: 7% !important;
+
+  object-fit: cover !important;
+  object-position: center 100% !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 5px solid #c5a15a !important;
+  box-sizing: border-box !important;
+
+  background: #17100a !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.45) !important;
+  z-index: 10 !important;
+}
+
+
+/* REMOVE DOSA HERO IMAGE COMPLETELY */
+.hero-art img.hero-small-image {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Keep the main Idly and Vada image neatly positioned */
+.hero-art img.hero-main-image {
+  right: 5% !important;
+  width: 85% !important;
+}
+
+
+/* ROTATED MADE WITH LOVE CORNER SEAL */
+.hero-art .seal {
+  position: absolute !important;
+  top: 3% !important;
+  right: 7% !important;
+  left: auto !important;
+
+  width: 96px !important;
+  height: 96px !important;
+
+  transform: rotate(-14deg) !important;
+  transform-origin: center !important;
+
+  z-index: 100 !important;
+  border-radius: 50% !important;
+  border: 1px solid #c5a15a !important;
+  background: #0b0b09 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+@media (max-width: 768px) {
+  .hero-art .seal {
+    width: 72px !important;
+    height: 72px !important;
+    top: 2% !important;
+    right: 5% !important;
+  }
+}
+
+
+/* MADE WITH LOVE â€” EXACT TOP-RIGHT PHOTO CORNER */
+.hero-art .seal {
+  position: absolute !important;
+
+  top: 0% !important;
+  right: 0% !important;
+  left: auto !important;
+  bottom: auto !important;
+
+  width: 96px !important;
+  height: 96px !important;
+  min-width: 96px !important;
+
+  transform: rotate(12deg) !important;
+  transform-origin: center center !important;
+
+  z-index: 100 !important;
+  border-radius: 50% !important;
+  border: 1px solid #c5a15a !important;
+  background: #0b0b09 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+
+/* ===== SGV PREMIUM MENU CARD DESIGN ===== */
+
+.dish-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 30px !important;
+  margin-top: 35px !important;
+  align-items: start;
+}
+
+.dish-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #0b0b0a;
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.dish-card:hover {
+  transform: translateY(-9px);
+  box-shadow: 0 18px 35px rgba(0,0,0,.35);
+}
+
+.dish-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 350px !important;
+  overflow: hidden;
+  background: #211a12;
+}
+
+.dish-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  transition: transform .7s ease, filter .5s ease !important;
+}
+
+.dish-card:hover .dish-image {
+  transform: scale(1.08);
+  filter: brightness(1.08);
+}
+
+.dish-details {
+  padding: 18px 2px !important;
+}
+
+.dish-category {
+  color: #c6a66e !important;
+  font-size: 8px !important;
+  letter-spacing: 2px;
+}
+
+.dish-details h3 {
+  color: #f2eee6;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 22px !important;
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 8px 0 !important;
+}
+
+.dish-details p {
+  color: #a49b8d !important;
+  font-size: 11px !important;
+  line-height: 1.7;
+  min-height: 40px;
+}
+
+.dish-buy {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(201,179,141,.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dish-buy strong {
+  color: #d1b27b;
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+}
+
+.dish-image-wrap .add-round {
+  z-index: 3;
+  top: auto;
+  bottom: 15px;
+  right: 15px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all .3s ease;
+}
+
+.dish-card:hover .add-round {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dish-tag {
+  z-index: 3;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .dish-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+  }
+
+  .dish-image-wrap {
+    height: 290px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .dish-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px 13px !important;
+  }
+
+  .dish-image-wrap {
+    height: 210px !important;
+  }
+
+  .dish-details h3 {
+    font-size: 17px !important;
+  }
+
+  .dish-details p {
+    font-size: 10px !important;
+    min-height: 45px;
+  }
+
+  .dish-image-wrap .add-round {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .dish-image-wrap {
+    height: 175px !important;
+  }
+}
+
+
+/* MENU FOOD IMAGE DISPLAY FIX */
+.dish-image-wrap {
+  position: relative !important;
+  overflow: hidden !important;
+  background: #191713 !important;
+}
+
+.dish-image {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  transition: transform .65s ease, filter .65s ease !important;
+}
+
+.dish-card:hover .dish-image {
+  transform: scale(1.06) !important;
+  filter: brightness(1.06) !important;
+}
+
+/* =========================================
+   CONTINUOUS FOOD IMAGE MARQUEE
+========================================= */
+
+.food-marquee-section {
+  padding: 90px 0 100px;
+  overflow: hidden;
+  background: #090806;
+  color: #f5f0e7;
+}
+
+.food-marquee-heading {
+  max-width: 1440px;
+  margin: 0 auto 42px;
+  padding: 0 7%;
+}
+
+.food-marquee-heading h2 {
+  margin-top: 16px;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.food-marquee-heading h2 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.food-marquee-window {
+  width: 100%;
+  overflow: hidden;
+}
+
+.food-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: food-marquee-scroll 110s linear infinite;
+  will-change: transform;
+}
+
+.food-marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 28px;
+  padding-right: 28px;
+}
+
+.food-marquee-card {
+  flex: 0 0 clamp(260px, 28vw, 340px);
+  overflow: hidden;
+  background: #000;
+}
+
+.food-marquee-card img {
+  display: block;
+  width: 100%;
+  height: clamp(350px, 42vw, 535px);
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.food-marquee-card:hover img {
+  transform: scale(1.035);
+}
+
+.food-marquee-caption {
+  min-height: 100px;
+  padding: 20px 4px;
+}
+
+.food-marquee-caption h3 {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.food-marquee-caption span {
+  display: block;
+  margin-top: 12px;
+  color: #b9a88e;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+@keyframes food-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.food-marquee-section:hover .food-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 600px) {
+  .food-marquee-section {
+    padding: 65px 0 70px;
+  }
+
+  .food-marquee-heading {
+    margin-bottom: 28px;
+  }
+
+  .food-marquee-group {
+    gap: 16px;
+    padding-right: 16px;
+  }
+
+  .food-marquee-card {
+    flex-basis: 76vw;
+  }
+
+  .food-marquee-card img {
+    height: 390px;
+  }
+
+  .food-marquee-caption h3 {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .food-marquee-track {
+    animation: none;
+  }
+}
+
+/* FOOD CAROUSEL CONTROLS */
+
+.food-marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+.food-marquee-controls {
+  max-width: 1440px;
+  margin: 28px auto 0;
+  padding: 0 7%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.marquee-play-button,
+.marquee-arrow-button {
+  height: 46px;
+  min-width: 46px;
+  padding: 0 17px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(245, 240, 231, 0.28);
+  background: transparent;
+  color: #f5f0e7;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.marquee-play-button {
+  min-width: 74px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.marquee-arrow-button {
+  font-size: 19px;
+}
+
+.marquee-play-button:hover,
+.marquee-arrow-button:hover {
+  background: #f5f0e7;
+  color: #090806;
+}
+
+@media (max-width: 600px) {
+  .food-marquee-controls {
+    padding: 0 6%;
+  }
+}
+/* =========================================
+   STORY SECTION - WARM ESPRESSO THEME
+========================================= */
+
+.story-section {
+  background: linear-gradient(
+    120deg,
+    #17130f 0%,
+    #1d1812 55%,
+    #17130f 100%
+  ) !important;
+  color: #f2ebdd !important;
+  padding: 100px 10% 110px;
+  border-top: 1px solid rgba(182,154,107,0.12);
+  border-bottom: 1px solid rgba(182,154,107,0.12);
+}
+
+.story-section .dark-eyebrow {
+  color: #b69a6b !important;
+}
+
+.story-section .story-index {
+  color: #96866d !important;
+}
+
+.story-section .story-content h2 {
+  color: #f2ebdd !important;
+}
+
+.story-section .story-content h2 em {
+  color: #b69a6b !important;
+}
+
+.story-section .story-right p {
+  color: #c0b7a8 !important;
+  line-height: 2.1;
+}
+
+.story-section .dark-link {
+  color: #e4d2ad !important;
+  border-bottom-color: #8f7956 !important;
+  transition: color 0.25s ease;
+}
+
+.story-section .dark-link:hover {
+  color: #ffffff !important;
+}
+
+@media (max-width: 650px) {
+  .story-section {
+    padding: 70px 7%;
+  }
+}
+
+
+/* STORY SECTION - BOTANICAL FOREST THEME */
+
+html body .story-section {
+  background:
+    radial-gradient(ellipse at 85% 15%, rgba(183, 153, 99, 0.13), transparent 42%),
+    linear-gradient(120deg, #1b3027 0%, #263d31 52%, #1b3027 100%) !important;
+  background-color: #20372D !important;
+  color: #F5EFE2 !important;
+  border-top: 1px solid rgba(200,173,120,0.25);
+  border-bottom: 1px solid rgba(200,173,120,0.25);
+}
+
+html body .story-section h2 {
+  color: #F5EFE2 !important;
+}
+
+html body .story-section h2 em {
+  color: #D2B77F !important;
+}
+
+html body .story-section .dark-eyebrow,
+html body .story-section .story-index {
+  color: #C8AD78 !important;
+}
+
+html body .story-section .story-right p {
+  color: #D2D8CC !important;
+}
+
+html body .story-section .dark-link {
+  color: #E6D1A5 !important;
+  border-bottom-color: #B69A6B !important;
+}
+
+html body .story-section .dark-link:hover {
+  color: #FFFFFF !important;
+}
+
+
+/* FEATURED DISH SPOTLIGHT */
+
+.special-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(45px, 9vw, 130px);
+  padding: 100px 7%;
+  background: #090807;
+  color: #f3eee4;
+}
+
+.spotlight-image {
+  height: clamp(430px, 48vw, 620px);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(201,179,141,.35);
+}
+
+.spotlight-image .special-food-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .8s ease;
+}
+
+.spotlight-image:hover .special-food-photo {
+  transform: scale(1.035);
+}
+
+.spotlight-copy {
+  max-width: 540px;
+  padding: 35px 0;
+}
+
+.spotlight-copy h2 {
+  margin: 28px 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(54px, 6vw, 88px);
+  line-height: .98;
+  letter-spacing: -3px;
+  color: #f3eee4;
+}
+
+.spotlight-copy h2 em {
+  color: #c9b38d;
+  font-weight: 400;
+}
+
+.spotlight-copy p {
+  max-width: 410px;
+  color: #b9b2a6;
+  font-size: 14px;
+  line-height: 2;
+  margin-bottom: 32px;
+}
+
+.spotlight-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  color: #d6bd8c;
+  border-bottom: 1px solid #8e7956;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  transition: gap .25s ease, color .25s ease;
+}
+
+.spotlight-link:hover {
+  gap: 19px;
+  color: #fff;
+}
+
+.spotlight-copy .special-foot {
+  display: block;
+  margin-top: 65px;
+  color: #817766;
+  font-size: 8px;
+  letter-spacing: 1.4px;
+}
+
+@media (max-width: 700px) {
+  .special-section {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 70px 6%;
+  }
+
+  .spotlight-image {
+    height: 420px;
+  }
+
+  .spotlight-copy {
+    padding: 15px 0;
+  }
+
+  .spotlight-copy h2 {
+    font-size: 57px;
+  }
+
+  .spotlight-copy .special-foot {
+    margin-top: 35px;
+  }
+}
+
+/* =================================
+   
+/* =========================================
+   SGV - CLEAN PREMIUM GALLERY
+========================================= */
+
+html body main section.gallery-section {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+}
+
+html body main section.gallery-section .gallery-layout {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+
+  display: grid !important;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr) !important;
+  gap: 0 !important;
+
+  height: 450px !important;
+  margin: 45px 0 25px !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+}
+
+html body main section.gallery-section .gallery-photo.gp-three {
+  width: 100% !important;
+  height: 450px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  border: 1px solid rgba(185,149,82,.55) !important;
+  border-radius: 3px 0 0 3px !important;
+  box-sizing: border-box !important;
+}
+
+html body main section.gallery-section .gallery-photo.gp-three img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+html body main section.gallery-section .gallery-feature-copy {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 450px !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+
+  padding: 45px clamp(30px, 5vw, 85px) !important;
+
+  background:
+    radial-gradient(ellipse at 90% 10%, rgba(185,149,82,.09), transparent 60%),
+    linear-gradient(135deg, #19231c, #111612) !important;
+
+  border: 1px solid rgba(185,149,82,.35) !important;
+  border-left: 0 !important;
+  border-radius: 0 3px 3px 0 !important;
+}
+
+html body main section.gallery-section .gallery-feature-eyebrow {
+  color: #c5a66d !important;
+  font-size: 10px !important;
+  letter-spacing: 4px !important;
+  margin-bottom: 25px !important;
+}
+
+html body main section.gallery-section .gallery-feature-copy h3 {
+  color: #eee4d2 !important;
+  font-family: 'Playfair Display', serif !important;
+  font-size: clamp(36px, 3.2vw, 52px) !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -1px !important;
+  max-width: none !important;
+  margin: 0 0 20px !important;
+}
+
+html body main section.gallery-section .gallery-feature-copy h3 em {
+  color: #c4a873 !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+}
+
+html body main section.gallery-section .gallery-feature-copy p {
+  color: #bdb5a8 !important;
+  font-size: 14px !important;
+  line-height: 1.9 !important;
+  max-width: 520px !important;
+  margin: 0 !important;
+}
+
+html body main section.gallery-section .gallery-feature-line {
+  width: 65px !important;
+  height: 1px !important;
+  background: #b99552 !important;
+  margin: 25px 0 20px !important;
+}
+
+html body main section.gallery-section .gallery-feature-footer {
+  color: #c5a66d !important;
+  font-size: 9px !important;
+  letter-spacing: 2px !important;
+}
+
+@media (max-width: 800px) {
+  html body main section.gallery-section .gallery-layout {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+  }
+
+  html body main section.gallery-section .gallery-photo.gp-three {
+    height: 340px !important;
+    border-radius: 3px 3px 0 0 !important;
+  }
+
+  html body main section.gallery-section .gallery-feature-copy {
+    height: auto !important;
+    min-height: 330px !important;
+    padding: 35px 28px !important;
+    border-left: 1px solid rgba(185,149,82,.35) !important;
+    border-radius: 0 0 3px 3px !important;
+  }
+}
+/* MENU CLEANUP - CONSISTENT FOOD CARDS */
+html body main .dish-grid {
+  align-items: start !important;
+  column-gap: 24px !important;
+  row-gap: 36px !important;
+}
+
+html body main .dish-card {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  transform: none;
+  box-shadow: none !important;
+}
+
+html body main .dish-image-wrap {
+  height: 245px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background: #171613 !important;
+}
+
+html body main .dish-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+html body main .dish-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: none !important;
+}
+
+/* Remove any remaining floating image controls */
+html body main .dish-image-wrap .add-round {
+  display: none !important;
+}
+
+html body main .dish-details {
+  padding: 17px 0 0 !important;
+}
+
+html body main .dish-buy {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin-top: auto !important;
+}
+
+html body main .dish-buy strong {
+  color: #c5a66d !important;
+  font-size: 18px !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 650px) {
+  html body main .dish-grid {
+    column-gap: 12px !important;
+    row-gap: 28px !important;
+  }
+
+  html body main .dish-image-wrap {
+    height: 175px !important;
+  }
+}
+
