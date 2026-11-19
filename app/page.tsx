@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import { supabase } from "../lib/supabase";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -249,6 +249,21 @@ export default function Home() {
   const [orderError, setOrderError] = useState("");
   const [marqueePaused, setMarqueePaused] = useState(false);
   const [marqueeDirection, setMarqueeDirection] = useState<"left" | "right">("left");
+  const [selectedDishId, setSelectedDishId] = useState<number | null>(null);
+  const bagButtonRef = useRef<HTMLButtonElement | null>(null);
+  const flightIdRef = useRef(0);
+
+  const [flyingItems, setFlyingItems] = useState<Array<{
+    id: number;
+    dishId: number;
+    image: string;
+    left: number;
+    top: number;
+    width: number;
+    height: number;
+    dx: number;
+    dy: number;
+  }>>([]);
 
   const visible = useMemo(
     () => category === "All"
@@ -256,6 +271,7 @@ export default function Home() {
       : dishes.filter(d => d.category === category),
     [category]
   );
+  const selectedDish = dishes.find(dish => dish.id === selectedDishId);
 
   const cartItems = dishes.filter(d => cart[d.id]);
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
@@ -269,6 +285,56 @@ export default function Home() {
       if (!next[id]) delete next[id];
       return next;
     });
+  }
+  function addDishToBag(
+    dish: (typeof dishes)[number],
+    source: Element | null
+  ) {
+    const target = bagButtonRef.current;
+
+    const imageElement =
+      source instanceof HTMLImageElement
+        ? source
+        : source?.querySelector("img");
+
+    const sourceRect = imageElement?.getBoundingClientRect();
+    const bagIcon = target?.querySelector(".bag-flight-icon") ?? target;
+    const targetRect = bagIcon?.getBoundingClientRect();
+
+    if (
+      !target ||
+      !sourceRect ||
+      !targetRect ||
+      sourceRect.width < 2 ||
+      sourceRect.height < 2
+    ) {
+      updateQty(dish.id, 1);
+      return;
+    }
+
+    const imageUrl =
+      imageElement instanceof HTMLImageElement
+        ? imageElement.currentSrc || imageElement.src
+        : dish.image;
+
+    const width = Math.min(sourceRect.width, 180);
+    const height = sourceRect.height * (width / sourceRect.width);
+
+    const flight = {
+      id: ++flightIdRef.current,
+      dishId: dish.id,
+      image: imageUrl,
+      left: sourceRect.left + (sourceRect.width - width) / 2,
+      top: sourceRect.top + (sourceRect.height - height) / 2,
+      width,
+      height,
+      dx: targetRect.left + targetRect.width / 2 -
+        (sourceRect.left + sourceRect.width / 2),
+      dy: targetRect.top + targetRect.height / 2 -
+        (sourceRect.top + sourceRect.height / 2)
+    };
+
+    setFlyingItems(current => [...current, flight]);
   }
 
   async function confirmOrder(e: React.FormEvent<HTMLFormElement>) {
@@ -326,9 +392,31 @@ export default function Home() {
             ORDER ONLINE <ArrowUpRight size={14} />
           </button>
 
-          <button className="bag-trigger" onClick={() => setCartOpen(true)}>
-            <ShoppingBag size={17} />
-            BAG <b>{count}</b>
+          <button
+            className="bag-trigger"
+            ref={bagButtonRef}
+            onClick={() => setCartOpen(true)}
+          >
+            <motion.span
+              key={`bag-icon-${count}`}
+              className="bag-flight-icon"
+              initial={{ scale: 1 }}
+              animate={count > 0
+                ? { scale: [1, 1.35, .92, 1], rotate: [0, -10, 8, 0] }
+                : { scale: 1 }}
+              transition={{ duration: .5 }}
+            >
+              <ShoppingBag size={17} />
+            </motion.span>
+            BAG
+            <motion.b
+              key={`bag-count-${count}`}
+              initial={{ scale: 1 }}
+              animate={count > 0 ? { scale: [1, 1.35, 1] } : { scale: 1 }}
+              transition={{ duration: .4 }}
+            >
+              {count}
+            </motion.b>
           </button>
 
           <button className="mobile-menu" onClick={() => setMobileOpen(!mobileOpen)}>
@@ -373,13 +461,11 @@ export default function Home() {
         </div>
 
         <div className="hero-art">
-          <img className="hero-main-image" src="/images/sgv-idly-vada-premium.png" alt="Idly and Vada with sambar and chutney" />
-          <div className="steam-layer" aria-hidden="true">
-  <span className="steam-wisp steam-one" />
-  <span className="steam-wisp steam-two" />
-  <span className="steam-wisp steam-three" />
-  <span className="steam-wisp steam-four" />
-</div>
+          <img
+            className="hero-main-image"
+            src="/images/sgv-breakfast.gif"
+            alt="Fresh South Indian breakfast with idli, medu vada, sambar and chutney"
+/>
           
           <div className="hero-image-label">
             <span>THE ART OF EVERYDAY DINING</span>
@@ -414,6 +500,37 @@ export default function Home() {
             <a href="#menu" className="dark-link">
               COME FIND YOUR FAVOURITE <ArrowUpRight size={14} />
             </a>
+          </div>
+        </div>
+
+        <div className="story-footer">
+          <div className="story-footer-photo">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Fresh dosa being prepared on a hot tawa"
+            >
+              <source src="/videos/story-cooking.mp4" type="video/mp4" />
+            </video>
+            <span>A TASTE OF HOME</span>
+          </div>
+
+          <div className="story-footer-values">
+            <div className="story-footer-value">
+              <span>01</span>
+              <strong>Familiar flavours</strong>
+            </div>
+            <div className="story-footer-value">
+              <span>02</span>
+              <strong>A place to gather</strong>
+            </div>
+            <div className="story-footer-value">
+              <span>03</span>
+              <strong>Moments worth sharing</strong>
+            </div>
           </div>
         </div>
       </section>
@@ -549,16 +666,48 @@ export default function Home() {
         </div>
 
         <motion.div layout className="dish-grid">
+          <svg className="sgv-smoke-defs" aria-hidden="true">
+            <defs>
+              <filter id="sgv-smoke-filter" x="-100%" y="-100%" width="300%" height="300%">
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency="0.014 0.038"
+                  numOctaves="3"
+                  seed="8"
+                  result="smokeNoise"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="smokeNoise"
+                  scale="25"
+                />
+                <feGaussianBlur stdDeviation="4" />
+              </filter>
+            </defs>
+          </svg>
           {visible.map((dish, i) => (
             <motion.article
               layout
               key={dish.id}
-              className="dish-card"
+              className={selectedDishId === dish.id ? "dish-card is-selected" : "dish-card"}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: .4, delay: i * .05 }}
             >
-              <div className="dish-image-wrap">
+              <div
+                className="dish-image-wrap"
+                role="button"
+                tabIndex={0}
+                aria-haspopup="dialog"
+                aria-label={"View details for " + dish.name}
+                onClick={() => setSelectedDishId(dish.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setSelectedDishId(dish.id);
+                  }
+                }}
+              >
                 <img
   className="dish-image"
   src={dish.image}
@@ -577,6 +726,12 @@ export default function Home() {
     }
   }}
 />
+                <div className="dish-smoke-layer" aria-hidden="true">
+                  <span className="dish-smoke-cloud smoke-left" />
+                  <span className="dish-smoke-cloud smoke-center" />
+                  <span className="dish-smoke-cloud smoke-right" />
+                </div>
+
                 {dish.tag && <span className="dish-tag">{dish.tag}</span>}
               </div>
 
@@ -587,9 +742,44 @@ export default function Home() {
 
                 <div className="dish-buy">
                   <strong>{"₹"}{dish.price}</strong>
-                  <button onClick={() => updateQty(dish.id, 1)}>
-                    ADD TO BAG <Plus size={13} />
-                  </button>
+
+                  {(cart[dish.id] || 0) > 0 ? (
+                    <div className="dish-quantity-control" aria-label={`Quantity of ${dish.name}`}>
+                      <button
+                        type="button"
+                        className="dish-quantity-button"
+                        onClick={() => updateQty(dish.id, -1)}
+                        aria-label={`Remove one ${dish.name}`}
+                      >
+                        −
+                      </button>
+
+                      <span className="dish-quantity-value">
+                        {cart[dish.id]}
+                      </span>
+
+                      <button
+                        type="button"
+                        className="dish-quantity-button"
+                        onClick={() => updateQty(dish.id, 1)}
+                        aria-label={`Add one ${dish.name}`}
+                      >
+                        +
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={(event) =>
+                        addDishToBag(
+                          dish,
+                          event.currentTarget.closest(".dish-card")?.querySelector(".dish-image") ?? null
+                        )
+                      }
+                    >
+                      ADD TO BAG <Plus size={13} />
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.article>
@@ -855,6 +1045,139 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
+      <AnimatePresence>
+        {selectedDish && (
+          <motion.div
+            className="dish-detail-scrim"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setSelectedDishId(null);
+              }
+            }}
+          >
+            <motion.section
+              className="dish-detail-dialog"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="dish-detail-title"
+              initial={{ opacity: 0, y: 35, scale: .94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: .97 }}
+              transition={{ type: "spring", stiffness: 240, damping: 25 }}
+              onMouseDown={event => event.stopPropagation()}
+            >
+              <button
+                className="dish-detail-close"
+                onClick={() => setSelectedDishId(null)}
+                aria-label="Close dish details"
+              >
+                <X />
+              </button>
+
+              <div className="dish-detail-visual">
+                <img
+                  src={selectedDish.image}
+                  alt={selectedDish.name}
+                  className="dish-detail-photo"
+                />
+
+                <div className="dish-smoke-layer dish-detail-smoke" aria-hidden="true">
+                  <span className="dish-smoke-cloud smoke-left" />
+                  <span className="dish-smoke-cloud smoke-center" />
+                  <span className="dish-smoke-cloud smoke-right" />
+                </div>
+
+                <span className="dish-detail-fresh-label">
+                  FRESH FROM OUR KITCHEN
+                </span>
+              </div>
+
+              <div className="dish-detail-content">
+                <span className="dish-detail-eyebrow">
+                  {selectedDish.category}
+                </span>
+
+                <h2 id="dish-detail-title">{selectedDish.name}</h2>
+
+                <p className="dish-detail-description">
+                  {selectedDish.description}
+                </p>
+
+                <div className="dish-detail-price">
+                  <span>PRICE</span>
+                  <strong>{"₹"}{selectedDish.price}</strong>
+                </div>
+
+                <div className="dish-detail-divider" />
+
+                <p className="dish-detail-note">
+                  <Sparkles size={16} />
+                  Carefully prepared and served fresh.
+                </p>
+
+                <button
+                  className="dish-detail-add"
+                  onClick={(event) => {
+                    addDishToBag(
+                      selectedDish,
+                      event.currentTarget.closest(".dish-detail-dialog")
+                        ?.querySelector(".dish-detail-photo") ?? null
+                    );
+                    setSelectedDishId(null);
+                  }}
+                >
+                  <ShoppingBag size={18} />
+                  ADD TO BAG
+                  <ArrowRight size={17} />
+                </button>
+              </div>
+            </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {flyingItems.map(flight => (
+        <motion.img
+          key={flight.id}
+          className="flying-dish-flight"
+          src={flight.image}
+          alt=""
+          initial={{
+            x: 0,
+            y: 0,
+            scale: 1,
+            opacity: 1,
+            rotate: 0
+          }}
+          animate={{
+            x: [0, flight.dx * .42, flight.dx],
+            y: [0, flight.dy * .35 - 90, flight.dy],
+            scale: [1, .72, .07],
+            opacity: [1, .98, 0],
+            rotate: [0, -7, 12]
+          }}
+          transition={{
+            duration: .95,
+            times: [0, .55, 1],
+            ease: [0.22, 0.8, 0.25, 1]
+          }}
+          onAnimationComplete={() => {
+            updateQty(flight.dishId, 1);
+            setFlyingItems(current =>
+              current.filter(item => item.id !== flight.id)
+            );
+          }}
+          style={{
+            position: "fixed",
+            left: flight.left,
+            top: flight.top,
+            width: flight.width,
+            height: flight.height
+          }}
+        />
+      ))}
     </main>
   );
 }
