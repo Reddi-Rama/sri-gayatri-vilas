@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -239,6 +239,164 @@ const categories = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    const selectors = [
+      ".hero-copy",
+      ".hero-art",
+      ".story-top",
+      ".story-content",
+      ".story-footer-photo",
+      ".story-footer-value",
+      ".food-marquee-heading",
+      ".food-marquee-card",
+      ".menu-section > .section-topline",
+      ".section-title-row",
+      ".menu-toolbar",
+      ".category-pill",
+      ".dish-grid > article",
+      ".special-image",
+      ".special-copy",
+      ".gallery-section > .section-topline",
+      ".gallery-heading",
+      ".gallery-photo",
+      ".visit-heading",
+      ".visit-block",
+      ".footer > *"
+    ];
+const elements = document.querySelectorAll(selectors.join(","));
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      elements.forEach(element => element.classList.add("scroll-revealed"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("scroll-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -45px 0px"
+      }
+    );
+
+    elements.forEach((element, index) => {
+      element.classList.add("scroll-reveal");
+      (element as HTMLElement).style.setProperty(
+        "--reveal-delay",
+        `${(index % 4) * 110}ms`
+      );
+      observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+
+  // SYNC_CATEGORY_SCROLLBAR
+  useEffect(() => {
+    const list = document.querySelector<HTMLElement>(
+      "main .menu-toolbar .category-list"
+    );
+    const track = document.querySelector<HTMLElement>(
+      "main .menu-toolbar .category-scrollbar"
+    );
+    const thumb = document.querySelector<HTMLElement>(
+      "main .menu-toolbar .category-scrollbar-thumb"
+    );
+
+    if (!list || !track || !thumb) return;
+
+    let dragging = false;
+    let grabOffset = 0;
+
+    const update = () => {
+      const visible = list.clientWidth;
+      const total = list.scrollWidth;
+      const trackWidth = track.clientWidth;
+
+      if (!visible || !total || !trackWidth) return;
+
+      const ratio = Math.min(1, visible / total);
+      const thumbWidth = Math.max(35, trackWidth * ratio);
+      const travel = Math.max(0, trackWidth - thumbWidth);
+      const maxScroll = Math.max(0, total - visible);
+      const position = maxScroll ? (list.scrollLeft / maxScroll) * travel : 0;
+
+      thumb.style.width = `${thumbWidth}px`;
+      thumb.style.transform = `translateX(${position}px)`;
+    };
+
+    const moveToPointer = (clientX: number) => {
+      const rect = track.getBoundingClientRect();
+      const travel = track.clientWidth - thumb.clientWidth;
+      const maxScroll = list.scrollWidth - list.clientWidth;
+
+      if (travel <= 0 || maxScroll <= 0) return;
+
+      const position = Math.max(
+        0,
+        Math.min(travel, clientX - rect.left - grabOffset)
+      );
+
+      list.scrollLeft = (position / travel) * maxScroll;
+    };
+
+    const pointerDown = (event: PointerEvent) => {
+      event.preventDefault();
+
+      const thumbRect = thumb.getBoundingClientRect();
+      const onThumb =
+        event.clientX >= thumbRect.left &&
+        event.clientX <= thumbRect.right;
+
+      grabOffset = onThumb
+        ? event.clientX - thumbRect.left
+        : thumb.clientWidth / 2;
+
+      dragging = true;
+      moveToPointer(event.clientX);
+    };
+
+    const pointerMove = (event: PointerEvent) => {
+      if (dragging) {
+        event.preventDefault();
+        moveToPointer(event.clientX);
+      }
+    };
+
+    const pointerUp = () => {
+      dragging = false;
+    };
+
+    track.addEventListener("pointerdown", pointerDown);
+    window.addEventListener("pointermove", pointerMove, { passive: false });
+    window.addEventListener("pointerup", pointerUp);
+    window.addEventListener("pointercancel", pointerUp);
+    list.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+
+    const observer = new ResizeObserver(update);
+    observer.observe(list);
+    observer.observe(track);
+
+    requestAnimationFrame(update);
+
+    return () => {
+      track.removeEventListener("pointerdown", pointerDown);
+      window.removeEventListener("pointermove", pointerMove);
+      window.removeEventListener("pointerup", pointerUp);
+      window.removeEventListener("pointercancel", pointerUp);
+      list.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      observer.disconnect();
+    };
+  }, []);
   const [category, setCategory] = useState("All");
   const [cart, setCart] = useState<Record<number, number>>({});
   const [cartOpen, setCartOpen] = useState(false);
@@ -431,7 +589,7 @@ export default function Home() {
         <div className="hero-copy">
           <div className="eyebrow">
             <span className="eyebrow-line" />
-            A TABLE FULL OF GOODNESS Ã‚· VIZIANAGARAM
+            A TABLE FULL OF GOODNESS  |  VIZIANAGARAM
           </div>
 
           <h1>
@@ -456,7 +614,7 @@ export default function Home() {
 
           <div className="hero-meta">
             <span>01 — 04</span><i />
-            <span>FRESHLY PREPARED Ã‚· ALWAYS WELCOMING</span>
+            <span>FRESHLY PREPARED  |  ALWAYS WELCOMING</span>
           </div>
         </div>
 
@@ -615,7 +773,7 @@ export default function Home() {
               fontSize: "19px"
             }}
           >
-            {"←"}
+            {"\u2190"}
           </button>
 
           <button
@@ -662,10 +820,13 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div className="category-scrollbar" aria-hidden="true">
+            <span className="category-scrollbar-thumb"></span>
+          </div>
           <span className="item-count">{visible.length} DISHES</span>
         </div>
 
-        <motion.div layout className="dish-grid">
+        <div className="dish-grid">
           <svg className="sgv-smoke-defs" aria-hidden="true">
             <defs>
               <filter id="sgv-smoke-filter" x="-100%" y="-100%" width="300%" height="300%">
@@ -685,14 +846,10 @@ export default function Home() {
               </filter>
             </defs>
           </svg>
-          {visible.map((dish, i) => (
-            <motion.article
-              layout
+          {visible.map((dish) => (
+            <article
               key={dish.id}
               className={selectedDishId === dish.id ? "dish-card is-selected" : "dish-card"}
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: .4, delay: i * .05 }}
             >
               <div
                 className="dish-image-wrap"
@@ -782,12 +939,12 @@ export default function Home() {
                   )}
                 </div>
               </div>
-            </motion.article>
+            </article>
           ))}
-        </motion.div>
+        </div>
 
         <p className="demo-note">
-          SAMPLE MENU FOR DESIGN PREVIEW Ã‚· FINAL DISHES, PRICES AND AVAILABILITY
+          SAMPLE MENU FOR DESIGN PREVIEW  |  FINAL DISHES, PRICES AND AVAILABILITY
           MUST BE CONFIRMED BY THE RESTAURANT.
         </p>
       </section>
@@ -829,7 +986,7 @@ export default function Home() {
       <section className="gallery-section">
         <div className="section-topline">
           <span className="eyebrow">04 / A GLIMPSE OF THE GOOD LIFE</span>
-          <span className="section-note">FOOD Ã‚· PEOPLE Ã‚· MOMENTS</span>
+          <span className="section-note">FOOD  |  PEOPLE  |  MOMENTS</span>
         </div>
 
         <div className="gallery-heading">
@@ -864,7 +1021,7 @@ export default function Home() {
     <div className="gallery-feature-line"></div>
 
     <span className="gallery-feature-footer">
-      SRI GAYATRI VILAS · VIZIANAGARAM
+      SRI GAYATRI VILAS Â· VIZIANAGARAM
     </span>
   </div>
 </div>
@@ -906,7 +1063,7 @@ export default function Home() {
           <a href="#visit">CONTACT</a>
           <a href="https://social.com" target="_blank">IG</a>
         </div>
-        <small>Ã‚Â© 2026 SRI GAYATRI VILAS Ã‚· VIZIANAGARAM</small>
+        <small>(c) 2026 SRI GAYATRI VILAS  |  VIZIANAGARAM</small>
       </footer>
 
       <AnimatePresence>
@@ -940,7 +1097,20 @@ export default function Home() {
                   <ShoppingBag size={34} />
                   <h3>Nothing in the bag. Yet.</h3>
                   <p>Find something lovely on the menu.</p>
-                  <button className="btn-dark" onClick={() => setCartOpen(false)}>BACK TO MENU</button>
+                  <button
+  className="btn-dark"
+  onClick={() => {
+    setCartOpen(false);
+    setTimeout(() => {
+      document.getElementById("menu")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 300);
+  }}
+>
+  BACK TO MENU
+</button>
                 </div>
               ) : (
                 <>
@@ -1181,6 +1351,20 @@ export default function Home() {
     </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,11 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import {
   LayoutDashboard, ShoppingBag, Utensils, Tags, ChartNoAxesCombined,
   Settings, Search, Bell, ChevronDown, Clock, CheckCircle2,
   ChefHat, IndianRupee, TrendingUp, Plus, ArrowUpRight,
-  Menu, X, MoreHorizontal
+  Menu, X, MoreHorizontal, Pencil, Trash2
 } from "lucide-react";
 import styles from "./admin.module.css";
 import { restaurantMenu } from "./menu-data";
@@ -21,6 +21,17 @@ const navigation = [
   { name: "Reports" as Section, icon: ChartNoAxesCombined },
 ];
 
+type AdminDish = {
+  id: number;
+  name: string;
+  category: string;
+  description: string | null;
+  price: number;
+  image?: string | null;
+  tag?: string | null;
+  available: boolean;
+  is_available?: boolean;
+};
 const initialOrders: any[] = [];
 
 const initialDishes = restaurantMenu.map(dish => ({ ...dish, available: true }));
@@ -30,7 +41,7 @@ export default function AdminPage() {
   const [orders, setOrders] = useState<any[]>(initialOrders);
   const [ordersLoading, setOrdersLoading] = useState(false);
   const [ordersError, setOrdersError] = useState("");
-  const [dishes, setDishes] = useState(initialDishes);
+  const [dishes, setDishes] = useState<AdminDish[]>(initialDishes);
   const [menuLoading, setMenuLoading] = useState(true);
   const [menuError, setMenuError] = useState("");
   const [showAddDish, setShowAddDish] = useState(false);
@@ -46,6 +57,7 @@ export default function AdminPage() {
   const [offerActive, setOfferActive] = useState(true);
   const [authLoading, setAuthLoading] = useState(true);
   const [adminEmail, setAdminEmail] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -77,16 +89,45 @@ export default function AdminPage() {
     loadMenu();
     return () => { cancelled = true; };
   }, []);
+  async function verifyAdminSession(session: any) {
+    if (!session) {
+      setAdminEmail("");
+      setIsAdmin(false);
+      setAuthLoading(false);
+      return false;
+    }
+
+    const { data, error } = await supabase
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id", session.user.id)
+      .maybeSingle();
+
+    if (error || !data) {
+      setAdminEmail("");
+      setIsAdmin(false);
+      setAuthLoading(false);
+      setLoginError("This account is not authorized as an administrator.");
+      return false;
+    }
+
+    setAdminEmail(session.user.email || "");
+    setIsAdmin(true);
+    setAuthLoading(false);
+    setLoginError("");
+    return true;
+  }
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      setAdminEmail(data.session?.user.email || "");
-      setAuthLoading(false);
+      void verifyAdminSession(data.session);
     });
 
     const { data: listener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setAdminEmail(session?.user.email || "");
-        setAuthLoading(false);
+        setTimeout(() => {
+          void verifyAdminSession(session);
+        }, 0);
       }
     );
 
@@ -96,16 +137,54 @@ export default function AdminPage() {
   async function handleAdminLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoginError("");
-    const { error } = await supabase.auth.signInWithPassword({
+    setAuthLoading(true);
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: loginEmail,
       password: loginPassword
     });
-    if (error) setLoginError(error.message);
+
+    if (error) {
+      setAuthLoading(false);
+      setLoginError(error.message);
+      return;
+    }
+
+    const authorized = await verifyAdminSession(data.session);
+
+    if (!authorized) {
+      await supabase.auth.signOut();
+      setLoginError("This account is not authorized as an administrator.");
+    }
   }
 
   async function handleAdminLogout() {
     await supabase.auth.signOut();
+    setAdminEmail("");
+    setIsAdmin(false);
   }
+
+  async function handleForgotPassword() {
+    if (!loginEmail.trim()) {
+      setLoginError("Enter your admin email address first.");
+      return;
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      loginEmail.trim(),
+      {
+        redirectTo: `${window.location.origin}/admin/reset-password`
+      }
+    );
+
+    setLoginError(
+      error
+        ? error.message
+        : "Password recovery email sent. Check your inbox."
+    );
+  }
+
+
   useEffect(() => {
     async function loadOrders() {
       setOrdersLoading(true);
@@ -175,6 +254,72 @@ export default function AdminPage() {
     ));
   };
 
+  async function editDish(dish: any) {
+    const name = window.prompt("Dish name:", dish.name);
+    if (name === null) return;
+
+    const category = window.prompt("Category:", dish.category);
+    if (category === null) return;
+
+    const priceText = window.prompt("Price:", String(dish.price));
+    if (priceText === null) return;
+
+    const description = window.prompt("Description:", dish.description || "");
+    if (description === null) return;
+
+    const price = Number(priceText);
+
+    if (!name.trim() || !category.trim() || !Number.isFinite(price) || price <= 0) {
+      setMenuError("Enter a valid name, category and price.");
+      return;
+    }
+
+    setMenuError("");
+
+    const { error } = await supabase
+      .from("menu_items")
+      .update({
+        name: name.trim(),
+        category: category.trim(),
+        price,
+        description: description.trim()
+      })
+      .eq("id", dish.id);
+
+    if (error) {
+      setMenuError(error.message);
+      return;
+    }
+
+    setDishes(current => current.map(item =>
+      item.id === dish.id
+        ? { ...item, name: name.trim(), category: category.trim(),
+            price, description: description.trim() }
+        : item
+    ));
+  }
+
+  async function deleteDish(dish: any) {
+    const confirmed = window.confirm(
+      `Delete "${dish.name}" permanently from the menu?`
+    );
+
+    if (!confirmed) return;
+
+    setMenuError("");
+
+    const { error } = await supabase
+      .from("menu_items")
+      .delete()
+      .eq("id", dish.id);
+
+    if (error) {
+      setMenuError(error.message);
+      return;
+    }
+
+    setDishes(current => current.filter(item => item.id !== dish.id));
+  }
   async function handleAddDish(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setDishSaving(true);
@@ -269,7 +414,7 @@ export default function AdminPage() {
 
     if (authLoading) return <main style={{background:"#0b0b0a",color:"#eee9df",minHeight:"100vh",display:"grid",placeItems:"center"}}>Checking session...</main>;
 
-  if (!adminEmail) return (
+  if (!isAdmin) return (
     <main style={{background:"#0b0b0a",color:"#eee9df",minHeight:"100vh",display:"grid",placeItems:"center",padding:24}}>
       <form onSubmit={handleAdminLogin} style={{width:"100%",maxWidth:400,background:"#171613",padding:32,border:"1px solid #c9b38d"}}>
         <h1>Sri Gayatri Vilas</h1>
@@ -278,6 +423,9 @@ export default function AdminPage() {
         <input type="password" required placeholder="Password" value={loginPassword} onChange={e=>setLoginPassword(e.target.value)} style={{display:"block",width:"100%",padding:12,marginBottom:18}} />
         {loginError && <p style={{color:"#ff9b85"}}>{loginError}</p>}
         <button type="submit" style={{width:"100%",padding:14,background:"#c9b38d"}}>SIGN IN</button>
+        <button type="button" onClick={handleForgotPassword} style={{width:"100%",padding:12,marginTop:12,background:"transparent",color:"#c9b38d",border:"1px solid #c9b38d",cursor:"pointer"}}>
+          FORGOT PASSWORD?
+        </button>
       </form>
     </main>
   );
@@ -293,14 +441,29 @@ return (
           <div className={styles.topActions}>
             <span className={styles.today}>Thursday, 19 November 2026</span>
             <button className={styles.iconButton} aria-label="Notifications"><Bell size={19}/><i /></button>
-            <div className={styles.topAvatar}>A</div>
+            <div className={styles.topAvatar}>{adminEmail?.[0]?.toUpperCase() || "A"}</div>
+            <button
+              type="button"
+              onClick={handleAdminLogout}
+              style={{
+                padding: "10px 16px",
+                background: "transparent",
+                color: "#c9b38d",
+                border: "1px solid #c9b38d",
+                borderRadius: "6px",
+                cursor: "pointer",
+                fontWeight: "bold"
+              }}
+            >
+              LOG OUT
+            </button>
           </div>
         </header>
 
         <div className={styles.content}>
           <div className={styles.pageHeading}>
             <div>
-              <div className={styles.eyebrow}>SRI GAYATRI VILAS · VIZIANAGARAM</div>
+              <div className={styles.eyebrow}>SRI GAYATRI VILAS  |  VIZIANAGARAM</div>
               <h1>{section === "Dashboard" ? "Good evening, Admin" : section}</h1>
               <p>{section === "Dashboard" ? "Here's what's happening at your restaurant today." : `Manage your restaurant ${section.toLowerCase()} from here.`}</p>
             </div>
@@ -311,7 +474,7 @@ return (
           {section === "Dashboard" && <>
             <div className={styles.statsGrid}>
               <Stat icon={<ShoppingBag/>} label="Total orders" value="49" change="+12.5%" note="vs. previous day"/>
-              <Stat icon={<IndianRupee/>} label="Today's revenue" value="₹8,450" change="+8.2%" note="vs. previous day"/>
+              <Stat icon={<IndianRupee/>} label="Today's revenue" value="Rs. 8,450" change="+8.2%" note="vs. previous day"/>
               <Stat icon={<Clock/>} label="Pending orders" value={String(orders.filter(o => o.status === "Pending").length + 4)} change="Needs attention" note="Orders awaiting action"/>
               <Stat icon={<ChefHat/>} label="Preparing" value={String(orders.filter(o => o.status === "Preparing").length + 3)} change="In kitchen" note="Currently being prepared"/>
             </div>
@@ -326,7 +489,7 @@ return (
                   {orders.slice(0,4).map(order => (
                     <div className={styles.orderRow} key={order.id}>
                       <div className={styles.orderIcon}><ShoppingBag size={17}/></div>
-                      <div className={styles.orderInfo}><strong>{order.customer}</strong><small>{order.id} · {order.items}</small></div>
+                      <div className={styles.orderInfo}><strong>{order.customer}</strong><small>{order.id}  |  {order.items}</small></div>
                       <div className={styles.orderRight}><strong>{money(order.amount)}</strong><Status status={order.status}/></div>
                     </div>
                   ))}
@@ -381,7 +544,7 @@ return (
               <h3 style={{gridColumn:"1/-1"}}>Add a new dish</h3>
               <input required placeholder="Dish name" value={dishName} onChange={e=>setDishName(e.target.value)} style={{padding:12}} />
               <input required placeholder="Category" value={dishCategory} onChange={e=>setDishCategory(e.target.value)} style={{padding:12}} />
-              <input required type="number" min="1" step="0.01" placeholder="Price (₹)" value={dishPrice} onChange={e=>setDishPrice(e.target.value)} style={{padding:12}} />
+              <input required type="number" min="1" step="0.01" placeholder="Price (Rs. )" value={dishPrice} onChange={e=>setDishPrice(e.target.value)} style={{padding:12}} />
               <input placeholder="Image path (optional)" value={dishImage} onChange={e=>setDishImage(e.target.value)} style={{padding:12}} />
               <input placeholder="Description (optional)" value={dishDescription} onChange={e=>setDishDescription(e.target.value)} style={{padding:12}} />
               <div style={{gridColumn:"1/-1",display:"flex",gap:10}}>
@@ -394,6 +557,8 @@ return (
               <strong>{money(dish.price)}</strong>
               <label className={styles.switch}><input type="checkbox" checked={dish.available} onChange={() => toggleDish(dish)} /><span/></label>
               <span className={dish.available ? styles.available : styles.unavailable}>{dish.available ? "Available" : "Unavailable"}</span>
+              <button type="button" title="Edit dish" onClick={() => editDish(dish)} style={{padding:8,background:"transparent",color:"#c9b38d",border:"1px solid #c9b38d",borderRadius:6,cursor:"pointer"}}><Pencil size={16}/></button>
+              <button type="button" title="Delete dish" onClick={() => deleteDish(dish)} style={{padding:8,background:"transparent",color:"#e58b7d",border:"1px solid #e58b7d",borderRadius:6,cursor:"pointer"}}><Trash2 size={16}/></button>
             </div>)}</div>
             <p className={styles.footnote}>Menu data is loaded live from Supabase. Availability changes are saved directly to Supabase.</p>
           </div>}
@@ -405,7 +570,7 @@ return (
 
           {section === "Reports" && <div className={styles.panel}>
             <div className={styles.panelHeading}><div><h2>Business reports</h2><p>Illustrative performance summary</p></div></div>
-            <div className={styles.statsGrid}><Stat icon={<IndianRupee/>} label="Gross sales" value="₹8,450" change="Today" note="Sample figure"/><Stat icon={<ShoppingBag/>} label="Orders" value="49" change="Today" note="Sample figure"/><Stat icon={<TrendingUp/>} label="Average order" value="₹172" change="Today" note="Sample figure"/></div>
+            <div className={styles.statsGrid}><Stat icon={<IndianRupee/>} label="Gross sales" value="Rs. 8,450" change="Today" note="Sample figure"/><Stat icon={<ShoppingBag/>} label="Orders" value="49" change="Today" note="Sample figure"/><Stat icon={<TrendingUp/>} label="Average order" value="Rs. 172" change="Today" note="Sample figure"/></div>
             <p className={styles.footnote}>Real sales reports will be available after connecting the order database.</p>
           </div>}
 
@@ -422,7 +587,7 @@ return (
             <p className={styles.footnote}>These settings are display-only until connected to the backend.</p>
           </div>}
 
-          <footer className={styles.footer}>SRI GAYATRI VILAS <span>·</span> ADMINISTRATION <span>·</span> 2026</footer>
+          <footer className={styles.footer}>SRI GAYATRI VILAS <span> | </span> ADMINISTRATION <span> | </span> 2026</footer>
         </div>
       </section>
     </main>
@@ -442,3 +607,7 @@ function Quick({icon,title,desc,onClick}:{icon:React.ReactNode;title:string;desc
 function Setting({label,value}:{label:string;value:string}) {
   return <div className={styles.settingRow}><span>{label}</span><strong>{value}</strong></div>;
 }
+
+
+
+

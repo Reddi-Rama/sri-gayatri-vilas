@@ -3477,3 +3477,3217 @@ html body .story-footer-photo video {
 html body .story-footer-photo:hover video {
   transform: scale(1.045);
 }
+/* =========================================================
+   SRI GAYATRI VILAS - PREMIUM MOBILE CAFE EXPERIENCE
+   Mobile only. Desktop layout remains unchanged.
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 76px;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body, button, input, textarea {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Announcement strip */
+  .announcement {
+    height: 30px;
+    padding: 0 10px;
+    font-size: 7px;
+    letter-spacing: 1.15px;
+    text-align: center;
+  }
+
+  /* Premium sticky header */
+  .site-header {
+    height: 68px;
+    padding: 0 17px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 11, 10, .94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(201, 179, 141, .18);
+  }
+
+  .wordmark {
+    gap: 9px;
+  }
+
+  .wordmark img {
+    width: 43px !important;
+    height: 43px !important;
+  }
+
+  .wordmark i {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+  }
+
+  .header-actions {
+    gap: 12px;
+  }
+
+  .bag-trigger {
+    min-width: 48px;
+    min-height: 44px;
+    justify-content: center;
+    border: 1px solid rgba(201, 179, 141, .4);
+    border-radius: 30px;
+    padding: 0 10px;
+    background: rgba(201, 179, 141, .08);
+  }
+
+  .mobile-menu {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(201, 179, 141, .35);
+    border-radius: 50%;
+    color: #d9c49e;
+  }
+
+  .main-nav {
+    top: 67px;
+    padding: 17px 20px 22px;
+    gap: 0;
+    background: rgba(15, 14, 12, .98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201, 179, 141, .25);
+    box-shadow: 0 20px 35px rgba(0,0,0,.35);
+  }
+
+  .main-nav a {
+    padding: 17px 4px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(201, 179, 141, .13);
+  }
+
+  /* Cinematic mobile hero */
+  .hero {
+    min-height: auto;
+    padding: 48px 20px 38px;
+    gap: 0;
+    position: relative;
+  }
+
+  .hero-copy {
+    padding: 0;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 20px;
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .hero h1 {
+    max-width: 100%;
+    font-size: clamp(59px, 15vw, 76px);
+    line-height: .94;
+    letter-spacing: -3px;
+  }
+
+  .hero-lede {
+    max-width: 330px;
+    margin: 19px 0 23px;
+    font-size: 12px;
+    line-height: 1.85;
+  }
+
+  .hero-ctas {
+    gap: 13px;
+    flex-wrap: wrap;
+  }
+
+  .hero-ctas .btn-cream {
+    min-height: 48px;
+    padding: 0 17px;
+    font-size: 9px;
+  }
+
+  .hero-ctas .understated-link {
+    min-height: 44px;
+    font-size: 8px;
+  }
+
+  .hero-art {
+    height: clamp(270px, 82vw, 355px);
+    margin: 30px 0 0;
+    border: 1px solid rgba(201, 179, 141, .3);
+    background: #171613;
+    overflow: hidden;
+  }
+
+  .hero-main-image {
+    inset: 0 !important;
+    background-position: center;
+    filter: brightness(.78);
+  }
+
+  .hero-art > video.hero-main-video {
+    top: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+    object-fit: cover !important;
+  }
+
+  .hero-small-image {
+    width: 31%;
+    height: 34%;
+    left: 12px;
+    bottom: 12px;
+    border: 3px solid #0b0b0a;
+  }
+
+  .hero-image-label {
+    bottom: 12px;
+    right: 12px;
+    left: 43%;
+    font-size: 6px;
+  }
+
+  .seal {
+    right: 12px;
+    top: 12px;
+    width: 67px;
+    height: 67px;
+  }
+
+  .hero-meta {
+    margin-top: 28px;
+    font-size: 7px;
+    letter-spacing: 1.2px;
+  }
+
+  .scroll-cue {
+    display: none;
+  }
+
+  /* Story becomes editorial mobile panels */
+  .story-section {
+    padding: 58px 21px 62px;
+  }
+
+  .story-top {
+    align-items: center;
+  }
+
+  .story-content {
+    margin-top: 34px;
+  }
+
+  .story-content h2 {
+    font-size: clamp(48px, 12vw, 62px);
+    line-height: .98;
+    letter-spacing: -2px;
+  }
+
+  .story-right {
+    margin-top: 20px;
+  }
+
+  .story-right p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  .story-footer {
+    margin-top: 30px !important;
+  }
+
+  /* Food showcase swipe gallery */
+  .food-marquee-section {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
+
+  .food-marquee-heading {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .food-marquee-window {
+    overflow: hidden;
+  }
+
+  .food-marquee-card {
+    width: 210px;
+    min-width: 210px;
+    height: 235px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .food-marquee-controls {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* Menu section */
+  .menu-section {
+    padding: 66px 17px 76px;
+  }
+
+  .section-topline {
+    gap: 12px;
+  }
+
+  .section-topline .eyebrow,
+  .section-note {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+
+  .section-title-row {
+    margin: 23px 0 28px;
+  }
+
+  .section-title-row h2,
+  .gallery-heading h2 {
+    font-size: clamp(48px, 12vw, 62px);
+    line-height: .98;
+    letter-spacing: -2px;
+  }
+
+  .section-title-row p,
+  .gallery-heading p {
+    margin: 14px 0 0;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  /* Swipeable category filters */
+  .menu-toolbar {
+    position: sticky;
+    top: 68px;
+    z-index: 25;
+    display: block;
+    margin: 0 -17px 20px;
+    padding: 11px 0 0;
+    background: rgba(11, 11, 10, .96);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(201, 179, 141, .18);
+  }
+
+  .category-list {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding: 0 17px 10px;
+    scroll-snap-type: x proximity;
+  }
+
+  .category-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-pill {
+    flex: 0 0 auto;
+    min-height: 38px;
+    padding: 0 15px;
+    border: 1px solid rgba(201, 179, 141, .23);
+    border-radius: 30px;
+    background: #171613;
+    font-size: 9px;
+    letter-spacing: .5px;
+    scroll-snap-align: start;
+  }
+
+  .category-pill.selected {
+    color: #17130d;
+    background: linear-gradient(110deg, #c4a36c, #e3c58e);
+    border-color: #d6bd8e;
+  }
+
+  .item-count {
+    display: block;
+    padding: 0 18px 9px;
+    text-align: right;
+    font-size: 7px;
+  }
+
+  /* Premium mobile food cards */
+  .dish-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 12px;
+  }
+
+  .dish-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid rgba(201, 179, 141, .14);
+    border-radius: 7px;
+    background: linear-gradient(145deg, #191815, #100f0d);
+    transition: border-color .3s ease, transform .3s ease;
+  }
+
+  .dish-card:active {
+    transform: scale(.975);
+    border-color: rgba(201, 179, 141, .6);
+  }
+
+  .dish-image-wrap {
+    height: auto;
+    aspect-ratio: 1 / .88;
+    border-radius: 0;
+  }
+
+  .dish-image {
+    transition: transform .65s cubic-bezier(.2,.7,.2,1), filter .4s ease;
+    filter: brightness(.9);
+  }
+
+  .dish-tag {
+    top: 8px;
+    left: 8px;
+    padding: 6px 7px;
+    font-size: 6px;
+    letter-spacing: .8px;
+  }
+
+  .add-round {
+    right: 8px;
+    bottom: 8px;
+    width: 35px;
+    height: 35px;
+  }
+
+  .dish-details {
+    padding: 12px 10px 11px;
+  }
+
+  .dish-category {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+
+  .dish-details h3 {
+    min-height: 39px;
+    margin: 6px 0;
+    font-size: clamp(14px, 3.8vw, 17px);
+    line-height: 1.25;
+  }
+
+  .dish-details p {
+    min-height: 34px;
+    font-size: 9px;
+    line-height: 1.55;
+  }
+
+  .dish-buy {
+    gap: 5px;
+    padding-top: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .dish-buy strong {
+    font-size: 12px;
+  }
+
+  .dish-buy button {
+    min-height: 35px;
+    font-size: 7px;
+    letter-spacing: .6px;
+  }
+
+  html body main .dish-buy .dish-quantity-control {
+    min-width: 98px !important;
+    height: 36px !important;
+    gap: 4px !important;
+    padding: 2px 4px !important;
+  }
+
+  html body main .dish-buy .dish-quantity-control .dish-quantity-button {
+    width: 26px !important;
+    min-width: 26px !important;
+    height: 26px !important;
+    min-height: 26px !important;
+    font-size: 19px !important;
+  }
+
+  html body main .dish-buy .dish-quantity-control .dish-quantity-value {
+    min-width: 15px !important;
+    font-size: 14px !important;
+  }
+
+  /* Special dish feature */
+  .special-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .special-image {
+    min-height: 290px;
+    height: 290px;
+  }
+
+  .special-food-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .special-copy {
+    padding: 43px 22px 48px;
+  }
+
+  .special-copy h2 {
+    font-size: clamp(54px, 13vw, 70px);
+    line-height: .98;
+  }
+
+  .special-copy > p {
+    font-size: 12px;
+    line-height: 1.85;
+  }
+
+  /* Gallery */
+  .gallery-section {
+    padding: 68px 17px;
+  }
+
+  .gallery-heading {
+    margin: 23px 0 27px;
+  }
+
+  .gallery-layout {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 13px;
+  }
+
+  .gallery-photo {
+    width: 100%;
+    height: 225px;
+    margin: 0 !important;
+  }
+
+  .gp-two {
+    height: 190px;
+  }
+
+  .gp-three {
+    height: 240px;
+  }
+
+  .gallery-feature-copy {
+    padding: 23px 19px;
+  }
+
+  /* Visit and contact */
+  .visit-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 27px;
+    padding: 62px 22px;
+  }
+
+  .visit-heading h2 {
+    font-size: 58px;
+    line-height: .98;
+  }
+
+  .visit-block {
+    padding-top: 19px;
+    border-top: 1px solid rgba(23, 22, 18, .15);
+  }
+
+  .visit-block h3 {
+    font-size: 23px;
+  }
+
+  .visit-block p {
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .visit-block a {
+    min-height: 42px;
+    font-size: 8px;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 32px 20px calc(35px + env(safe-area-inset-bottom));
+  }
+
+  .footer > div {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  /* Cart becomes a bottom sheet */
+  .scrim {
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .cart-panel {
+    width: 100%;
+    height: min(88dvh, 760px);
+    max-height: 88dvh;
+    padding: 23px 19px calc(18px + env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -15px 55px rgba(0,0,0,.35);
+  }
+
+  .panel-heading {
+    padding-bottom: 16px;
+  }
+
+  .panel-heading h2 {
+    font-size: 32px;
+  }
+
+  .cart-list {
+    overscroll-behavior: contain;
+  }
+
+  .cart-row {
+    gap: 10px;
+    padding: 14px 0;
+  }
+
+  .cart-thumb {
+    width: 62px;
+    height: 62px;
+    border-radius: 5px;
+  }
+
+  .cart-item-copy h3 {
+    font-size: 15px;
+  }
+
+  .cart-summary {
+    padding-top: 15px;
+    padding-bottom: 5px;
+  }
+
+  .cart-summary .btn-dark {
+    min-height: 51px;
+  }
+
+  /* Checkout bottom sheet */
+  .scrim.centered {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .checkout-panel {
+    width: 100%;
+    max-height: 94dvh;
+    padding: 22px 19px calc(20px + env(safe-area-inset-bottom));
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .checkout-panel .panel-heading h2 {
+    font-size: 31px;
+  }
+
+  .checkout-fields {
+    gap: 13px;
+  }
+
+  .checkout-fields input,
+  .checkout-fields textarea {
+    min-height: 46px;
+    font-size: 13px;
+  }
+
+  .checkout-fields button {
+    min-height: 51px;
+  }
+
+  .two-fields {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  /* Dish details as a mobile sheet */
+  .dish-detail-scrim {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .dish-detail-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92dvh;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(230px, 35dvh) auto;
+    border-radius: 20px 20px 0 0;
+    overflow-y: auto;
+  }
+
+  .dish-detail-visual {
+    min-height: 230px;
+  }
+
+  .dish-detail-content {
+    padding: 25px 21px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .dish-detail-content h2 {
+    font-size: 30px;
+  }
+
+  .dish-detail-add {
+    min-height: 53px;
+  }
+
+  /* Better touch targets */
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  .close-btn,
+  .dish-detail-close {
+    min-width: 42px;
+    min-height: 42px;
+  }
+
+  /* Smooth visual transitions */
+  .dish-card,
+  .category-pill,
+  .btn-cream,
+  .btn-dark,
+  .dish-image,
+  .add-round,
+  .visit-block a {
+    transition:
+      transform .28s ease,
+      background-color .28s ease,
+      border-color .28s ease,
+      opacity .28s ease;
+  }
+
+  .btn-cream:active,
+  .btn-dark:active,
+  .dish-detail-add:active {
+    transform: scale(.97);
+  }
+
+  /* Respect accessibility settings */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+}
+
+/* Small phone refinements */
+@media (max-width: 380px) {
+  .hero {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .dish-grid {
+    gap: 20px 9px;
+  }
+
+  .dish-details {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .dish-details h3 {
+    font-size: 14px;
+  }
+
+  .dish-buy {
+    align-items: flex-start;
+  }
+
+  .dish-buy strong {
+    width: 100%;
+  }
+
+  .category-list {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+}
+
+/* ==========================================
+   SCROLL-TRIGGERED REVEAL ANIMATIONS
+   ========================================== */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 42px, 0) scale(.985);
+  filter: blur(5px);
+  transition:
+    opacity .85s cubic-bezier(.2,.7,.2,1),
+    transform .85s cubic-bezier(.2,.7,.2,1),
+    filter .85s cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.scroll-reveal.scroll-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+/* Food photography gets a softer entrance */
+.scroll-reveal.hero-art,
+.scroll-reveal.special-image,
+.scroll-reveal.gallery-photo,
+.scroll-reveal.story-footer-photo {
+  transform: translate3d(0, 35px, 0) scale(.96);
+}
+
+.scroll-reveal.hero-art.scroll-revealed,
+.scroll-reveal.special-image.scroll-revealed,
+.scroll-reveal.gallery-photo.scroll-revealed,
+.scroll-reveal.story-footer-photo.scroll-revealed {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Dish cards reveal one after another */
+.dish-grid > .scroll-reveal {
+  transition-duration: .7s;
+}
+
+/* Mobile scroll reveals */
+@media (max-width: 650px) {
+  .scroll-reveal {
+    transform: translate3d(0, 30px, 0) scale(.99);
+    filter: blur(3px);
+    transition-duration: .72s;
+  }
+
+  .scroll-reveal.hero-art,
+  .scroll-reveal.special-image,
+  .scroll-reveal.gallery-photo,
+  .scroll-reveal.story-footer-photo {
+    transform: translate3d(0, 25px, 0) scale(.97);
+  }
+
+  .scroll-reveal.hero-art.scroll-revealed,
+  .scroll-reveal.special-image.scroll-revealed,
+  .scroll-reveal.gallery-photo.scroll-revealed,
+  .scroll-reveal.story-footer-photo.scroll-revealed {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.scroll-revealed {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* FULL-PAGE STAGGERED SCROLL REVEALS */
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 38px, 0) scale(.985);
+  filter: blur(4px);
+  transition:
+    opacity .8s cubic-bezier(.22,.68,0,1),
+    transform .8s cubic-bezier(.22,.68,0,1),
+    filter .8s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.scroll-reveal.scroll-revealed {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+  filter: blur(0);
+}
+
+/* Food images gently zoom into view */
+.scroll-reveal img,
+img.scroll-reveal {
+  transform: scale(1.035);
+  transition:
+    opacity .85s ease,
+    transform 1.1s cubic-bezier(.2,.7,.2,1),
+    filter .85s ease;
+}
+
+.scroll-reveal.scroll-revealed img,
+img.scroll-reveal.scroll-revealed {
+  transform: scale(1);
+}
+
+/* Menu cards and their contents */
+.dish-grid > .scroll-reveal {
+  transition-duration: .75s;
+}
+
+.dish-image-wrap.scroll-reveal,
+.dish-details > .scroll-reveal,
+.food-marquee-card.scroll-reveal {
+  transition-duration: .7s;
+}
+
+/* Mobile: smooth, lighter movement */
+@media (max-width: 650px) {
+  .scroll-reveal {
+    transform: translate3d(0, 26px, 0) scale(.99);
+    filter: blur(2px);
+    transition-duration: .7s;
+  }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.scroll-revealed,
+  .scroll-reveal img,
+  img.scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================
+   REFINED PREMIUM SCROLL MOTION
+   ========================================== */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) scale(.99);
+  filter: none;
+  transition:
+    opacity 900ms cubic-bezier(.16, 1, .3, 1),
+    transform 1100ms cubic-bezier(.16, 1, .3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  backface-visibility: hidden;
+}
+
+.scroll-reveal.scroll-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Food photography: subtle zoom, never blur */
+.scroll-reveal img {
+  transition: transform 1300ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.scroll-reveal.scroll-revealed img {
+  transform: scale(1);
+}
+
+/* Menu cards: smooth entrance without competing transforms */
+.dish-grid > article.scroll-reveal {
+  transition:
+    opacity 850ms cubic-bezier(.16, 1, .3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.dish-grid > article.scroll-reveal .dish-image {
+  transform: scale(1.07);
+  transition: transform 1400ms cubic-bezier(.16, 1, .3, 1);
+}
+
+.dish-grid > article.scroll-revealed .dish-image {
+  transform: scale(1);
+}
+
+/* Gallery photos reveal with a gentle image zoom */
+.gallery-photo.scroll-reveal {
+  overflow: hidden;
+}
+
+.gallery-photo.scroll-reveal img {
+  transform: scale(1.08);
+}
+
+.gallery-photo.scroll-revealed img {
+  transform: scale(1);
+}
+
+/* Mobile: slightly shorter movement */
+@media (max-width: 650px) {
+  .scroll-reveal {
+    transform: translate3d(0, 24px, 0) scale(.995);
+    transition-duration: 750ms, 950ms;
+  }
+
+  .dish-grid > article.scroll-reveal {
+    transition-duration: 750ms;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal.scroll-revealed,
+  .scroll-reveal img,
+  .dish-grid > article.scroll-reveal .dish-image {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* MOBILE RESPONSIVE REFINEMENT */
+@media (max-width: 650px) {
+
+  .hero h1 {
+    font-size: clamp(43px, 12vw, 58px) !important;
+    line-height: 1.05 !important;
+  }
+
+  .hero-lede,
+  .story-right p,
+  .section-title-row p,
+  .gallery-heading p,
+  .special-copy > p,
+  .visit-block p {
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+  }
+
+  .section-title-row h2,
+  .gallery-heading h2,
+  .story-content h2 {
+    font-size: clamp(38px, 10vw, 52px) !important;
+    line-height: 1.08 !important;
+  }
+
+  .dish-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px 12px !important;
+  }
+
+  .dish-image-wrap {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+  .dish-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .dish-category {
+    font-size: 9px !important;
+    letter-spacing: .8px !important;
+  }
+
+  .dish-details h3 {
+    font-size: clamp(14px, 3.8vw, 17px) !important;
+    line-height: 1.3 !important;
+  }
+
+  .dish-details p {
+    font-size: 11px !important;
+    line-height: 1.6 !important;
+  }
+
+  .dish-buy strong {
+    font-size: 14px !important;
+  }
+
+  .category-pill {
+    min-height: 39px !important;
+    padding: 0 12px !important;
+    font-size: 10px !important;
+  }
+
+  .hero-ctas .btn-cream,
+  .hero-ctas .understated-link,
+  .visit-block a,
+  .btn-dark {
+    min-height: 44px !important;
+    font-size: 10px !important;
+  }
+
+  .food-marquee-card {
+    width: 230px !important;
+    min-width: 230px !important;
+  }
+
+  .gallery-photo {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3 !important;
+    overflow: hidden !important;
+  }
+
+  .gallery-photo img,
+  .gallery-food-photo {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .visit-heading h2 {
+    font-size: clamp(40px, 11vw, 54px) !important;
+  }
+
+  .checkout-fields input,
+  .checkout-fields textarea {
+    font-size: 16px !important;
+    min-height: 46px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .dish-grid {
+    gap: 20px 9px !important;
+  }
+
+  .dish-details h3 {
+    font-size: 14px !important;
+  }
+
+  .hero h1 {
+    font-size: 43px !important;
+  }
+}
+
+
+/* MOBILE HERO — REFINED LAYOUT */
+@media (max-width: 650px) {
+
+  .hero {
+    padding-top: 42px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .hero-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 11.5vw, 52px) !important;
+    line-height: 1.06 !important;
+    letter-spacing: -2px !important;
+    margin-top: 14px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hero-lede {
+    font-size: 14px !important;
+    line-height: 1.75 !important;
+    max-width: 100% !important;
+    margin-bottom: 26px !important;
+  }
+
+  .hero-ctas {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .hero-ctas .btn-cream {
+    min-height: 52px !important;
+    padding: 0 19px !important;
+    font-size: 11px !important;
+    flex: 1 1 190px !important;
+    justify-content: center !important;
+  }
+
+  .hero-ctas .understated-link {
+    min-height: 46px !important;
+    font-size: 11px !important;
+    padding: 0 5px !important;
+  }
+
+  .hero-art {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 22px !important;
+  }
+
+  .hero-art img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 4.2 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  .hero-art .hero-image,
+  .hero-art .hero-photo {
+    aspect-ratio: 4 / 4.2 !important;
+    object-fit: cover !important;
+  }
+
+  .hero-copy p,
+  .hero-art p {
+    line-height: 1.7 !important;
+  }
+
+  .hero .section-topline,
+  .hero .eyebrow {
+    font-size: 9px !important;
+    letter-spacing: 1.6px !important;
+  }
+
+  .hero-art {
+    overflow: visible !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding-top: 32px !important;
+  }
+
+  .hero h1 {
+    font-size: 40px !important;
+    letter-spacing: -1.6px !important;
+  }
+
+  .hero-lede {
+    font-size: 13px !important;
+  }
+
+  .hero-ctas .btn-cream {
+    flex-basis: 100% !important;
+  }
+}
+
+
+/* HOUSE SPECIAL — MOBILE IMAGE AND LAYOUT FIX */
+@media (max-width: 700px) {
+
+  main .special-section {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  main .special-section .special-image {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 4 / 3 !important;
+    flex: none !important;
+    overflow: hidden !important;
+    background: #17120d !important;
+    border: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  main .special-section .special-food-photo {
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: center 45% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 1 !important;
+  }
+
+  main .special-section .vertical-note {
+    z-index: 2 !important;
+    left: 14px !important;
+    bottom: 15px !important;
+    font-size: 8px !important;
+  }
+
+  main .special-section .special-copy {
+    display: flex !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 38px 23px 48px !important;
+    margin: 0 !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  main .special-section .special-copy h2 {
+    font-size: clamp(42px, 11vw, 52px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -2px !important;
+    margin: 20px 0 !important;
+    word-break: normal !important;
+  }
+
+  main .special-section .special-copy > p {
+    max-width: 100% !important;
+    font-size: 13px !important;
+    line-height: 1.8 !important;
+    margin: 12px 0 25px !important;
+  }
+
+  main .special-section .special-foot {
+    margin-top: 32px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  main .special-section .special-copy h2 {
+    font-size: 41px !important;
+  }
+}
+
+
+/* REDUCE EMPTY SPACE BEFORE HOUSE SPECIAL */
+@media (min-width: 701px) {
+  main .special-section {
+    padding-top: 35px !important;
+    padding-bottom: 75px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  main .special-section {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+
+/* TIGHTER SPACE BEFORE HOUSE SPECIAL */
+@media (min-width: 701px) {
+  main .special-section {
+    margin-top: -70px !important;
+    padding-top: 25px !important;
+  }
+}
+
+
+/* GALLERY — BETTER SPACING AND READABILITY */
+@media (min-width: 701px) {
+
+  main .gallery-section {
+    padding-top: 50px !important;
+    padding-bottom: 90px !important;
+  }
+
+  main .gallery-section > .section-topline {
+    margin-bottom: 38px !important;
+  }
+
+  main .gallery-section .eyebrow,
+  main .gallery-section .section-note {
+    font-size: 10px !important;
+    line-height: 1.6 !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  main .gallery-section .gallery-heading {
+    margin-bottom: 42px !important;
+  }
+
+  main .gallery-section .gallery-heading p {
+    font-size: 15px !important;
+    line-height: 1.9 !important;
+    max-width: 330px !important;
+  }
+
+  main .special-copy .special-foot {
+    font-size: 9px !important;
+  }
+
+  main .special-copy .spotlight-link {
+    font-size: 12px !important;
+  }
+}
+
+/* GALLERY MOBILE READABILITY */
+@media (max-width: 700px) {
+
+  main .gallery-section {
+    padding: 48px 20px 65px !important;
+  }
+
+  main .gallery-section .eyebrow,
+  main .gallery-section .section-note {
+    font-size: 9px !important;
+    line-height: 1.6 !important;
+  }
+
+  main .gallery-section .gallery-heading p {
+    font-size: 13px !important;
+    line-height: 1.8 !important;
+  }
+}
+
+
+/* ==========================================
+   SGV — GLOBAL LABEL TYPOGRAPHY REFINEMENT
+========================================== */
+
+/* Section labels and eyebrows */
+main .eyebrow,
+main .section-note,
+main .gallery-feature-eyebrow,
+main .gallery-feature-footer,
+main .special-foot,
+main .vertical-note,
+main .food-marquee-caption span,
+main .dish-category,
+main .visit-block > span,
+main .footer small,
+main .demo-note {
+  font-size: 11px !important;
+  line-height: 1.7 !important;
+  letter-spacing: 1.5px !important;
+}
+
+/* Header navigation */
+.site-header nav a,
+.site-header .header-order,
+.site-header .header-bag,
+.site-header .wordmark i {
+  font-size: 11px !important;
+  letter-spacing: 1.3px !important;
+}
+
+/* Menu category buttons */
+.category-pill {
+  font-size: 11px !important;
+  letter-spacing: .8px !important;
+}
+
+/* Dish information */
+.dish-details h3 {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+
+.dish-details p {
+  font-size: 12px !important;
+  line-height: 1.65 !important;
+}
+
+.dish-buy strong {
+  font-size: 15px !important;
+}
+
+.dish-buy button {
+  font-size: 10px !important;
+  letter-spacing: .7px !important;
+}
+
+/* Food gallery captions */
+.food-marquee-caption h3 {
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* Buttons and links */
+.spotlight-link,
+.visit-block a,
+.hero-ctas a,
+.btn-dark {
+  font-size: 11px !important;
+  letter-spacing: 1px !important;
+}
+
+/* Footer and small supporting text */
+.footer p,
+.footer a {
+  font-size: 11px !important;
+  line-height: 1.7 !important;
+}
+
+/* Mobile: comfortable readable sizes */
+@media (max-width: 650px) {
+
+  main .eyebrow,
+  main .section-note,
+  main .gallery-feature-eyebrow,
+  main .gallery-feature-footer,
+  main .special-foot,
+  main .vertical-note,
+  main .food-marquee-caption span,
+  main .dish-category,
+  main .visit-block > span,
+  main .footer small,
+  main .demo-note {
+    font-size: 10px !important;
+    line-height: 1.7 !important;
+    letter-spacing: 1.1px !important;
+  }
+
+  .site-header nav a,
+  .site-header .header-order,
+  .site-header .wordmark i {
+    font-size: 10px !important;
+  }
+
+  .category-pill {
+    font-size: 11px !important;
+  }
+
+  .dish-details h3 {
+    font-size: 15px !important;
+  }
+
+  .dish-details p {
+    font-size: 11px !important;
+    line-height: 1.65 !important;
+  }
+
+  .dish-buy strong {
+    font-size: 14px !important;
+  }
+
+  .dish-buy button {
+    font-size: 9px !important;
+  }
+
+  .food-marquee-caption h3 {
+    font-size: 14px !important;
+  }
+
+  .footer p,
+  .footer a {
+    font-size: 11px !important;
+  }
+}
+
+
+/* ==========================================
+   SGV — READABLE LABELS THROUGHOUT WEBSITE
+========================================== */
+
+/* Global section labels */
+main .eyebrow,
+main .section-note,
+main .section-topline span,
+main .story-topline,
+main .story-topline span,
+main .hero-meta,
+main .hero-meta span,
+main .hero-scroll,
+main .hero-scroll span,
+main .special-foot,
+main .vertical-note,
+main .gallery-feature-eyebrow,
+main .gallery-feature-footer,
+main .visit-block > span,
+main .food-marquee-caption span,
+main .dish-category,
+main .footer small,
+main .demo-note {
+  font-size: 12px !important;
+  line-height: 1.8 !important;
+  letter-spacing: 1.5px !important;
+  font-weight: 500 !important;
+}
+
+/* Hero supporting labels */
+main .hero .eyebrow,
+main .hero .hero-meta,
+main .hero .hero-scroll {
+  font-size: 12px !important;
+  letter-spacing: 1.7px !important;
+}
+
+/* Story section labels */
+main .story-section .eyebrow,
+main .story-section .section-note,
+main .story-section .story-topline,
+main .story-section .story-topline span {
+  font-size: 12px !important;
+  letter-spacing: 1.5px !important;
+}
+
+/* Menu labels */
+main .category-pill {
+  font-size: 12px !important;
+}
+
+main .dish-category {
+  font-size: 11px !important;
+}
+
+/* Gallery and special captions */
+main .gallery-section .eyebrow,
+main .gallery-section .section-note,
+main .special-section .eyebrow,
+main .special-section .special-foot {
+  font-size: 12px !important;
+}
+
+/* Visit and footer labels */
+main .visit-block > span,
+main .footer small {
+  font-size: 11px !important;
+}
+
+/* Improve visibility */
+main .eyebrow,
+main .section-note,
+main .hero-meta,
+main .hero-scroll,
+main .story-topline,
+main .gallery-feature-eyebrow {
+  color: #c9b38d !important;
+}
+
+/* Mobile label sizes */
+@media (max-width: 650px) {
+  main .eyebrow,
+  main .section-note,
+  main .section-topline span,
+  main .story-topline,
+  main .story-topline span,
+  main .hero-meta,
+  main .hero-meta span,
+  main .hero-scroll,
+  main .hero-scroll span,
+  main .special-foot,
+  main .gallery-feature-eyebrow,
+  main .gallery-feature-footer,
+  main .visit-block > span,
+  main .food-marquee-caption span,
+  main .dish-category,
+  main .footer small,
+  main .demo-note {
+    font-size: 11px !important;
+    line-height: 1.8 !important;
+    letter-spacing: 1.1px !important;
+  }
+
+  main .category-pill {
+    font-size: 11px !important;
+  }
+}
+
+
+/* MENU FILTER — REMOVE UGLY SCROLLBAR */
+main .menu-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  scrollbar-width: none !important;
+}
+
+main .menu-toolbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+main .menu-toolbar .category-pill {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  min-height: 42px !important;
+  padding: 0 18px !important;
+  font-size: 12px !important;
+}
+
+/* MOBILE: horizontally swipe categories without scrollbar */
+@media (max-width: 650px) {
+  main .menu-toolbar {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 9px !important;
+    padding-bottom: 8px !important;
+  }
+
+  main .menu-toolbar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  main .menu-toolbar .category-pill {
+    min-height: 40px !important;
+    padding: 0 15px !important;
+    font-size: 11px !important;
+  }
+}
+
+
+/* REMOVE MENU CATEGORY SIDE SCROLLBAR */
+main .menu-toolbar {
+  overflow-y: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+main .menu-toolbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+main .menu-toolbar::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@media (min-width: 651px) {
+  main .menu-toolbar {
+    overflow: visible !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media (max-width: 650px) {
+  main .menu-toolbar {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    flex-wrap: nowrap !important;
+    scrollbar-width: none !important;
+  }
+}
+
+
+/* MOBILE HERO METADATA — CLEAN ALIGNMENT */
+@media (max-width: 650px) {
+
+  main .hero-meta {
+    display: grid !important;
+    grid-template-columns: auto 28px minmax(0, 1fr) !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 20px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main .hero-meta span:first-child {
+    font-size: 9px !important;
+    letter-spacing: .8px !important;
+    white-space: nowrap !important;
+    line-height: 1.5 !important;
+  }
+
+  main .hero-meta i {
+    display: block !important;
+    width: 28px !important;
+    height: 1px !important;
+    margin: 0 !important;
+  }
+
+  main .hero-meta span:last-child {
+    display: block !important;
+    min-width: 0 !important;
+    font-size: 9px !important;
+    letter-spacing: .9px !important;
+    line-height: 1.7 !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+  main .scroll-cue {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 22px !important;
+    font-size: 9px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 1.2px !important;
+    white-space: nowrap !important;
+  }
+
+}
+
+@media (max-width: 380px) {
+  main .hero-meta {
+    column-gap: 7px !important;
+    grid-template-columns: auto 20px minmax(0, 1fr) !important;
+  }
+
+  main .hero-meta span:last-child {
+    font-size: 8px !important;
+    letter-spacing: .6px !important;
+  }
+}
+
+
+/* MOBILE HERO — CLEAN, MINIMAL PRESENTATION */
+@media (max-width: 650px) {
+
+  main .hero-meta {
+    display: none !important;
+  }
+
+  main .scroll-cue {
+    display: none !important;
+  }
+
+  main .hero-art {
+    margin-top: 26px !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+
+  main .hero-art .hero-main-image {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 4.4 !important;
+    object-fit: cover !important;
+  }
+
+  main .hero-art .hero-small-image {
+    max-width: 100% !important;
+  }
+
+  main .hero-copy {
+    margin-bottom: 0 !important;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE MENU — O'CO CAFE INSPIRED CATEGORY ROW
+========================================== */
+
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 0 24px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border-bottom: 1px solid rgba(201, 179, 141, .2) !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+  }
+
+  /* One horizontal category row */
+  main .menu-toolbar .category-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 23px !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 0 12px !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #9b927f #292722 !important;
+  }
+
+  /* Thin horizontal scrollbar */
+  main .menu-toolbar .category-list::-webkit-scrollbar {
+    display: block !important;
+    width: auto !important;
+    height: 5px !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar-track {
+    background: #292722 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar-thumb {
+    background: #9b927f !important;
+    border-radius: 10px !important;
+  }
+
+  /* Simple text categories — no pills */
+  main .menu-toolbar .category-pill {
+    flex: 0 0 auto !important;
+    min-height: 30px !important;
+    height: auto !important;
+    padding: 3px 0 8px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    background: transparent !important;
+    color: #aaa398 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.5 !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+  }
+
+  main .menu-toolbar .category-pill.selected {
+    color: #e0c18a !important;
+    background: transparent !important;
+    border-color: #c9a76c !important;
+  }
+
+  /* Dish count on its own line */
+  main .menu-toolbar .item-count {
+    display: block !important;
+    width: 100% !important;
+    padding: 10px 0 12px !important;
+    margin: 0 !important;
+    font-size: 9px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 1.5px !important;
+    color: #918879 !important;
+    text-align: left !important;
+  }
+}
+
+
+/* ==========================================
+   MOBILE MENU — DISH CARD REDESIGN
+========================================== */
+
+@media (max-width: 650px) {
+
+  main .dish-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px 12px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+
+  main .dish-grid > article,
+  main .dish-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    background: #11100e !important;
+    border: 1px solid rgba(201, 179, 141, .2) !important;
+    border-radius: 7px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Square, consistent food photography */
+  main .dish-image-wrap {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    flex: none !important;
+  }
+
+  main .dish-image-wrap img,
+  main .dish-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  /* Dish information */
+  main .dish-details {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    padding: 12px 10px 8px !important;
+    gap: 5px !important;
+  }
+
+  main .dish-details h3 {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    min-height: 38px !important;
+    margin: 0 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  main .dish-details p {
+    font-size: 11px !important;
+    line-height: 1.55 !important;
+    min-height: 34px !important;
+    margin: 0 !important;
+  }
+
+  main .dish-category {
+    font-size: 9px !important;
+    letter-spacing: 1px !important;
+  }
+
+  /* Price and add-to-bag area */
+  main .dish-buy {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 10px !important;
+    margin-top: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  main .dish-buy strong {
+    font-size: 14px !important;
+    white-space: nowrap !important;
+  }
+
+  main .dish-buy button {
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+    letter-spacing: .3px !important;
+    min-height: 30px !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+  }
+
+}
+
+@media (max-width: 380px) {
+  main .dish-grid {
+    gap: 18px 9px !important;
+  }
+
+  main .dish-details {
+    padding: 10px 8px 7px !important;
+  }
+
+  main .dish-details h3 {
+    font-size: 13px !important;
+  }
+
+  main .dish-buy {
+    padding: 8px !important;
+  }
+}
+
+
+/* ==========================================
+   FINAL MOBILE MENU CARD REFINEMENT
+========================================== */
+
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: block !important;
+    position: relative !important;
+    overflow: visible !important;
+    margin-bottom: 18px !important;
+  }
+
+  main .menu-toolbar .item-count {
+    position: static !important;
+    display: block !important;
+    padding: 9px 0 12px !important;
+    font-size: 9px !important;
+    text-align: left !important;
+  }
+
+  main .dish-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+    gap: 17px 10px !important;
+    width: 100% !important;
+  }
+
+  main .dish-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    background: #11100e !important;
+    border: 1px solid rgba(201,179,141,.2) !important;
+    border-radius: 5px !important;
+    box-sizing: border-box !important;
+  }
+
+  main .dish-card .dish-image-wrap {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 0.92 !important;
+    overflow: hidden !important;
+    flex: none !important;
+  }
+
+  main .dish-card .dish-image {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  main .dish-card .dish-details {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    padding: 10px 9px 0 !important;
+    gap: 5px !important;
+  }
+
+  main .dish-card .dish-category {
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+    letter-spacing: 1px !important;
+    margin: 0 !important;
+  }
+
+  main .dish-card .dish-details h3 {
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    min-height: 35px !important;
+    margin: 0 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  main .dish-card .dish-details p {
+    font-size: 10px !important;
+    line-height: 1.5 !important;
+    min-height: 30px !important;
+    margin: 0 0 8px !important;
+  }
+
+  main .dish-card .dish-buy {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 10px 8px !important;
+    margin-top: auto !important;
+    border-top: 1px solid rgba(201,179,141,.17) !important;
+    box-sizing: border-box !important;
+  }
+
+  main .dish-card .dish-buy strong {
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  main .dish-card .dish-buy > button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 3px !important;
+    min-width: 0 !important;
+    min-height: 32px !important;
+    padding: 4px 0 !important;
+    font-size: 8px !important;
+    letter-spacing: .2px !important;
+    white-space: nowrap !important;
+  }
+
+  main .dish-card .dish-quantity-control {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+  }
+
+  main .dish-card .dish-quantity-button {
+    min-width: 25px !important;
+    min-height: 28px !important;
+  }
+
+  /* No cascading entrance delays or card movement */
+  main .dish-grid .dish-card {
+    animation: none !important;
+    transition: border-color .2s ease !important;
+  }
+}
+
+@media (max-width: 380px) {
+  main .dish-grid {
+    gap: 14px 8px !important;
+  }
+
+  main .dish-card .dish-details {
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
+
+  main .dish-card .dish-details h3 {
+    font-size: 12px !important;
+  }
+
+  main .dish-card .dish-buy {
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+
+  main .dish-card .dish-buy > button {
+    font-size: 7px !important;
+  }
+}
+
+
+/* ==========================================
+   FINAL FIX — COMPACT MOBILE DISH CARDS
+========================================== */
+
+@media (max-width: 650px) {
+
+  main .dish-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 18px 11px !important;
+  }
+
+  main .dish-grid .dish-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-self: start !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Shorter food images */
+  main .dish-card .dish-image-wrap {
+    width: 100% !important;
+    height: 135px !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+    flex: none !important;
+  }
+
+  main .dish-card .dish-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Remove artificial vertical spacing */
+  main .dish-card .dish-details {
+    display: flex !important;
+    flex: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 9px 9px 0 !important;
+    gap: 4px !important;
+  }
+
+  main .dish-card .dish-category {
+    font-size: 9px !important;
+    line-height: 1.3 !important;
+    margin: 0 !important;
+  }
+
+  main .dish-card .dish-details h3 {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+  }
+
+  main .dish-card .dish-details p {
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 3px 0 7px !important;
+  }
+
+  /* Price and action directly after description */
+  main .dish-card .dish-buy {
+    display: flex !important;
+    flex: none !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 0 !important;
+    min-height: 39px !important;
+    padding: 8px 8px !important;
+    gap: 3px !important;
+  }
+
+  main .dish-card .dish-buy strong {
+    font-size: 13px !important;
+  }
+
+  main .dish-card .dish-buy > button {
+    font-size: 8px !important;
+    min-height: 28px !important;
+    padding: 3px 0 !important;
+  }
+
+  main .dish-card .dish-quantity-control {
+    gap: 4px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  main .dish-card .dish-image-wrap {
+    height: 120px !important;
+  }
+
+  main .dish-card .dish-details {
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
+}
+
+
+/* MOBILE CATEGORY NAVIGATION — VISIBLE HORIZONTAL SCROLLBAR */
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin-bottom: 20px !important;
+  }
+
+  main .menu-toolbar .category-list {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 23px !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 0 12px !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    -webkit-overflow-scrolling: touch !important;
+
+    scrollbar-width: thin !important;
+    scrollbar-color: #aaa398 #302e29 !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar {
+    display: block !important;
+    width: auto !important;
+    height: 6px !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar-track {
+    display: block !important;
+    background: #302e29 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar-thumb {
+    display: block !important;
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+    min-width: 45px !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar-button {
+    display: none !important;
+  }
+
+  main .menu-toolbar .category-pill {
+    flex: 0 0 auto !important;
+    padding: 4px 0 8px !important;
+    min-height: 32px !important;
+    border: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  main .menu-toolbar .category-pill.selected {
+    color: #dfbd83 !important;
+    border-bottom-color: #c9a76c !important;
+  }
+
+  main .menu-toolbar .item-count {
+    position: static !important;
+    display: block !important;
+    margin-top: 8px !important;
+    padding: 0 0 10px !important;
+    font-size: 9px !important;
+  }
+}
+
+
+/* ALWAYS-VISIBLE CATEGORY SCROLL INDICATOR */
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: block !important;
+    overflow: visible !important;
+    position: relative !important;
+    padding-bottom: 0 !important;
+  }
+
+  main .menu-toolbar .category-list {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 24px !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding-bottom: 9px !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Visible track and scrollbar thumb */
+  main .menu-toolbar::after {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 6px !important;
+    margin: 0 0 10px !important;
+    border-radius: 8px !important;
+    background: linear-gradient(
+      to right,
+      #aaa398 0%,
+      #aaa398 68%,
+      #393630 68%,
+      #393630 100%
+    ) !important;
+  }
+
+  main .menu-toolbar .item-count {
+    display: block !important;
+    margin-top: 5px !important;
+  }
+}
+
+
+/* CATEGORY SCROLLBAR — DEDICATED ROW */
+@media (max-width: 650px) {
+
+  main .menu-toolbar::before,
+  main .menu-toolbar::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  main .menu-toolbar {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  main .menu-toolbar .category-list {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    margin: 0 !important;
+    padding: 0 0 5px !important;
+    scrollbar-width: none !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  main .menu-toolbar .category-scrollbar {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 5px !important;
+    margin: 5px 0 10px !important;
+    background: #393630 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+
+  main .menu-toolbar .category-scrollbar-thumb {
+    display: block !important;
+    width: 68% !important;
+    height: 100% !important;
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar .item-count {
+    display: block !important;
+    position: static !important;
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+  }
+
+  main .dish-grid {
+    margin-top: 0 !important;
+  }
+}
+
+
+/* ==========================================
+   CLEAN MOBILE MENU NAVIGATION
+   Categories -> Scrollbar -> Dish count -> Cards
+========================================== */
+
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row !important;
+    align-items: start !important;
+    justify-content: stretch !important;
+    gap: 0 !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 0 16px !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+
+  /* Category names: their own scrollable row */
+  main .menu-toolbar .category-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 24px !important;
+    width: 100% !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  main .menu-toolbar .category-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  main .menu-toolbar .category-pill {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    margin: 0 !important;
+    padding: 0 0 7px !important;
+    border: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #aaa398 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+  }
+
+  main .menu-toolbar .category-pill.selected {
+    color: #dfbd83 !important;
+    border-bottom-color: #c9a76c !important;
+  }
+
+  /* Dedicated scrollbar row — never overlaps cards */
+  main .menu-toolbar .category-scrollbar {
+    display: block !important;
+    position: relative !important;
+    inset: auto !important;
+    float: none !important;
+    clear: both !important;
+    width: 100% !important;
+    height: 5px !important;
+    min-height: 5px !important;
+    margin: 5px 0 11px !important;
+    padding: 0 !important;
+    background: #393630 !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  main .menu-toolbar .category-scrollbar-thumb {
+    display: block !important;
+    position: static !important;
+    width: 68% !important;
+    height: 5px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #aaa398 !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  /* Dish count gets its own line */
+  main .menu-toolbar .item-count {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+    color: #918879 !important;
+    font-size: 9px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 1.3px !important;
+    text-align: left !important;
+  }
+
+  /* Cards start below the complete toolbar */
+  main .dish-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 18px 11px !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+
+/* FINAL FIX: KEEP MENU NAVIGATION ABOVE DISH CARDS */
+@media (max-width: 650px) {
+
+  .menu-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 0 18px !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+
+  .menu-toolbar > .category-list {
+    order: 1 !important;
+    display: flex !important;
+    flex: 0 0 38px !important;
+    width: 100% !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 24px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scrollbar-width: none !important;
+  }
+
+  .menu-toolbar > .category-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .menu-toolbar > .category-scrollbar {
+    order: 2 !important;
+    display: block !important;
+    position: relative !important;
+    flex: 0 0 5px !important;
+    width: 100% !important;
+    height: 5px !important;
+    min-height: 5px !important;
+    margin: 5px 0 9px !important;
+    padding: 0 !important;
+    background: #393630 !important;
+    overflow: hidden !important;
+  }
+
+  .menu-toolbar > .category-scrollbar .category-scrollbar-thumb {
+    display: block !important;
+    position: static !important;
+    width: 68% !important;
+    height: 5px !important;
+    background: #aaa398 !important;
+  }
+
+  .menu-toolbar > .item-count {
+    order: 3 !important;
+    display: block !important;
+    position: static !important;
+    inset: auto !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 0 4px !important;
+    font-size: 9px !important;
+    line-height: 15px !important;
+    text-align: left !important;
+    z-index: auto !important;
+  }
+
+  .dish-grid {
+    position: relative !important;
+    display: grid !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clear: both !important;
+    z-index: 1 !important;
+  }
+}
+
+
+/* FINAL MOBILE CATEGORY NAVIGATION — REAL SCROLLBAR */
+@media (max-width: 650px) {
+  main .menu-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    gap: 0 !important;
+    margin: 0 0 18px !important;
+    padding: 0 !important;
+    border-bottom: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main .menu-toolbar > .category-list {
+    order: 1 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 25px !important;
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    flex: 0 0 52px !important;
+    padding: 0 0 9px !important;
+    margin: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    overscroll-behavior-x: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #aaa398 #302e29 !important;
+    box-sizing: border-box !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar {
+    display: block !important;
+    height: 5px !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar-track {
+    background: #302e29 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar-thumb {
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar > .category-list .category-pill {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 3px 0 7px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #aaa398 !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    white-space: nowrap !important;
+    box-shadow: none !important;
+  }
+
+  main .menu-toolbar > .category-list .category-pill.selected {
+    color: #dfbd83 !important;
+    border-bottom-color: #c9a76c !important;
+  }
+
+  main .menu-toolbar > .category-scrollbar {
+    display: none !important;
+  }
+
+  main .menu-toolbar > .item-count {
+    order: 2 !important;
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 5px 0 13px !important;
+    padding: 0 !important;
+    text-align: left !important;
+    font-size: 9px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 1.4px !important;
+    color: #918b7e !important;
+  }
+
+  main .dish-grid {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 18px 12px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clear: both !important;
+  }
+}
+
+/* MOBILE: RESERVE A CLEAR ROW FOR CATEGORY SCROLLBAR */
+@media (max-width: 650px) {
+  main .menu-toolbar > .category-list {
+    height: 62px !important;
+    min-height: 62px !important;
+    flex-basis: 62px !important;
+    padding: 0 0 12px !important;
+    margin-bottom: 8px !important;
+    scrollbar-width: auto !important;
+    scrollbar-color: #aaa398 #302e29 !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar {
+    display: block !important;
+    height: 6px !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar-track {
+    background: #302e29 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar-thumb {
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar > .item-count {
+    margin-top: 0 !important;
+    margin-bottom: 15px !important;
+  }
+
+  main .dish-grid {
+    margin-top: 0 !important;
+  }
+}
+
+
+/* MOBILE CATEGORY NAVIGATION — EXTRA CLEAR SPACING */
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin-bottom: 20px !important;
+    padding: 0 !important;
+  }
+
+  main .menu-toolbar > .category-list {
+    height: 72px !important;
+    min-height: 72px !important;
+    flex: 0 0 72px !important;
+    padding: 0 0 20px !important;
+    margin: 0 0 14px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #aaa398 #302e29 !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar {
+    display: block !important;
+    height: 6px !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar-track {
+    background: #302e29 !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar-thumb {
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar > .item-count {
+    position: static !important;
+    display: block !important;
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+    line-height: 16px !important;
+  }
+
+  main .dish-grid {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+
+/* MOBILE CATEGORY NAVIGATION — FINAL STRUCTURE */
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    gap: 0 !important;
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main .menu-toolbar > .category-list {
+    order: 1 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 25px !important;
+    width: 100% !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    flex: 0 0 52px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  main .menu-toolbar > .category-list::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  main .menu-toolbar .category-pill {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 0 0 7px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: #aaa398 !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+  }
+
+  main .menu-toolbar .category-pill.selected {
+    color: #dfbd83 !important;
+    border-bottom-color: #c9a76c !important;
+  }
+
+  /* Dedicated scrollbar row */
+  main .menu-toolbar > .category-scrollbar {
+    order: 2 !important;
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 6px !important;
+    min-height: 6px !important;
+    flex: 0 0 6px !important;
+    margin: 5px 0 15px !important;
+    padding: 0 !important;
+    background: #393630 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  main .menu-toolbar .category-scrollbar-thumb {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 40% !important;
+    height: 6px !important;
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+    transition: transform .08s linear, width .08s linear !important;
+  }
+
+  main .menu-toolbar > .item-count {
+    order: 3 !important;
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 0 18px !important;
+    padding: 0 !important;
+    font-size: 9px !important;
+    line-height: 15px !important;
+    letter-spacing: 1.3px !important;
+    text-align: left !important;
+  }
+
+  main .dish-grid {
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clear: both !important;
+  }
+}
+
+
+/* SEPARATE CATEGORY SCROLLBAR FROM FOOD CARDS */
+@media (max-width: 650px) {
+
+  main .menu-toolbar {
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 0 26px !important;
+    padding: 0 0 12px !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  main .menu-toolbar > .category-list {
+    flex: 0 0 52px !important;
+    height: 52px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  main .menu-toolbar > .category-scrollbar {
+    position: relative !important;
+    flex: 0 0 6px !important;
+    width: 100% !important;
+    height: 6px !important;
+    margin: 5px 0 22px !important;
+    background: #393630 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+
+  main .menu-toolbar > .category-scrollbar .category-scrollbar-thumb {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: 6px !important;
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+  }
+
+  main .menu-toolbar > .item-count {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 0 16px !important;
+    padding: 0 !important;
+    z-index: 1 !important;
+  }
+
+  main .dish-grid {
+    display: grid !important;
+    position: relative !important;
+    clear: both !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 1 !important;
+  }
+
+  main .dish-grid > .dish-card {
+    position: relative !important;
+  }
+}
+
+
+/* INTERACTIVE CATEGORY SCROLLBAR */
+@media (max-width: 650px) {
+  main .menu-toolbar > .category-scrollbar {
+    touch-action: pan-y !important;
+    cursor: grab !important;
+    overflow: hidden !important;
+  }
+
+  main .menu-toolbar .category-scrollbar-thumb {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: 6px !important;
+    will-change: transform, width !important;
+    transition: none !important;
+    cursor: grab !important;
+    touch-action: none !important;
+  }
+}
+
+
+/* DRAGGABLE CATEGORY SCROLLBAR */
+@media (max-width: 650px) {
+  main .menu-toolbar > .category-scrollbar {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 7px !important;
+    min-height: 7px !important;
+    background: #393630 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    touch-action: pan-y !important;
+  }
+
+  main .menu-toolbar .category-scrollbar-thumb {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 7px !important;
+    min-width: 35px !important;
+    background: #aaa398 !important;
+    border-radius: 10px !important;
+    cursor: grab !important;
+    touch-action: none !important;
+    transition: none !important;
+  }
+}
+
+/* LUXURY OVAL HOVER EFFECT — HEADER NAVIGATION */
+.site-header .main-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 19px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: #c3beb4;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.site-header .main-nav a:hover {
+  color: #e8ddc9 !important;
+  background: rgba(201, 179, 141, 0.10);
+  border-color: rgba(201, 179, 141, 0.65);
+  box-shadow: 0 0 18px rgba(201, 179, 141, 0.10);
+}
+
+/* Keyboard accessibility */
+.site-header .main-nav a:focus-visible {
+  outline: 2px solid #c9b38d;
+  outline-offset: 3px;
+}
