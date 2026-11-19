@@ -6691,3 +6691,557 @@ main .menu-toolbar::-webkit-scrollbar-button {
   outline: 2px solid #c9b38d;
   outline-offset: 3px;
 }
+
+
+/* MENU INTRO - editorial food feature */
+html body main .menu-section .section-title-row {
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1.18fr)
+    minmax(210px, .52fr)
+    minmax(190px, .43fr) !important;
+  grid-template-areas: "title photo copy";
+  align-items: end !important;
+  gap: clamp(24px, 3vw, 52px) !important;
+}
+
+html body main .menu-section .section-title-row h2 {
+  grid-area: title;
+}
+
+html body main .menu-section .section-title-row > p {
+  grid-area: copy;
+  max-width: 255px;
+  margin: 0 0 7px !important;
+  font-size: 12px !important;
+  line-height: 1.95 !important;
+}
+
+.menu-intro-feature {
+  grid-area: photo;
+  position: relative;
+  height: clamp(145px, 12vw, 185px);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(200, 173, 120, .32);
+  background: #1c241d;
+}
+
+.menu-intro-feature img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.86) brightness(.83);
+  transition: transform .65s ease;
+}
+
+.menu-intro-feature:hover img {
+  transform: scale(1.055);
+}
+
+.menu-intro-feature::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(12, 15, 11, .88) 0%,
+    rgba(12, 15, 11, .15) 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.menu-intro-feature-caption {
+  position: absolute;
+  z-index: 1;
+  left: 14px;
+  right: 10px;
+  bottom: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-intro-feature-caption span {
+  color: #d2b77f;
+  font-size: 7px;
+  letter-spacing: 1.7px;
+}
+
+.menu-intro-feature-caption strong {
+  color: #f5efe2;
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+/* Tablet layout */
+@media (min-width: 651px) and (max-width: 1100px) {
+  html body main .menu-section .section-title-row {
+    grid-template-columns: minmax(0, 1fr) minmax(190px, .65fr) !important;
+    grid-template-areas:
+      "title photo"
+      "copy photo";
+    align-items: center !important;
+  }
+
+  html body main .menu-section .menu-intro-feature {
+    height: 205px;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 650px) {
+  html body main .menu-section .section-title-row {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "title"
+      "photo"
+      "copy";
+    gap: 20px !important;
+    margin-bottom: 30px !important;
+  }
+
+  html body main .menu-section .menu-intro-feature {
+    width: 100%;
+    height: 165px;
+  }
+
+  html body main .menu-section .section-title-row > p {
+    max-width: 100%;
+    margin: 0 !important;
+  }
+}
+
+/* MENU INTRO - animated SGV chef and kitchen promise */
+html body main .menu-section .section-title-row {
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1.24fr)
+    minmax(190px, .62fr)
+    minmax(240px, .58fr) !important;
+  grid-template-areas: "title chef note";
+  align-items: center !important;
+  gap: clamp(18px, 2.3vw, 42px) !important;
+}
+
+html body main .menu-section .section-title-row h2 {
+  grid-area: title;
+}
+
+html body main .menu-section .menu-intro-chef {
+  grid-area: chef;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 0;
+  min-height: clamp(190px, 17vw, 255px);
+  overflow: visible;
+  animation: menu-chef-float 4s ease-in-out infinite;
+}
+
+.menu-chef-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 76%;
+  aspect-ratio: 1;
+  max-height: 215px;
+  border: 1px solid rgba(201, 169, 105, .36);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(190, 151, 79, .13),
+    rgba(190, 151, 79, .035) 55%,
+    transparent 72%
+  );
+  box-shadow: 0 0 45px rgba(190, 151, 79, .08);
+  transform: translate(-50%, -50%);
+}
+
+.menu-intro-chef img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  max-height: 225px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, .22));
+}
+
+.menu-chef-label {
+  position: relative;
+  z-index: 2;
+  margin-top: -3px;
+  color: #c8ad78;
+  font-size: 7px;
+  letter-spacing: 2.1px;
+}
+
+@keyframes menu-chef-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+html body main .menu-section .menu-intro-note {
+  grid-area: note;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 205px;
+  padding: 18px 0 18px 23px;
+  border-left: 1px solid rgba(201, 169, 105, .45);
+  background: radial-gradient(
+    ellipse at 100% 0%,
+    rgba(190, 151, 79, .09),
+    transparent 75%
+  );
+}
+
+.menu-intro-note-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #c8ad78;
+  font-size: 8px;
+  letter-spacing: 1.7px;
+}
+
+.menu-intro-note-star {
+  font-size: 17px;
+  color: #d2b77f;
+}
+
+html body main .menu-section .menu-intro-note p {
+  margin: 12px 0 8px !important;
+  color: #f5efe2 !important;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(21px, 1.8vw, 28px) !important;
+  font-weight: 500;
+  line-height: 1.3 !important;
+}
+
+.menu-intro-note p em {
+  color: #d2b77f;
+  font-weight: 500;
+}
+
+.menu-intro-note-copy {
+  max-width: 260px;
+  color: #aaa69c;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.menu-intro-promises {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 13px;
+  margin-top: 20px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(201, 169, 105, .22);
+}
+
+.menu-intro-promises span {
+  color: #d2c19f;
+  font-size: 8px;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+
+.menu-intro-promises span::before {
+  content: "✦";
+  margin-right: 5px;
+  color: #c8ad78;
+  font-size: 8px;
+}
+
+/* Tablet */
+@media (min-width: 651px) and (max-width: 1100px) {
+  html body main .menu-section .section-title-row {
+    grid-template-columns: minmax(0, 1.2fr) minmax(180px, .8fr) !important;
+    grid-template-areas:
+      "title chef"
+      "note note";
+    row-gap: 22px !important;
+  }
+
+  html body main .menu-section .menu-intro-note {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    column-gap: 20px;
+    min-height: auto;
+  }
+
+  .menu-intro-note-top,
+  .menu-intro-note-copy,
+  .menu-intro-promises {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+  html body main .menu-section .section-title-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "title"
+      "chef"
+      "note";
+    gap: 17px !important;
+    margin-bottom: 30px !important;
+  }
+
+  html body main .menu-section .menu-intro-chef {
+    min-height: 190px;
+    max-height: 210px;
+  }
+
+  .menu-intro-chef img {
+    max-width: 290px;
+    max-height: 185px;
+  }
+
+  .menu-chef-halo {
+    max-height: 175px;
+  }
+
+  html body main .menu-section .menu-intro-note {
+    min-height: auto;
+    padding: 16px 0 10px 17px;
+  }
+
+  html body main .menu-section .menu-intro-note p {
+    font-size: 25px !important;
+  }
+
+  .menu-intro-promises {
+    margin-top: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body main .menu-section .menu-intro-chef {
+    animation: none !important;
+  }
+}
+
+/* FOOD GALLERY MOBILE CAPTION FIX */
+@media (max-width: 650px) {
+  html body main .food-marquee-window .food-marquee-card {
+    flex: 0 0 min(82vw, 300px) !important;
+    width: min(82vw, 300px) !important;
+    min-width: min(82vw, 300px) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-self: stretch !important;
+    overflow: hidden !important;
+    background: #090806 !important;
+    border: 1px solid rgba(201, 179, 141, .2) !important;
+    border-radius: 4px !important;
+  }
+
+  html body main .food-marquee-window .food-marquee-card > img {
+    display: block !important;
+    width: 100% !important;
+    height: clamp(180px, 56vw, 230px) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    flex: 0 0 auto !important;
+    object-fit: cover !important;
+  }
+
+  html body main .food-marquee-window .food-marquee-card .food-marquee-caption {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 104px !important;
+    flex: 1 0 auto !important;
+    padding: 14px 12px 16px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    background: #090806 !important;
+  }
+
+  html body main .food-marquee-window .food-marquee-caption h3 {
+    display: block !important;
+    margin: 0 0 9px !important;
+    color: #f5f0e7 !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  html body main .food-marquee-window .food-marquee-caption span {
+    display: block !important;
+    margin: 0 !important;
+    color: #c8ad78 !important;
+    font-size: 9px !important;
+    line-height: 1.5 !important;
+    letter-spacing: 1.3px !important;
+  }
+
+  html body main .food-marquee-group {
+    align-items: stretch !important;
+  }
+}
+
+/* SGV PREMIUM FOOTER REFRESH */
+html body footer.footer {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-areas:
+    "brand links"
+    "tagline copyright" !important;
+  align-items: center !important;
+  column-gap: 35px !important;
+  row-gap: 19px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 43px 7% 27px !important;
+  background:
+    radial-gradient(
+      ellipse at 8% 0%,
+      rgba(201, 179, 141, .08),
+      transparent 42%
+    ),
+    #090806 !important;
+  border-top: 1px solid rgba(201, 179, 141, .32) !important;
+}
+
+html body footer.footer > .footer-mark {
+  grid-area: brand !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-self: start !important;
+  gap: 13px !important;
+  width: fit-content !important;
+  text-decoration: none !important;
+}
+
+html body footer.footer > .footer-mark img {
+  width: 43px !important;
+  height: 43px !important;
+  object-fit: contain !important;
+}
+
+html body footer.footer > .footer-mark i {
+  color: #d2b77f !important;
+  font-size: 10px !important;
+  font-style: normal !important;
+  letter-spacing: 2px !important;
+}
+
+html body footer.footer > p {
+  grid-area: tagline !important;
+  margin: 0 !important;
+  color: #aaa08f !important;
+  font-size: 9px !important;
+  letter-spacing: 1.6px !important;
+  line-height: 1.7 !important;
+}
+
+html body footer.footer > div {
+  grid-area: links !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: 12px 26px !important;
+  margin: 0 !important;
+}
+
+html body footer.footer > div a {
+  color: #ded5c4 !important;
+  font-size: 9px !important;
+  letter-spacing: 1.3px !important;
+  text-decoration: none !important;
+  padding-bottom: 5px !important;
+  border-bottom: 1px solid transparent !important;
+  transition: color .25s ease, border-color .25s ease !important;
+}
+
+html body footer.footer > div a:hover {
+  color: #d2b77f !important;
+  border-bottom-color: #a68b5e !important;
+}
+
+html body footer.footer > small {
+  grid-area: copyright !important;
+  justify-self: end !important;
+  margin: 0 !important;
+  color: #827968 !important;
+  font-size: 9px !important;
+  line-height: 1.7 !important;
+  letter-spacing: 1px !important;
+  text-align: right !important;
+}
+
+/* Tablet footer */
+@media (min-width: 651px) and (max-width: 900px) {
+  html body footer.footer {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+    column-gap: 20px !important;
+  }
+
+  html body footer.footer > div {
+    gap: 12px 17px !important;
+  }
+}
+
+/* Mobile footer */
+@media (max-width: 650px) {
+  html body footer.footer {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas:
+      "brand"
+      "tagline"
+      "links"
+      "copyright" !important;
+    align-items: start !important;
+    justify-items: start !important;
+    row-gap: 16px !important;
+    padding: 34px 7% calc(27px + env(safe-area-inset-bottom)) !important;
+  }
+
+  html body footer.footer > .footer-mark {
+    gap: 12px !important;
+  }
+
+  html body footer.footer > div {
+    justify-content: flex-start !important;
+    gap: 14px 23px !important;
+    width: 100% !important;
+    padding: 5px 0 13px !important;
+    border-bottom: 1px solid rgba(201, 179, 141, .2) !important;
+  }
+
+  html body footer.footer > div a {
+    font-size: 10px !important;
+  }
+
+  html body footer.footer > small {
+    justify-self: start !important;
+    text-align: left !important;
+    font-size: 9px !important;
+  }
+}

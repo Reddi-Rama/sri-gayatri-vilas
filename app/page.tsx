@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState, useRef, useEffect } from "react";
 import { supabase } from "../lib/supabase";
@@ -613,7 +613,6 @@ const elements = document.querySelectorAll(selectors.join(","));
           </div>
 
           <div className="hero-meta">
-            <span>01 — 04</span><i />
             <span>FRESHLY PREPARED  |  ALWAYS WELCOMING</span>
           </div>
         </div>
@@ -641,7 +640,7 @@ const elements = document.querySelectorAll(selectors.join(","));
 
       <section className="story-section" id="story">
         <div className="story-top">
-          <span className="eyebrow dark-eyebrow">01 / A PLACE AT OUR TABLE</span>
+          <span className="eyebrow dark-eyebrow">A PLACE AT OUR TABLE</span>
           <span className="story-index">THE GOOD THINGS ARE SHARED.</span>
         </div>
 
@@ -805,7 +804,36 @@ const elements = document.querySelectorAll(selectors.join(","));
 
         <div className="section-title-row">
           <h2>A menu worth<br /><em>gathering for.</em></h2>
-          <p>Little cravings, big favourites<br />and something for every mood.</p>
+                    <div className="menu-intro-chef">
+            <span className="menu-chef-halo" aria-hidden="true"></span>
+            <img
+              src="/images/sgv-chef-mascot.gif"
+              alt="Sri Gayatri Vilas chef mascot giving an approving gesture"
+              loading="eager"
+            />
+            <span className="menu-chef-label">THE SGV KITCHEN</span>
+          </div>
+
+          <aside className="menu-intro-note">
+            <div className="menu-intro-note-top">
+              <span>OUR LITTLE PROMISE</span>
+              <span className="menu-intro-note-star">✳</span>
+            </div>
+
+            <p>
+              Little cravings, <em>big favourites.</em>
+            </p>
+
+            <div className="menu-intro-note-copy">
+              Something delicious for every kind of day.
+            </div>
+
+            <div className="menu-intro-promises">
+              <span>Freshly made</span>
+              <span>Authentic flavours</span>
+              <span>Made to share</span>
+            </div>
+          </aside>
         </div>
 
         <div className="menu-toolbar">
@@ -985,7 +1013,7 @@ const elements = document.querySelectorAll(selectors.join(","));
 
       <section className="gallery-section">
         <div className="section-topline">
-          <span className="eyebrow">04 / A GLIMPSE OF THE GOOD LIFE</span>
+          <span className="eyebrow">A GLIMPSE OF THE GOOD LIFE</span>
           <span className="section-note">FOOD  |  PEOPLE  |  MOMENTS</span>
         </div>
 
@@ -1029,7 +1057,7 @@ const elements = document.querySelectorAll(selectors.join(","));
 
       <section className="visit-section" id="visit">
         <div className="visit-heading">
-          <span className="eyebrow dark-eyebrow">05 / COME ON IN</span>
+          <span className="eyebrow dark-eyebrow">COME ON IN</span>
           <h2>We'll keep<br />a place <em>for you.</em></h2>
         </div>
 
@@ -1060,8 +1088,8 @@ const elements = document.querySelectorAll(selectors.join(","));
         <div>
           <a href="#menu">MENU</a>
           <a href="#story">OUR STORY</a>
-          <a href="#visit">CONTACT</a>
-          <a href="https://social.com" target="_blank">IG</a>
+          <a href="tel:+919121814782" aria-label="Call Sri Gayatri Vilas">CONTACT</a>
+          <a href="https://www.instagram.com/sri_gayatri_vilas?avpt=M3pvMGVsenBjNXVk" target="_blank" rel="noopener noreferrer" aria-label="Instagram">INSTAGRAM</a>
         </div>
         <small>(c) 2026 SRI GAYATRI VILAS  |  VIZIANAGARAM</small>
       </footer>
