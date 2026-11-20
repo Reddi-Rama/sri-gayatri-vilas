@@ -1,4 +1,4 @@
-﻿const { app, BrowserWindow, ipcMain, Notification, shell } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification, shell } = require("electron");
 const path = require("path");
 const fs = require("fs/promises");
 const { safeStorage } = require("electron");
@@ -90,6 +90,9 @@ function stopListening() {
 }
 
 function startListening() {
+  console.log("ORDER LISTENER: Starting...");
+  console.log("WINDOW NOTIFICATIONS SUPPORTED:", Notification.isSupported());
+
   stopListening();
 
   orderChannel = supabase
@@ -101,11 +104,26 @@ function startListening() {
         schema: "public",
         table: "orders"
       },
-      () => {
-        if (Notification.isSupported()) {
+      (payload) => {
+        console.log("NEW ORDER EVENT RECEIVED:", !!payload?.new);
+
+        try {
+          if (!Notification.isSupported()) {
+            console.error("WINDOW NOTIFICATIONS ARE NOT SUPPORTED.");
+            return;
+          }
+
           const notification = new Notification({
             title: "Sri Gayatri Vilas",
             body: "A new customer order has been received."
+          });
+
+          notification.on("show", () => {
+            console.log("WINDOW NOTIFICATION DISPLAYED.");
+          });
+
+          notification.on("failed", (_event, error) => {
+            console.error("WINDOW NOTIFICATION FAILED:", error);
           });
 
           notification.on("click", async () => {
@@ -119,10 +137,19 @@ function startListening() {
           });
 
           notification.show();
+          console.log("NOTIFICATION SHOW REQUEST SENT.");
+        } catch (error) {
+          console.error("NOTIFICATION CREATION ERROR:", error);
         }
       }
     )
-    .subscribe((status) => {
+    .subscribe((status, error) => {
+      console.log("SUPABASE REALTIME STATUS:", status);
+
+      if (error) {
+        console.error("SUPABASE REALTIME ERROR:", error);
+      }
+
       if (win && !win.isDestroyed()) {
         win.webContents.send("orders:connection", status);
       }
@@ -132,7 +159,7 @@ async function checkExistingSession() {
   const { data } = await supabase.auth.getSession();
   const user = data.session?.user;
 
-  if (user && await verifyAdmin(user.id)) {
+  if (user && await verifyAdmin(user.id, data.session.access_token)) {
     startListening();
     return { loggedIn: true, email: user.email };
   }
