@@ -459,8 +459,25 @@ const elements = document.querySelectorAll(selectors.join(","));
 
     loadCustomerMenu();
 
+    const menuChannel = supabase
+      .channel("customer-live-menu")
+      .on("postgres_changes", {
+        event: "*",
+        schema: "public",
+        table: "menu_items"
+      }, () => {
+        void loadCustomerMenu();
+      })
+      .subscribe((status, error) => {
+        console.log("MENU REALTIME STATUS:", status);
+        if (error) console.error("MENU REALTIME ERROR:", error);
+        console.log("CUSTOMER MENU REALTIME STATUS:", status);
+        if (error) console.error("CUSTOMER MENU REALTIME ERROR:", error);
+      });
+
     return () => {
       active = false;
+      void supabase.removeChannel(menuChannel);
     };
   }, []);
 
@@ -493,7 +510,12 @@ const elements = document.querySelectorAll(selectors.join(","));
       }, payload => {
         setRestaurantOpen(Boolean(payload.new.is_open));
       })
-      .subscribe();
+      .subscribe((status, error) => {
+        console.log("MENU REALTIME STATUS:", status);
+        if (error) console.error("MENU REALTIME ERROR:", error);
+        console.log("CUSTOMER MENU REALTIME STATUS:", status);
+        if (error) console.error("CUSTOMER MENU REALTIME ERROR:", error);
+      });
 
     return () => {
       active = false;
@@ -619,6 +641,17 @@ const elements = document.querySelectorAll(selectors.join(","));
     e.preventDefault();
     if (isSubmitting || cartItems.length === 0) return;
 
+    setOrderError("");
+    const { data: restaurantStatus, error: statusError } = await supabase
+      .from("restaurant_settings")
+      .select("is_open")
+      .eq("id", true)
+      .single();
+
+    if (statusError || !restaurantStatus?.is_open) {
+      setOrderError("Restaurant is currently closed. Online ordering is unavailable right now.");
+      return;
+    }
     setIsSubmitting(true);
     setOrderError("");
 
@@ -653,76 +686,10 @@ const elements = document.querySelectorAll(selectors.join(","));
 
   return (
     <main>
-      {!restaurantOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Restaurant currently closed"
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99999,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 24,
-            background: "rgba(5, 5, 5, 0.66)",
-            backdropFilter: "blur(5px)",
-            WebkitBackdropFilter: "blur(5px)"
-          }}
-        >
-          <div style={{
-            width: "min(100%, 520px)",
-            padding: "42px 28px",
-            textAlign: "center",
-            color: "#F4E8D2",
-            background: "rgba(20, 18, 15, 0.58)",
-            border: "1px solid rgba(218, 190, 145, 0.38)",
-            borderRadius: 12,
-            boxShadow: "0 20px 80px rgba(0,0,0,.28)"
-          }}>
-            <img
-              src="/images/logo.png"
-              alt="Sri Gayatri Vilas"
-              style={{
-                width: 64,
-                height: 64,
-                objectFit: "contain",
-                margin: "0 auto 20px"
-              }}
-            />
-            <p style={{
-              margin: "0 0 14px",
-              color: "#D9BE91",
-              fontSize: 11,
-              letterSpacing: 3,
-              fontWeight: 600
-            }}>
-              SRI GAYATRI VILAS
-            </p>
-            <h2 style={{
-              margin: "0 0 12px",
-              fontFamily: "Georgia, serif",
-              fontSize: "clamp(27px, 5vw, 38px)",
-              fontWeight: 400
-            }}>
-              We&apos;re Currently Closed
-            </h2>
-            <p style={{
-              margin: 0,
-              color: "#E0D5C4",
-              fontSize: 15,
-              lineHeight: 1.7
-            }}>
-              Please visit us again soon.
-            </p>
-          </div>
-        </div>
-      )}
       <header className="site-header">
         <a href="#home" className="wordmark">
           <img src="/images/logo.png" alt="Sri Gayatri Vilas" style={{width:48,height:48,objectFit:"contain",display:"block",flexShrink:0}} />
-          <i>SRI GAYATRI VILAS</i>
+          <i>&#10022;</i>
         </a>
 
         <nav className={mobileOpen ? "main-nav nav-visible" : "main-nav"}>
@@ -816,7 +783,7 @@ const elements = document.querySelectorAll(selectors.join(","));
             <span>EST. VIZIANAGARAM</span>
           </div>
           <div className="seal">
-            <span>MADE</span><b>WITH</b><span>LOVE</span><i>✦</i>
+            <span>MADE</span><b>WITH</b><span>LOVE</span><i>&#10022;</i>
           </div>
         </div>
 
@@ -1004,7 +971,7 @@ const elements = document.querySelectorAll(selectors.join(","));
           <aside className="menu-intro-note">
             <div className="menu-intro-note-top">
               <span>OUR LITTLE PROMISE</span>
-              <span className="menu-intro-note-star">✦</span>
+              <span className="menu-intro-note-star">&#10022;</span>
             </div>
 
             <p>
@@ -1129,7 +1096,7 @@ const elements = document.querySelectorAll(selectors.join(","));
                 <p>{dish.description}</p>
 
                 <div className="dish-buy">
-                  <strong>{"₹"}{dish.price}</strong>
+                  <strong>&#8377;{dish.price}</strong>
 
                   {(cart[dish.id] || 0) > 0 ? (
                     <div className="dish-quantity-control" aria-label={`Quantity of ${dish.name}`}>
@@ -1139,7 +1106,7 @@ const elements = document.querySelectorAll(selectors.join(","));
                         onClick={() => updateQty(dish.id, -1)}
                         aria-label={`Remove one ${dish.name}`}
                       >
-                        −
+                        ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¹ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢
                       </button>
 
                       <span className="dish-quantity-value">
@@ -1252,7 +1219,7 @@ const elements = document.querySelectorAll(selectors.join(","));
     <div className="gallery-feature-line"></div>
 
     <span className="gallery-feature-footer">
-      SRI GAYATRI VILAS · VIZIANAGARAM
+      SRI GAYATRI VILAS &#183; VIZIANAGARAM
     </span>
   </div>
 </div>
@@ -1285,7 +1252,7 @@ const elements = document.querySelectorAll(selectors.join(","));
 
       <footer className="footer">
         <a href="#home" className="wordmark footer-mark">
-          <img src="/images/logo.png" alt="Sri Gayatri Vilas" style={{width:48,height:48,objectFit:"contain",display:"block",flexShrink:0}} /><i>SRI GAYATRI VILAS</i>
+          <img src="/images/logo.png" alt="Sri Gayatri Vilas" style={{width:48,height:48,objectFit:"contain",display:"block",flexShrink:0}} /><i>&#10022;</i>
         </a>
         <p>GOOD FOOD IS ALWAYS A GOOD IDEA.</p>
         <div>
@@ -1294,7 +1261,7 @@ const elements = document.querySelectorAll(selectors.join(","));
           <a href="tel:+919121814782" aria-label="Call Sri Gayatri Vilas">CONTACT</a>
           <a href="https://www.instagram.com/sri_gayatri_vilas?avpt=M3pvMGVsenBjNXVk" target="_blank" rel="noopener noreferrer" aria-label="Instagram">INSTAGRAM</a>
         </div>
-        <small>(c) 2026 SRI GAYATRI VILAS  |  VIZIANAGARAM</small>
+        <small>(c) 2026 SRI GAYATRI VILAS &#183; VIZIANAGARAM</small>
       </footer>
 
       <AnimatePresence>
@@ -1357,20 +1324,20 @@ const elements = document.querySelectorAll(selectors.join(","));
           </div>
                         <div className="cart-item-copy">
                           <h3>{d.name}</h3>
-                          <span>₹{d.price}</span>
+                          <span>&#8377;{d.price}</span>
                           <div className="quantity">
                             <button onClick={() => updateQty(d.id, -1)}><Minus size={12} /></button>
                             <b>{cart[d.id]}</b>
                             <button onClick={() => updateQty(d.id, 1)}><Plus size={12} /></button>
                           </div>
                         </div>
-                        <strong>₹{d.price * cart[d.id]}</strong>
+                        <strong>&#8377;{d.price * cart[d.id]}</strong>
                       </div>
                     ))}
                   </div>
 
                   <div className="cart-summary">
-                    <div><span>SUBTOTAL</span><b>₹{subtotal}</b></div>
+                    <div><span>SUBTOTAL</span><b>&#8377;{subtotal}</b></div>
                     <p>Delivery charges, if applicable, will be confirmed by the restaurant.</p>
                     <button className="btn-dark wide" onClick={() => {
                       setCartOpen(false);
@@ -1428,6 +1395,9 @@ const elements = document.querySelectorAll(selectors.join(","));
                   }}>DONE</button>
                 </div>
               ) : (
+                <>
+                {!restaurantOpen && <div role="alert" style={{display:"flex",gap:14,alignItems:"flex-start",background:"#fff1ed",border:"1px solid #e8a69a",borderLeft:"5px solid #b42318",padding:"17px 18px",borderRadius:8,marginBottom:8}}><span style={{background:"#b42318",color:"#fff",width:27,height:27,minWidth:27,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:700,fontSize:16}}>!</span><div><strong style={{display:"block",color:"#922b21",fontSize:12,letterSpacing:1.1,marginBottom:6}}>ONLINE ORDERING UNAVAILABLE</strong><span style={{display:"block",color:"#74352d",fontSize:13,lineHeight:1.6}}>Restaurant is currently closed. Online ordering is unavailable right now. Please visit us again when we reopen.</span></div></div>}
+                
                 <form className="checkout-fields" onSubmit={confirmOrder}>
                   <label>YOUR NAME *<input name="customer_name" required minLength={2} placeholder="Full name" /></label>
                   <label>DELIVERY ADDRESS *<textarea name="address" required minLength={5} rows={3} placeholder="House number, street, area and landmark" /></label>
@@ -1445,14 +1415,15 @@ const elements = document.querySelectorAll(selectors.join(","));
 
                   {orderError && <p role="alert" style={{color:"#b42318",fontSize:"13px"}}>{orderError}</p>}
                   <div className="total-row">
-                    <span>ORDER TOTAL</span><b>₹{subtotal}</b>
+                    <span>ORDER TOTAL</span><b>&#8377;{subtotal}</b>
                   </div>
 
-                  <button className="btn-dark wide" type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "SAVING ORDER..." : "CONFIRM ORDER"} <ArrowRight size={15} />
+                  <button className="btn-dark wide" type="submit" disabled={isSubmitting || !restaurantOpen}>
+                    {isSubmitting ? "SAVING ORDER..." : !restaurantOpen ? "RESTAURANT CLOSED" : "CONFIRM ORDER"} {restaurantOpen && <ArrowRight size={15} />}
                   </button>
                   
                 </form>
+                </>
               )}
             </motion.div>
           </motion.div>
@@ -1521,7 +1492,7 @@ const elements = document.querySelectorAll(selectors.join(","));
 
                 <div className="dish-detail-price">
                   <span>PRICE</span>
-                  <strong>{"₹"}{selectedDish.price}</strong>
+                  <strong>&#8377;{selectedDish.price}</strong>
                 </div>
 
                 <div className="dish-detail-divider" />

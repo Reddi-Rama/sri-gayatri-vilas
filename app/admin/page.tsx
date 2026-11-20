@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import type { Session } from "@supabase/supabase-js";
 import {
-  LayoutDashboard, ShoppingBag, Utensils, Tags, ChartNoAxesCombined,
+  LayoutDashboard, ShoppingBag, Utensils, ChartNoAxesCombined,
   Settings, Search, Bell, ChevronDown,
   IndianRupee, TrendingUp, Plus, ArrowUpRight,
   Menu, X, MoreHorizontal, Pencil, Trash2
@@ -13,13 +13,12 @@ import styles from "./admin.module.css";
 import { restaurantMenu } from "./menu-data";
 import { supabase } from "../../lib/supabase";
 
-type Section = "Dashboard" | "Orders" | "Menu" | "Offers" | "Reports" | "Settings";
+type Section = "Dashboard" | "Orders" | "Menu" | "Reports" | "Settings";
 
 const navigation = [
   { name: "Dashboard" as Section, icon: LayoutDashboard },
   { name: "Orders" as Section, icon: ShoppingBag },
   { name: "Menu" as Section, icon: Utensils },
-  { name: "Offers" as Section, icon: Tags },
   { name: "Reports" as Section, icon: ChartNoAxesCombined },
 ];
 
@@ -49,6 +48,7 @@ type AdminOrder = {
   items: string;
   amount: number;
   time: string;
+  createdAt: string;
   status: string;
 };
 
@@ -57,13 +57,14 @@ type SidebarProps = {
   setSection: Dispatch<SetStateAction<Section>>;
   mobileOpen: boolean;
   setMobileOpen: Dispatch<SetStateAction<boolean>>;
+  orderCount: number;
 };
 
 const initialOrders: AdminOrder[] = [];
 
 const initialDishes = restaurantMenu.map(dish => ({ ...dish, available: true }));
 
-function Sidebar({ section, setSection, mobileOpen, setMobileOpen }: SidebarProps) {
+function Sidebar({ section, setSection, mobileOpen, setMobileOpen, orderCount }: SidebarProps) {
   return (
     <aside className={`${styles.sidebar} ${mobileOpen ? styles.sidebarOpen : ""}`}>
       <div className={styles.brand}>
@@ -85,7 +86,7 @@ function Sidebar({ section, setSection, mobileOpen, setMobileOpen }: SidebarProp
               onClick={() => { setSection(item.name); setMobileOpen(false); }}>
               <Icon size={19} />
               <span>{item.name}</span>
-              {item.name === "Orders" && <small>5</small>}
+              {item.name === "Orders" && <small>{orderCount}</small>}
             </button>
           );
         })}
@@ -392,6 +393,7 @@ export default function AdminPage() {
           ).join(", "),
           amount: Number(order.total_amount),
           time: new Date(order.created_at).toLocaleString("en-IN"),
+          createdAt: String(order.created_at),
           status: String(order.status ?? "")
         })));
       }
@@ -595,7 +597,7 @@ export default function AdminPage() {
   );
 return (
     <main className={styles.app}>
-      <Sidebar section={section} setSection={setSection} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+      <Sidebar section={section} setSection={setSection} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} orderCount={orders.length} />
       {mobileOpen && <button className={styles.overlay} onClick={() => setMobileOpen(false)} aria-label="Close menu" />}
 
       <section className={styles.main}>
@@ -632,13 +634,12 @@ return (
               <p>{section === "Dashboard" ? "Here's what's happening at your restaurant today." : `Manage your restaurant ${section.toLowerCase()} from here.`}</p>
             </div>
             {section === "Menu" && <button className={styles.primaryButton} onClick={() => setShowAddDish(true)}><Plus size={17}/> Add dish</button>}
-            {section === "Offers" && <button className={styles.primaryButton} onClick={() => alert("Offer creation will be connected in the next stage.")}><Plus size={17}/> Create offer</button>}
           </div>
 
           {section === "Dashboard" && <>
             <div className={styles.statsGrid}>
-              <Stat icon={<ShoppingBag/>} label="Total orders" value="49" change="+12.5%" note="vs. previous day"/>
-              <Stat icon={<IndianRupee/>} label="Today's revenue" value="Rs. 8,450" change="+8.2%" note="vs. previous day"/>
+              <Stat icon={<ShoppingBag/>} label="Total orders" value={String(orders.length)} change="Live database" note="All recorded orders"/>
+              <Stat icon={<IndianRupee/>} label="Today's revenue" value={money(orders.filter(order => new Date(order.createdAt).toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }) === new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" })).reduce((sum, order) => sum + order.amount, 0))} change="Live database" note="Today's orders"/>
             </div>
 
             <div className={styles.panel} style={{ marginBottom: 24 }}>
@@ -696,16 +697,6 @@ return (
                   ))}
                 </div>
               </div>
-
-              <div className={styles.panel}>
-                <div className={styles.panelHeading}><div><h2>Restaurant overview</h2><p>Today&apos;s performance</p></div></div>
-                <div className={styles.revenueValue}>{money(8450)}</div>
-                <div className={styles.revenueCaption}><TrendingUp size={15}/> 8.2% compared to yesterday</div>
-                <div className={styles.chart}>
-                  {[35,52,43,68,49,76,58,88,62,73,48,94].map((height,i) => <div key={i} className={styles.chartColumn}><span style={{height: `${height}%`}} /></div>)}
-                </div>
-                <div className={styles.chartLabels}><span>9 AM</span><span>12 PM</span><span>3 PM</span><span>6 PM</span><span>9 PM</span></div>
-              </div>
             </div>
 
             <div className={styles.panel}>
@@ -713,7 +704,6 @@ return (
               <div className={styles.quickActions}>
                 <Quick icon={<ShoppingBag/>} title="Manage orders" desc="Review and update orders" onClick={() => setSection("Orders")}/>
                 <Quick icon={<Utensils/>} title="Update menu" desc="Edit dishes and availability" onClick={() => setSection("Menu")}/>
-                <Quick icon={<Tags/>} title="Manage offers" desc="Create restaurant promotions" onClick={() => setSection("Offers")}/>
               </div>
             </div>
           </>}
@@ -903,16 +893,7 @@ return (
             <p className={styles.footnote}>Menu data is loaded live from Supabase. Availability changes are saved directly to Supabase.</p>
           </div>}
 
-          {section === "Offers" && <div className={styles.offerGrid}>
-            <div className={styles.offerCard}><div className={styles.offerTop}><Tags/><span className={styles.demoTag}>EXAMPLE</span></div><h2>Today&apos;s special</h2><p>Special offers for your restaurant customers.</p><div className={styles.offerDiscount}>10% OFF</div><div className={styles.offerBottom}><span>{offerActive ? "Currently active" : "Inactive"}</span><label className={styles.switch}><input type="checkbox" checked={offerActive} onChange={() => setOfferActive(!offerActive)}/><span/></label></div></div>
-            <div className={styles.panel}><h2>Offer management</h2><p className={styles.panelDescription}>Create promotions, define discount rules, set start and end dates, and activate or deactivate offers.</p><button className={styles.primaryButton} onClick={() => alert("Offer creation form will be implemented with database integration.")}><Plus size={17}/> Create new offer</button><p className={styles.footnote}>This is a sample offer. No discount is applied at customer checkout yet.</p></div>
-          </div>}
-
-          {section === "Reports" && <div className={styles.panel}>
-            <div className={styles.panelHeading}><div><h2>Business reports</h2><p>Illustrative performance summary</p></div></div>
-            <div className={styles.statsGrid}><Stat icon={<IndianRupee/>} label="Gross sales" value="Rs. 8,450" change="Today" note="Sample figure"/><Stat icon={<ShoppingBag/>} label="Orders" value="49" change="Today" note="Sample figure"/><Stat icon={<TrendingUp/>} label="Average order" value="Rs. 172" change="Today" note="Sample figure"/></div>
-            <p className={styles.footnote}>Real sales reports will be available after connecting the order database.</p>
-          </div>}
+          {section === "Reports" && <div className={styles.panel}><div className={styles.panelHeading}><div><h2>Business reports</h2><p>Based on recorded customer orders</p></div></div><div className={styles.statsGrid}><Stat icon={<IndianRupee/>} label="Gross sales" value={money(orders.reduce((sum, order) => sum + order.amount, 0))} change="All time" note="Recorded orders"/><Stat icon={<ShoppingBag/>} label="Orders" value={String(orders.length)} change="All time" note="Recorded orders"/><Stat icon={<TrendingUp/>} label="Average order" value={money(orders.length ? orders.reduce((sum, order) => sum + order.amount, 0) / orders.length : 0)} change="All time" note="Per order"/></div></div>}
 
           {section === "Settings" && <div className={styles.panel}>
             <div className={styles.panelHeading}><div><h2>Restaurant settings</h2><p>Basic restaurant information</p></div></div>

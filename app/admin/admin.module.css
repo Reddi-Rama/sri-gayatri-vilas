@@ -385,3 +385,415 @@
   }
 }
 
+
+/* MOBILE DASHBOARD POLISH */
+@media (max-width: 760px) {
+  .topbar {
+    min-height: 68px;
+    height: auto;
+    padding: 9px 13px;
+    gap: 8px;
+    background: #0b0b0a;
+  }
+
+  .mobileMenu {
+    width: 34px;
+    height: 38px;
+    flex-shrink: 0;
+    color: #c9b38d;
+  }
+
+  .breadcrumb {
+    flex: 1;
+    min-width: 0;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .breadcrumb strong {
+    display: inline-block;
+  }
+
+  .topActions {
+    flex-shrink: 0;
+    gap: 9px;
+  }
+
+  .topAvatar {
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+    border: 2px solid #c9b38d;
+    background: linear-gradient(145deg, #e8d5ad, #b99b68);
+    color: #211b11;
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: 0 0 0 3px #c9b38d20;
+  }
+
+  .topActions > button:last-child {
+    min-width: 0 !important;
+    width: auto !important;
+    padding: 9px 10px !important;
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    border-radius: 9px !important;
+  }
+
+  .content {
+    padding: 23px 16px 30px;
+  }
+
+  .pageHeading {
+    margin-bottom: 22px;
+  }
+
+  .pageHeading h1 {
+    font-size: 25px;
+    line-height: 1.2;
+  }
+
+  .pageHeading p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+    margin-bottom: 18px;
+  }
+
+  .statCard {
+    min-width: 0;
+    padding: 15px 13px;
+    border-radius: 13px;
+    background: #171613;
+    border-color: #302e28;
+  }
+
+  .statTop {
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  .statValue {
+    font-size: 25px;
+    margin-top: 13px;
+  }
+
+  .statIcon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    background: #29251d;
+    color: #d4b982;
+  }
+
+  .statFoot {
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 9px;
+  }
+
+  .panel {
+    padding: 17px;
+    border-radius: 13px;
+    background: #171613;
+    border-color: #302e28;
+  }
+
+  .panelHeading {
+    gap: 12px;
+  }
+
+  .restaurantStatus {
+    border-radius: 12px;
+  }
+
+  .adminProfile {
+    border-color: #302e28;
+  }
+}
+
+@media (max-width: 390px) {
+  .topbar {
+    padding-left: 9px;
+    padding-right: 9px;
+    gap: 6px;
+  }
+
+  .topActions {
+    gap: 6px;
+  }
+
+  .topActions > button:last-child {
+    padding: 8px 7px !important;
+    font-size: 9px !important;
+  }
+
+  .content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .statCard {
+    padding: 12px 10px;
+  }
+}
+
+/* MOBILE MENU ROW FIX */
+@media (max-width: 760px) {
+  .content,
+  .panel,
+  .menuList {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .menuRow {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 38px 64px;
+    grid-template-areas:
+      "icon info info info"
+      ". price switch availability"
+      ". . edit delete";
+    align-items: center;
+    gap: 10px 8px;
+    padding: 15px 2px;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .menuRow > .dishIcon {
+    grid-area: icon;
+  }
+
+  .menuRow > .dishInfo {
+    grid-area: info;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .menuRow > strong {
+    grid-area: price;
+    margin: 0;
+    justify-self: start;
+  }
+
+  .menuRow > .switch {
+    grid-area: switch;
+    justify-self: center;
+  }
+
+  .menuRow > .available,
+  .menuRow > .unavailable {
+    grid-area: availability;
+    width: auto;
+    font-size: 10px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .menuRow > button:nth-of-type(1) {
+    grid-area: edit;
+    justify-self: center;
+    width: 36px;
+    height: 34px;
+  }
+
+  .menuRow > button:nth-of-type(2) {
+    grid-area: delete;
+    justify-self: center;
+    width: 36px;
+    height: 34px;
+  }
+
+  .menuRow > * {
+    min-width: 0;
+  }
+
+  .panel {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 390px) {
+  .menuRow {
+    column-gap: 5px;
+    grid-template-columns: 32px minmax(0, 1fr) 34px 60px;
+  }
+}
+
+/* MOBILE MENU ROW FIX */
+@media (max-width: 760px) {
+  .content,
+  .panel,
+  .menuList {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .menuRow {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 38px 64px;
+    grid-template-areas:
+      "icon info info info"
+      ". price switch availability"
+      ". . edit delete";
+    align-items: center;
+    gap: 10px 8px;
+    padding: 15px 2px;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .menuRow > .dishIcon {
+    grid-area: icon;
+  }
+
+  .menuRow > .dishInfo {
+    grid-area: info;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .menuRow > strong {
+    grid-area: price;
+    margin: 0;
+    justify-self: start;
+  }
+
+  .menuRow > .switch {
+    grid-area: switch;
+    justify-self: center;
+  }
+
+  .menuRow > .available,
+  .menuRow > .unavailable {
+    grid-area: availability;
+    width: auto;
+    font-size: 10px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .menuRow > button:nth-of-type(1) {
+    grid-area: edit;
+    justify-self: center;
+    width: 36px;
+    height: 34px;
+  }
+
+  .menuRow > button:nth-of-type(2) {
+    grid-area: delete;
+    justify-self: center;
+    width: 36px;
+    height: 34px;
+  }
+
+  .menuRow > * {
+    min-width: 0;
+  }
+
+  .panel {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 390px) {
+  .menuRow {
+    column-gap: 5px;
+    grid-template-columns: 32px minmax(0, 1fr) 34px 60px;
+  }
+}
+
+/* MOBILE MENU ROW FIX */
+@media (max-width: 760px) {
+  .content,
+  .panel,
+  .menuList {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .menuRow {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 38px 64px;
+    grid-template-areas:
+      "icon info info info"
+      ". price switch availability"
+      ". . edit delete";
+    align-items: center;
+    gap: 10px 8px;
+    padding: 15px 2px;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .menuRow > .dishIcon {
+    grid-area: icon;
+  }
+
+  .menuRow > .dishInfo {
+    grid-area: info;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .menuRow > strong {
+    grid-area: price;
+    margin: 0;
+    justify-self: start;
+  }
+
+  .menuRow > .switch {
+    grid-area: switch;
+    justify-self: center;
+  }
+
+  .menuRow > .available,
+  .menuRow > .unavailable {
+    grid-area: availability;
+    width: auto;
+    font-size: 10px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .menuRow > button:nth-of-type(1) {
+    grid-area: edit;
+    justify-self: center;
+    width: 36px;
+    height: 34px;
+  }
+
+  .menuRow > button:nth-of-type(2) {
+    grid-area: delete;
+    justify-self: center;
+    width: 36px;
+    height: 34px;
+  }
+
+  .menuRow > * {
+    min-width: 0;
+  }
+
+  .panel {
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 390px) {
+  .menuRow {
+    column-gap: 5px;
+    grid-template-columns: 32px minmax(0, 1fr) 34px 60px;
+  }
+}
