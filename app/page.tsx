@@ -20,7 +20,7 @@ const localFoodImages: Record<number, string> = {
   108: "/images/Button Ghee Podi Idly.jpg",
 
   // VADA'S
-  109: "/images/Vada's — 3 images.jpg",
+  109: "/images/Vada's .jpg",
   110: "/images/Sambar Vada.webp",
   111: "/images/Perugu Vada.webp",
 
@@ -114,7 +114,7 @@ const localFoodImages: Record<number, string> = {
 
 const foodImage = (tags: string, id: number) =>
   localFoodImages[id] || "/images/Plain Dosa.webp";
-const dishes = [
+const fallbackDishes = [
   // IDLY'S
   { id: 1, name: "Idly (2)", category: "Idly's", description: "Soft South Indian idly.", price: 30, tag: "POPULAR", image: foodImage("idli,sambar", 101) },
   { id: 2, name: "Ghee Podi Idly (2)", category: "Idly's", description: "Idly with ghee and podi.", price: 50, image: foodImage("podi,idli", 102) },
@@ -218,9 +218,6 @@ const dishes = [
   { id: 76, name: "Parota (2)", category: "Indian Breads", description: "Layered Indian parota.", price: 60, image: foodImage("parotta,paratha", 176) }
 ];
 
-const featuredDishes = dishes.filter((dish) =>
-  [1, 9, 12, 13, 16, 19, 22, 65, 71].includes(dish.id)
-);
 const categories = [
   "All",
   "Idly's",
@@ -398,11 +395,125 @@ const elements = document.querySelectorAll(selectors.join(","));
     };
   }, []);
   const [category, setCategory] = useState("All");
+
+  function getCurrentMenuPeriod(): string {
+    const hour = Number(
+      new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        hourCycle: "h23"
+      }).format(new Date())
+    );
+
+    if (hour >= 6 && hour < 11) return "Morning";
+    if (hour >= 11 && hour < 16) return "Afternoon";
+    return "Night";
+  }
+
+  const [menuPeriod, setMenuPeriod] = useState("All");
+
+
+  const [restaurantOpen, setRestaurantOpen] = useState(true);
+
+  const [dishes, setDishes] = useState<Array<(typeof fallbackDishes)[number] & { menu_periods?: string[] }>>(fallbackDishes);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadCustomerMenu() {
+      const { data, error } = await supabase
+        .from("menu_items")
+        .select("id, name, category, description, price, image, tag, is_available, menu_periods")
+        .order("id", { ascending: true });
+
+      if (error) {
+        console.error("Unable to load menu from Supabase:", error.message);
+        return;
+      }
+
+      if (!active || !data) return;
+
+      const updatedDishes = data
+        .filter((item) => item.is_available !== false)
+        .map((item) => {
+          const fallback = fallbackDishes.find(
+            (dish) => String(dish.id) === String(item.id)
+          );
+
+          return {
+            id: Number(item.id),
+            name: item.name,
+            category: item.category,
+            description: item.description || "",
+            price: Number(item.price),
+            menu_periods: item.menu_periods || [],
+            image: item.image || fallback?.image || "/images/Plain Dosa.webp",
+            ...(item.tag || fallback?.tag
+              ? { tag: item.tag || fallback?.tag }
+              : {}),
+          };
+        });
+
+      setDishes(updatedDishes);
+    }
+
+    loadCustomerMenu();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadRestaurantStatus() {
+      const { data, error } = await supabase
+        .from("restaurant_settings")
+        .select("is_open")
+        .eq("id", true)
+        .single();
+
+      if (!active) return;
+      if (error) {
+        console.error("Unable to load restaurant status:", error.message);
+        return;
+      }
+      setRestaurantOpen(data.is_open);
+    }
+
+    loadRestaurantStatus();
+
+    const channel = supabase
+      .channel("customer-restaurant-status")
+      .on("postgres_changes", {
+        event: "UPDATE",
+        schema: "public",
+        table: "restaurant_settings"
+      }, payload => {
+        setRestaurantOpen(Boolean(payload.new.is_open));
+      })
+      .subscribe();
+
+    return () => {
+      active = false;
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const featuredDishes = useMemo(
+    () => dishes.filter((dish) =>
+      [1, 9, 12, 13, 16, 19, 22, 65, 71].includes(dish.id)
+    ),
+    [dishes]
+  );
+
   const [cart, setCart] = useState<Record<number, number>>({});
   const [cartOpen, setCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [orderReference, setOrderReference] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [marqueePaused, setMarqueePaused] = useState(false);
@@ -423,11 +534,20 @@ const elements = document.querySelectorAll(selectors.join(","));
     dy: number;
   }>>([]);
 
+  const periodDishes = useMemo(
+    () => menuPeriod === "All"
+      ? dishes
+      : dishes.filter(d =>
+          Array.isArray(d.menu_periods) && d.menu_periods.includes(menuPeriod)
+        ),
+    [dishes, menuPeriod]
+  );
+
   const visible = useMemo(
     () => category === "All"
-      ? dishes
-      : dishes.filter(d => d.category === category),
-    [category]
+      ? periodDishes
+      : periodDishes.filter(d => d.category === category),
+    [category, periodDishes]
   );
   const selectedDish = dishes.find(dish => dish.id === selectedDishId);
 
@@ -527,11 +647,78 @@ const elements = document.querySelectorAll(selectors.join(","));
       return;
     }
 
+    setOrderReference(String(data));
     setSubmitted(true);
   }
 
   return (
     <main>
+      {!restaurantOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Restaurant currently closed"
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 99999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 24,
+            background: "rgba(5, 5, 5, 0.66)",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)"
+          }}
+        >
+          <div style={{
+            width: "min(100%, 520px)",
+            padding: "42px 28px",
+            textAlign: "center",
+            color: "#F4E8D2",
+            background: "rgba(20, 18, 15, 0.58)",
+            border: "1px solid rgba(218, 190, 145, 0.38)",
+            borderRadius: 12,
+            boxShadow: "0 20px 80px rgba(0,0,0,.28)"
+          }}>
+            <img
+              src="/images/logo.png"
+              alt="Sri Gayatri Vilas"
+              style={{
+                width: 64,
+                height: 64,
+                objectFit: "contain",
+                margin: "0 auto 20px"
+              }}
+            />
+            <p style={{
+              margin: "0 0 14px",
+              color: "#D9BE91",
+              fontSize: 11,
+              letterSpacing: 3,
+              fontWeight: 600
+            }}>
+              SRI GAYATRI VILAS
+            </p>
+            <h2 style={{
+              margin: "0 0 12px",
+              fontFamily: "Georgia, serif",
+              fontSize: "clamp(27px, 5vw, 38px)",
+              fontWeight: 400
+            }}>
+              We&apos;re Currently Closed
+            </h2>
+            <p style={{
+              margin: 0,
+              color: "#E0D5C4",
+              fontSize: 15,
+              lineHeight: 1.7
+            }}>
+              Please visit us again soon.
+            </p>
+          </div>
+        </div>
+      )}
       <header className="site-header">
         <a href="#home" className="wordmark">
           <img src="/images/logo.png" alt="Sri Gayatri Vilas" style={{width:48,height:48,objectFit:"contain",display:"block",flexShrink:0}} />
@@ -629,7 +816,7 @@ const elements = document.querySelectorAll(selectors.join(","));
             <span>EST. VIZIANAGARAM</span>
           </div>
           <div className="seal">
-            <span>MADE</span><b>WITH</b><span>LOVE</span><i>✳</i>
+            <span>MADE</span><b>WITH</b><span>LOVE</span><i>✦</i>
           </div>
         </div>
 
@@ -650,8 +837,8 @@ const elements = document.querySelectorAll(selectors.join(","));
           <div className="story-right">
             <p>
               From the first comforting bite to the last sip,
-              we believe a good meal is about more than what's on the plate.
-              It's about the people around the table, familiar flavours
+              we believe a good meal is about more than what&apos;s on the plate.
+              It&apos;s about the people around the table, familiar flavours
               and the moments that stay with you.
             </p>
             <a href="#menu" className="dark-link">
@@ -792,7 +979,7 @@ const elements = document.querySelectorAll(selectors.join(","));
               fontSize: "19px"
             }}
           >
-            {"→"}
+            {"\u2192"}
           </button>
         </div>
       </section>
@@ -817,7 +1004,7 @@ const elements = document.querySelectorAll(selectors.join(","));
           <aside className="menu-intro-note">
             <div className="menu-intro-note-top">
               <span>OUR LITTLE PROMISE</span>
-              <span className="menu-intro-note-star">✳</span>
+              <span className="menu-intro-note-star">✦</span>
             </div>
 
             <p>
@@ -837,6 +1024,22 @@ const elements = document.querySelectorAll(selectors.join(","));
         </div>
 
         <div className="menu-toolbar">
+          <div className="menu-period-list" role="group" aria-label="Select menu time">
+            {(["All", "Morning", "Afternoon", "Night"] as const).map(period => (
+              <button
+                key={period}
+                type="button"
+                className={menuPeriod === period ? "menu-period-pill selected" : "menu-period-pill"}
+                aria-pressed={menuPeriod === period}
+                onClick={() => {
+                  setMenuPeriod(period);
+                  setCategory("All");
+                }}
+              >
+                {period}
+              </button>
+            ))}
+          </div>
           <div className="category-list">
             {categories.map(c => (
               <button
@@ -1019,7 +1222,7 @@ const elements = document.querySelectorAll(selectors.join(","));
 
         <div className="gallery-heading">
           <h2>Made to be<br /><em>remembered.</em></h2>
-          <p>Pull up a chair. There's always room<br />for one more at our table.</p>
+          <p>Pull up a chair. There&apos;s always room<br />for one more at our table.</p>
         </div>
 
         <div className="gallery-layout">
@@ -1049,7 +1252,7 @@ const elements = document.querySelectorAll(selectors.join(","));
     <div className="gallery-feature-line"></div>
 
     <span className="gallery-feature-footer">
-      SRI GAYATRI VILAS Â· VIZIANAGARAM
+      SRI GAYATRI VILAS · VIZIANAGARAM
     </span>
   </div>
 </div>
@@ -1058,7 +1261,7 @@ const elements = document.querySelectorAll(selectors.join(","));
       <section className="visit-section" id="visit">
         <div className="visit-heading">
           <span className="eyebrow dark-eyebrow">COME ON IN</span>
-          <h2>We'll keep<br />a place <em>for you.</em></h2>
+          <h2>We&apos;ll keep<br />a place <em>for you.</em></h2>
         </div>
 
         <div className="visit-block">
@@ -1071,9 +1274,9 @@ const elements = document.querySelectorAll(selectors.join(","));
         </div>
 
         <div className="visit-block">
-          <span>LET'S TALK FOOD</span>
-          <h3>We're just a call away.</h3>
-          <p>Call to confirm today's timings and availability.</p>
+          <span>LET&apos;S TALK FOOD</span>
+          <h3>We&apos;re just a call away.</h3>
+          <p>Call to confirm today&apos;s timings and availability.</p>
           <a href="tel:+919121814782">
             CALL THE RESTAURANT <ArrowUpRight size={14} />
           </a>
@@ -1145,7 +1348,13 @@ const elements = document.querySelectorAll(selectors.join(","));
                   <div className="cart-list">
                     {cartItems.map(d => (
                       <div className="cart-row" key={d.id}>
-                        <div className="cart-thumb">{d.name.charAt(0)}</div>
+                        <div className="cart-thumb">
+            {d.image ? (
+              <img src={d.image} alt={d.name} />
+            ) : (
+              d.name.charAt(0)
+            )}
+          </div>
                         <div className="cart-item-copy">
                           <h3>{d.name}</h3>
                           <span>₹{d.price}</span>
@@ -1206,9 +1415,14 @@ const elements = document.querySelectorAll(selectors.join(","));
                 <div className="success-message">
                   <Check size={35} />
                   <h3>Thank you!</h3>
-                  <p>Your order has been successfully saved. The restaurant can now review your order.</p>
+                  <p>Your order has been received successfully.</p>
+                  {orderReference && (
+                    <p><strong>Order Reference: #{orderReference}</strong></p>
+                  )}
+                  <p>Our restaurant team will call you shortly to confirm your order and delivery arrangements.</p>
                   <button className="btn-dark" onClick={() => {
                     setSubmitted(false);
+                    setOrderReference(null);
                     setCheckoutOpen(false);
                     setCart({});
                   }}>DONE</button>
@@ -1229,14 +1443,15 @@ const elements = document.querySelectorAll(selectors.join(","));
                     <small>Pay cash when your order arrives.</small>
                   </div>
 
-                  {orderError && <p role="alert" style={{color:"#b42318",fontSize:"13px"}}>{orderError}</p>}`r`n                  <div className="total-row">
+                  {orderError && <p role="alert" style={{color:"#b42318",fontSize:"13px"}}>{orderError}</p>}
+                  <div className="total-row">
                     <span>ORDER TOTAL</span><b>₹{subtotal}</b>
                   </div>
 
                   <button className="btn-dark wide" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? "SAVING ORDER..." : "CONFIRM ORDER"} <ArrowRight size={15} />
                   </button>
-                  <small className="demo-note">DEMO ONLY — NO REAL ORDER IS SENT YET.</small>
+                  
                 </form>
               )}
             </motion.div>
@@ -1379,6 +1594,12 @@ const elements = document.querySelectorAll(selectors.join(","));
     </main>
   );
 }
+
+
+
+
+
+
 
 
 

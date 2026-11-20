@@ -7245,3 +7245,68 @@ html body footer.footer > small {
     font-size: 9px !important;
   }
 }
+
+/* SRI GAYATRI VILAS — MENU TIME PERIOD TABS */
+main .menu-toolbar > .menu-period-list {
+  order: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin: 0 0 16px;
+}
+
+main .menu-toolbar .menu-period-pill {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid rgba(201, 179, 141, .30);
+  border-radius: 6px;
+  background: #171613;
+  color: #aaa398;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+main .menu-toolbar .menu-period-pill.selected {
+  color: #17130d;
+  background: linear-gradient(110deg, #c4a36c, #e3c58e);
+  border-color: #d6bd8e;
+}
+
+main .menu-toolbar .menu-period-pill:focus-visible {
+  outline: 2px solid #e3c58e;
+  outline-offset: 3px;
+}
+
+@media (max-width: 650px) {
+  main .menu-toolbar > .menu-period-list {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 9px !important;
+    width: 100% !important;
+    margin: 0 0 15px !important;
+    padding: 0 !important;
+    order: 0 !important;
+  }
+
+  main .menu-toolbar .menu-period-pill {
+    min-width: 0 !important;
+    min-height: 42px !important;
+    padding: 8px 3px !important;
+    font-size: 11px !important;
+    letter-spacing: .5px !important;
+    white-space: nowrap !important;
+  }
+}
+/* Actual food images inside cart thumbnails */
+.cart-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}

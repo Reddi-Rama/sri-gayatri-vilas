@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sri Gayatri Vilas Notifications</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#111827;color:#f9fafb;font-family:Segoe UI,Arial;padding:35px}
+.card{background:#1f2937;border:1px solid #374151;border-radius:16px;padding:25px}
+h2{margin-top:0;color:#fbbf24}
+p{color:#cbd5e1;font-size:14px;line-height:1.5}
+input{width:100%;padding:13px;margin:9px 0;border-radius:8px;border:1px solid #475569;background:#111827;color:white}
+button{width:100%;padding:13px;margin-top:12px;background:#d97706;color:white;border:0;border-radius:8px;font-weight:bold;cursor:pointer}
+#message{margin-top:15px;font-size:13px;color:#fbbf24}
+#dashboard{display:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>Sri Gayatri Vilas</h2>
+  <p>Admin desktop order notifications</p>
+
+  <section id="login">
+    <input id="email" type="email" placeholder="Admin email" autocomplete="username">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button id="loginButton">Admin Login</button>
+  </section>
+
+  <section id="dashboard">
+    <p>Signed in as <strong id="account"></strong></p>
+    <p>Keep this app running to receive new-order notifications.</p>
+    <p id="connection">Connecting to Supabase...</p>
+    <button id="openAdminButton">Open Admin Portal</button>
+<button id="logoutButton">Logout</button>
+  </section>
+
+  <div id="message"></div>
+</div>
+
+<script src="renderer.js"></script>
+</body>
+</html>
+
