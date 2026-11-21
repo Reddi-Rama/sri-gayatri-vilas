@@ -1259,7 +1259,7 @@ const elements = document.querySelectorAll(selectors.join(","));
           <span className="reviews-eyebrow">A WORD FROM OUR GUESTS</span>
           <h2>Good food. <em>Happy hearts.</em></h2>
           <div className="reviews-rating">
-            <strong>4.3</strong>
+            <strong>4.7</strong>
             <span className="reviews-stars" aria-label="Google rating">★★★★★</span>
             <small>Google rating · 36 reviews</small>
           </div>
