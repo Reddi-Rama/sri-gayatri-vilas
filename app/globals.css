@@ -3487,11 +3487,11 @@ html body .story-footer-photo:hover video {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 76px;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-tap-highlight-color: transparent;
   }
 
