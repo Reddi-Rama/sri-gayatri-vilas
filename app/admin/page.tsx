@@ -128,6 +128,15 @@ export default function AdminPage() {
   const [ordersError, setOrdersError] = useState("");
   const [soundEnabled, setSoundEnabled] = useState(false);
   const soundEnabledRef = useRef(false);
+  const [pushBusy, setPushBusy] = useState(false);
+  const [pushMessage, setPushMessage] = useState("");
+  const [pushEnabled, setPushEnabled] = useState(false);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem('sgv-admin-sound-enabled') === 'true';
+    soundEnabledRef.current = saved;
+    setSoundEnabled(saved);
+  }, []);
   const [dishes, setDishes] = useState<AdminDish[]>(initialDishes);
   const [menuLoading, setMenuLoading] = useState(true);
   const [menuError, setMenuError] = useState("");
@@ -265,6 +274,93 @@ export default function AdminPage() {
     setRestaurantOpen(nextStatus);
   }
 
+  async function enablePushNotifications() {
+    if (pushBusy) return;
+
+    setPushBusy(true);
+    setPushMessage("");
+
+    try {
+      if (!("Notification" in window) || !("serviceWorker" in navigator)) {
+        throw new Error("This browser does not support web push notifications.");
+      }
+
+      if (!window.isSecureContext) {
+        throw new Error("Push notifications require HTTPS or localhost.");
+      }
+
+      const permission = await Notification.requestPermission();
+
+      if (permission !== "granted") {
+        throw new Error("Notification permission was not granted. Check your browser settings.");
+      }
+
+      const { data: sessionData, error: sessionError } =
+        await supabase.auth.getSession();
+
+      if (sessionError || !sessionData.session) {
+        throw new Error("Your administrator session has expired. Please sign in again.");
+      }
+
+      const serviceWorkerRegistration =
+        await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+
+      const { getFirebaseMessaging, firebaseVapidKey } =
+        await import("../../lib/firebase-messaging");
+
+      const messaging = await getFirebaseMessaging();
+
+      if (!messaging) {
+        throw new Error("Firebase messaging is not supported in this browser.");
+      }
+
+      if (!firebaseVapidKey) {
+        throw new Error("Firebase VAPID public key is missing.");
+      }
+
+      const { getToken } = await import("firebase/messaging");
+
+      const token = await getToken(messaging, {
+        vapidKey: firebaseVapidKey,
+        serviceWorkerRegistration
+      });
+
+      if (!token) {
+        throw new Error("Firebase did not return a device token.");
+      }
+
+      const response = await fetch("/api/notifications/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${sessionData.session.access_token}`
+        },
+        body: JSON.stringify({
+          token,
+          deviceLabel: navigator.userAgent.slice(0, 100)
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Device registration failed.");
+      }
+
+      setPushEnabled(true);
+      setPushMessage("Push notifications enabled on this device.");
+    } catch (error) {
+      console.error("Push notification setup failed:", error);
+      setPushEnabled(false);
+      setPushMessage(
+        error instanceof Error
+          ? error.message
+          : "Could not enable push notifications."
+      );
+    } finally {
+      setPushBusy(false);
+    }
+  }
   async function verifyAdminSession(session: Session | null) {
     if (!session) {
       setAdminEmail("");
@@ -717,6 +813,7 @@ return (
                   onClick={() => {
                     const next = !soundEnabled;
                     soundEnabledRef.current = next;
+                    window.localStorage.setItem('sgv-admin-sound-enabled', String(next));
                     setSoundEnabled(next);
 
                     // Play a test bell from the user's click to unlock browser audio
@@ -737,9 +834,35 @@ return (
                   {soundEnabled ? "\uD83D\uDD14 Sound Alerts On" : "\uD83D\uDD15 Enable Sound Alerts"}
                 </button>
 
+                <button
+                  type="button"
+                  disabled={pushBusy || pushEnabled}
+                  onClick={enablePushNotifications}
+                  style={{
+                    padding:"9px 13px",
+                    borderRadius:8,
+                    border:"1px solid #c9b38d",
+                    background:pushEnabled ? "#e8f5e9" : "#fff",
+                    color:"#302315",
+                    cursor:pushBusy || pushEnabled ? "default" : "pointer",
+                    fontWeight:600,
+                    opacity:pushBusy ? 0.7 : 1
+                  }}
+                >
+                  {pushBusy
+                    ? "Enabling..."
+                    : pushEnabled
+                      ? "Push Notifications On"
+                      : "Enable Push Notifications"}
+                </button>
                 <span className={styles.demoTag}>LIVE ORDERS</span>
               </div>
             </div>
+            {pushMessage && (
+              <p role="status" style={{margin:"10px 0",color:pushEnabled ? "#237a3b" : "#a33",fontWeight:600}}>
+                {pushMessage}
+              </p>
+            )}
             <div className={styles.toolbar}>
               <div className={styles.searchBox}><Search size={17}/><input placeholder="Search orders or customers..." value={search} onChange={e => setSearch(e.target.value)}/></div>
             </div>
