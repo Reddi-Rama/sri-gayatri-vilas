@@ -43,3 +43,14 @@ next-env.d.ts
 /private/
 
 /desktop/config.local.cjs
+
+# Cloudflare deployment files
+.open-next/
+.wrangler/
+.dev.vars*
+
+# Production deployment secrets
+.secrets.production.json
+
+# Local backup files
+.local-backups/

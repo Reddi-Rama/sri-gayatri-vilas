@@ -8,7 +8,11 @@
         "start": "next start",
         "lint": "eslint",
         "desktop": "electron desktop/main.cjs",
-        "dist:win": "electron-builder --win nsis"
+        "dist:win": "electron-builder --win nsis",
+        "cf:build": "opennextjs-cloudflare build",
+        "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+        "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+        "cf:upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload"
     },
     "dependencies": {
         "@supabase/supabase-js": "^2.119.1",
@@ -21,6 +25,7 @@
         "react-dom": "19.3.0"
     },
     "devDependencies": {
+        "@opennextjs/cloudflare": "1.20.18",
         "@tailwindcss/turbopack": "4.3.3",
         "@types/node": "^20",
         "@types/react": "^19",
@@ -30,7 +35,8 @@
         "eslint": "^9",
         "eslint-config-next": "16.4.6",
         "tailwindcss": "4.3.3",
-        "typescript": "^5"
+        "typescript": "^5",
+        "wrangler": "4.166.0"
     },
     "main": "desktop/main.cjs",
     "build": {
