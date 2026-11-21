@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useRef } from "react";
 import type { Dispatch, SetStateAction } from "react";
@@ -131,6 +131,8 @@ export default function AdminPage() {
   const [pushBusy, setPushBusy] = useState(false);
   const [pushMessage, setPushMessage] = useState("");
   const [pushEnabled, setPushEnabled] = useState(false);
+  const foregroundMessageUnsubscribeRef = useRef<(() => void) | null>(null);
+  const autoPushAttemptedRef = useRef(false);
 
   useEffect(() => {
     const saved = window.localStorage.getItem('sgv-admin-sound-enabled') === 'true';
@@ -289,7 +291,10 @@ export default function AdminPage() {
         throw new Error("Push notifications require HTTPS or localhost.");
       }
 
-      const permission = await Notification.requestPermission();
+      const permission =
+        Notification.permission === "granted"
+          ? "granted"
+          : await Notification.requestPermission();
 
       if (permission !== "granted") {
         throw new Error("Notification permission was not granted. Check your browser settings.");
@@ -312,6 +317,26 @@ export default function AdminPage() {
 
       if (!messaging) {
         throw new Error("Firebase messaging is not supported in this browser.");
+      }
+
+      if (!foregroundMessageUnsubscribeRef.current) {
+        const { onMessage } = await import("firebase/messaging");
+
+        foregroundMessageUnsubscribeRef.current = onMessage(messaging, async (payload) => {
+          const data = payload.data || {};
+
+          await serviceWorkerRegistration.showNotification(
+            data.title || "Sri Gayatri Vilas",
+            {
+              body: data.body || "A new customer order has arrived.",
+              icon: "/favicon.ico",
+              badge: "/favicon.ico",
+              data: {
+                url: data.url || "/admin?section=Orders"
+              }
+            }
+          );
+        });
       }
 
       if (!firebaseVapidKey) {
@@ -405,6 +430,24 @@ export default function AdminPage() {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!isAdmin) {
+      autoPushAttemptedRef.current = false;
+      return;
+    }
+
+    if (
+      autoPushAttemptedRef.current ||
+      !("Notification" in window) ||
+      Notification.permission !== "granted"
+    ) {
+      return;
+    }
+
+    autoPushAttemptedRef.current = true;
+    void enablePushNotifications();
+  }, [isAdmin]);
 
   async function handleAdminLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -506,14 +549,40 @@ export default function AdminPage() {
           schema: "public",
           table: "orders"
         },
-        () => {
+        (payload) => {
+          console.log("[Orders Realtime] INSERT received:", payload);
+
           if (soundEnabledRef.current) {
             playServiceBell();
           }
+
+          if (
+            typeof window !== "undefined" &&
+            "Notification" in window &&
+            Notification.permission === "granted" &&
+            "serviceWorker" in navigator
+          ) {
+            void navigator.serviceWorker.ready
+              .then((registration) =>
+                registration.showNotification("Sri Gayatri Vilas - New Order", {
+                  body: "A new customer order has arrived. Open the admin portal to review it.",
+                  icon: "/favicon.ico",
+                  badge: "/favicon.ico",
+                  tag: `customer-order-${Date.now()}`,
+                  data: { url: "/admin?section=Orders" }
+                })
+              )
+              .catch((error) =>
+                console.error("Order notification failed:", error)
+              );
+          }
+
           void loadOrders(false);
         }
       )
-      .subscribe();
+      .subscribe((status, error) => {
+        console.log("[Orders Realtime] Status:", status, error || "");
+      });
 
     void loadOrders(true);
 
@@ -1047,6 +1116,9 @@ function Quick({icon,title,desc,onClick}:{icon:React.ReactNode;title:string;desc
 function Setting({label,value}:{label:string;value:string}) {
   return <div className={styles.settingRow}><span>{label}</span><strong>{value}</strong></div>;
 }
+
+
+
 
 
 

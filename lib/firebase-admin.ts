@@ -9,15 +9,16 @@ let firebaseApp: App | undefined;
 export function getFirebaseAdminApp(): App {
   if (firebaseApp) return firebaseApp;
 
-  const credentialPath = path.join(
-    process.cwd(),
-    "private",
-    "firebase-service-account.json"
-  );
+  const serviceAccountJson = process.env.FIREBASE_SERVICE_ACCOUNT_JSON;
 
-  const serviceAccount = JSON.parse(
-    readFileSync(credentialPath, "utf8")
-  );
+  const serviceAccount = serviceAccountJson
+    ? JSON.parse(serviceAccountJson)
+    : JSON.parse(
+        readFileSync(
+          path.join(process.cwd(), "private", "firebase-service-account.json"),
+          "utf8"
+        )
+      );
 
   if (serviceAccount.project_id !== "sri-gayatri-vilas") {
     throw new Error("Firebase project ID does not match.");
