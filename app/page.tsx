@@ -641,49 +641,53 @@ const elements = document.querySelectorAll(selectors.join(","));
     e.preventDefault();
     if (isSubmitting || cartItems.length === 0) return;
 
-    setOrderError("");
-    const { data: restaurantStatus, error: statusError } = await supabase
-      .from("restaurant_settings")
-      .select("is_open")
-      .eq("id", true)
-      .single();
-
-    if (statusError || !restaurantStatus?.is_open) {
-      setOrderError("Restaurant is currently closed. Online ordering is unavailable right now.");
-      return;
-    }
+    const form = new FormData(e.currentTarget);
     setIsSubmitting(true);
     setOrderError("");
 
-    const form = new FormData(e.currentTarget);
+    try {
+      const { data: restaurantStatus, error: statusError } = await supabase
+        .from("restaurant_settings")
+        .select("is_open")
+        .eq("id", true)
+        .single();
 
-    const { data, error } = await supabase.rpc("place_customer_order", {
-      p_customer_name: String(form.get("customer_name") || ""),
-      p_phone: String(form.get("phone") || ""),
-      p_alternative_phone: String(form.get("alternative_phone") || ""),
-      p_address: String(form.get("address") || ""),
-      p_items: cartItems.map(dish => ({
-        id: dish.id,
-        quantity: cart[dish.id]
-      }))
-    });
+      if (statusError || !restaurantStatus?.is_open) {
+        setOrderError("Restaurant is currently closed. Online ordering is unavailable right now.");
+        return;
+      }
 
-    setIsSubmitting(false);
+      const { data, error } = await supabase.rpc("place_customer_order", {
+        p_customer_name: String(form.get("customer_name") || ""),
+        p_phone: String(form.get("phone") || ""),
+        p_alternative_phone: String(form.get("alternative_phone") || ""),
+        p_address: String(form.get("address") || ""),
+        p_items: cartItems.map(dish => ({
+          id: dish.id,
+          quantity: cart[dish.id]
+        }))
+      });
 
-    if (error) {
-      setOrderError(error.message);
-      return;
+      if (error) {
+        console.error("Order submission failed:", error);
+        setOrderError(error.message || "Unable to save your order. Please contact the restaurant.");
+        return;
+      }
+
+      if (!data) {
+        setOrderError("Order could not be confirmed. Please check with the restaurant before trying again.");
+        return;
+      }
+
+      setOrderReference(String(data));
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Unexpected order submission error:", error);
+      setOrderError(error instanceof Error ? error.message : "A connection error occurred while submitting your order. Please check with the restaurant before trying again.");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    if (!data) {
-      setOrderError("Order could not be confirmed. Please try again.");
-      return;
-    }
-
-    setOrderReference(String(data));
-    setSubmitted(true);
   }
-
   return (
     <main>
       <header className="site-header">
@@ -1106,7 +1110,7 @@ const elements = document.querySelectorAll(selectors.join(","));
                         onClick={() => updateQty(dish.id, -1)}
                         aria-label={`Remove one ${dish.name}`}
                       >
-                        ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¹ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢
+                        &#8722;
                       </button>
 
                       <span className="dish-quantity-value">
