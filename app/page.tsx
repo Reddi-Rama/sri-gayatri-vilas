@@ -557,7 +557,7 @@ const elements = document.querySelectorAll(selectors.join(","));
   }>>([]);
 
   const periodDishes = useMemo(
-    () => menuPeriod === "All"
+    () => menuPeriod === "All" || menuPeriod === "Night"
       ? dishes
       : dishes.filter(d =>
           Array.isArray(d.menu_periods) && d.menu_periods.includes(menuPeriod)
@@ -1051,7 +1051,7 @@ const elements = document.querySelectorAll(selectors.join(","));
           {visible.map((dish) => (
             <article
               key={dish.id}
-              className={selectedDishId === dish.id ? "dish-card is-selected" : "dish-card"}
+              className={`${selectedDishId === dish.id ? "dish-card is-selected" : "dish-card"} ${dish.category === "Meals" ? "is-meals-card" : ""}`}
             >
               <div
                 className="dish-image-wrap"
@@ -1254,7 +1254,75 @@ const elements = document.querySelectorAll(selectors.join(","));
         </div>
       </section>
 
+      <section className="customer-reviews" id="reviews">
+        <div className="customer-reviews-heading">
+          <span className="reviews-eyebrow">A WORD FROM OUR GUESTS</span>
+          <h2>Good food. <em>Happy hearts.</em></h2>
+          <div className="reviews-rating">
+            <strong>4.3</strong>
+            <span className="reviews-stars" aria-label="Google rating">★★★★★</span>
+            <small>Google rating · 36 reviews</small>
+          </div>
+        </div>
+
+        <div className="customer-reviews-grid">
+                    <article className="customer-review-card">
+            <div className="review-profile-row">
+              <img src="/images/ark.png" alt="ark" />
+              <div><h3>ark</h3><small>Local Guide · 4 reviews · 26 photos</small></div>
+            </div>
+            <div className="reviews-stars">★★★★★ <span>a year ago</span></div>
+            <p>Good Food &amp; Good Taste. And, moreover.. Prices are economy and reliable.</p>
+          </article>
+
+          <article className="customer-review-card">
+            <div className="review-profile-row">
+              <img src="/images/ram-nandhan-sahoo.png" alt="Ram nandan sahoo" />
+              <div><h3>Ram nandan sahoo</h3><small>4 reviews · 1 photo</small></div>
+            </div>
+            <div className="reviews-stars">★★★★★ <span>a year ago</span></div>
+            <p>Superb taste and good quality<br />Sambar chala bagundi 🥰 🥰</p>
+          </article>
+
+          <article className="customer-review-card">
+            <div className="review-profile-row">
+              <img src="/images/subbu-ganti.png" alt="subbu ganti" />
+              <div><h3>subbu ganti</h3><small>6 reviews</small></div>
+            </div>
+            <div className="reviews-stars">★★★★★ <span>a year ago</span></div>
+            <p>Ambience was very food has very good quality 100% satisfied</p>
+          </article>
+
+          <article className="customer-review-card">
+            <div className="review-profile-row">
+              <img src="/images/akhil-kumar.png" alt="Akhil Kumar" />
+              <div><h3>Akhil Kumar</h3><small>4 reviews · 13 photos</small></div>
+            </div>
+            <div className="reviews-stars">★★★★★ <span>a year ago</span></div>
+            <p>Beautiful ambiance, amazing flavors, friendly service, and a place that stands out.</p>
+          </article>
+
+          <article className="customer-review-card">
+            <div className="review-profile-row">
+              <img src="/images/kamesh-rishi.png" alt="Kamesh Rishi" />
+              <div><h3>Kamesh Rishi</h3><small>2 reviews · 3 photos</small></div>
+            </div>
+            <div className="reviews-stars">★★★★★ <span>a year ago</span></div>
+            <p>Ambience is very nice food quality is excellent</p>
+          </article>
+
+          <article className="customer-review-card">
+            <div className="review-profile-row">
+              <img src="/images/kumar-kumar.png" alt="kumar kumar" />
+              <div><h3>kumar kumar</h3><small>2 reviews</small></div>
+            </div>
+            <div className="reviews-stars">★★★★★ <span>a year ago</span></div>
+            <p>Good quality &amp; good maintenance keep going</p>
+          </article>
+          </div>
+      </section>
       <footer className="footer">
+        
         <a href="#home" className="wordmark footer-mark">
           <img src="/images/logo.png" alt="Sri Gayatri Vilas" style={{width:48,height:48,objectFit:"contain",display:"block",flexShrink:0}} /><i>&#10022;</i>
         </a>
@@ -1569,6 +1637,7 @@ const elements = document.querySelectorAll(selectors.join(","));
     </main>
   );
 }
+
 
 
 
